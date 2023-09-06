@@ -14,4 +14,4 @@ class Reward(db.Model):
   created_at = db.Column(db.TIMESTAMP(), nullable=False, default=datetime.now())
 
   # Relationships
-  project = db.relationship("Project", back_populates="rewards")
+  backing = db.relationship("Backing", back_populates="rewards")

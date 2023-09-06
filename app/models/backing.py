@@ -17,4 +17,4 @@ class Backing(db.Model):
   # Relationships
   user = db.relationship("User", back_populates="backings")
   project = db.relationship("Project", back_populates="backings")
-  rewards = db.relationship("Reward", back_populates="project")
+  rewards = db.relationship("Reward", back_populates="backing")
