@@ -1,6 +1,6 @@
 from app.models import db, environment, SCHEMA
 from flask.cli import AppGroup
-from .saves import seed_saves, undo_saves, fake_saves
+from .saves import seed_saves, undo_saves
 from .users import seed_users, undo_users, get_users
 from .categories import seed_categories, undo_categories
 from .projects import seed_projects, undo_projects, get_projects

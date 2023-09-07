@@ -25,8 +25,45 @@ class Project(db.Model):
   user = db.relationship("User", back_populates="projects")
   backings = db.relationship("Backing", back_populates="project")
   category = db.relationship("Category", back_populates="project")
+  rewards = db.relationship("Reward", back_populates="project")
   saves = db.relationship(
     "User",
     secondary="user_saves",
     back_populates="saves"
   )
+
+  def to_dict(self):
+    return {
+      "id": self.id,
+      "creatorId": self.creator_id,
+      "catergoryId": self.category_id,
+      "title": self.title,
+      "description": self.description,
+      "story": self.story,
+      "faq": self.faq,
+      "projectImage": self.project_image,
+      "startDate": self.start_date,
+      "endDate": self.end_date,
+      "fundingGoal": self.funding_goal,
+      "location": self.location,
+      "createdAt": self.created_at
+    }
+
+  def to_dict_summary(self):
+    return {
+      "id": self.id,
+      "creatorId": self.creator_id,
+      "catergoryId": self.category_id,
+      "title": self.title,
+      "description": self.description,
+      "story": self.story,
+      "faq": self.faq,
+      "projectImage": self.project_image,
+      "startDate": self.start_date,
+      "endDate": self.end_date,
+      "fundingGoal": self.funding_goal,
+      "location": self.location,
+      "createdAt": self.created_at,
+      "backings": [backing.to_dict() for backing in self.backings],
+      "rewards": [reward.to_dict() for reward in self.rewards]
+    }

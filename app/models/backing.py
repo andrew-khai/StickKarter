@@ -17,4 +17,24 @@ class Backing(db.Model):
   # Relationships
   user = db.relationship("User", back_populates="backings")
   project = db.relationship("Project", back_populates="backings")
-  rewards = db.relationship("Reward", back_populates="backing")
+
+  def to_dict(self):
+    return {
+      "id": self.id,
+      "userId": self.user_id,
+      "projectId": self.project_id,
+      "rewardId": self.reward_id,
+      "amountPledged": self.amount_pledged,
+      "createdAt": self.created_at
+    }
+
+  # def to_dict_rewards(self):
+  #   return {
+  #     "id": self.id,
+  #     "userId": self.user_id,
+  #     "projectId": self.project_id,
+  #     "rewardId": self.reward_id,
+  #     "amountPledged": self.amount_pledged,
+  #     "createdAt": self.created_at,
+  #     "rewards": [reward.to_dict() for reward in self.rewards]
+  #   }

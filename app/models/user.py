@@ -46,3 +46,13 @@ class User(db.Model, UserMixin):
             'bio': self.bio,
             'email': self.email
         }
+
+    def to_dict_summary(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'bio': self.bio,
+            'email': self.email,
+            'projects': [project.to_dict() for project in self.projects],
+            'backings': [backing.to_dict() for backing in self.backings]
+        }
