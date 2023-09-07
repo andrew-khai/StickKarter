@@ -6,7 +6,7 @@ from random import randint
 month = randint(1, 12)
 day = randint(1, 28)
 
-def seed_projects():
+def get_projects():
   proj1 = Project(
     creator_id = 1,
     category_id = 1,
@@ -217,8 +217,13 @@ def seed_projects():
     location = "San Francisco, CA",
     created_at = datetime(2023, 8, 1)
   )
-
   all_projects = [proj1, proj2, proj3, proj4, proj5, proj6, proj7, proj8, proj9, proj10, proj11, proj12, proj13, proj14, proj15]
+  return all_projects
+
+projects = get_projects()
+
+def seed_projects():
+  all_projects = get_projects()
   _ = [db.session.add(project) for project in all_projects]
   db.session.commit()
 

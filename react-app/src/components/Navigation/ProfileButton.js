@@ -4,6 +4,7 @@ import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { NavLink } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -38,10 +39,20 @@ function ProfileButton({ user }) {
   const closeMenu = () => setShowMenu(false);
 
   return (
-    <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
+    <div id="rightside-nav">
+      <div id='navigation-search'>
+        <button id="search-button" onClick={() => alert("Feature coming soon!")}>
+          Search
+          <span><i class="fa-solid fa-magnifying-glass"></i></span>
+        </button>
+      </div>
+      {!user ? (
+        <NavLink to="/login">Log In</NavLink>
+      ) :
+        <button onClick={openMenu}>
+          {user.username}
+        </button>
+      }
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
@@ -53,21 +64,22 @@ function ProfileButton({ user }) {
           </>
         ) : (
           <>
-            <OpenModalButton
+            {/* <NavLink to="/login">Log In</NavLink> */}
+            {/* <OpenModalButton
               buttonText="Log In"
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
-            />
+            /> */}
 
-            <OpenModalButton
+            {/* <OpenModalButton
               buttonText="Sign Up"
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
-            />
+            /> */}
           </>
         )}
       </ul>
-    </>
+    </div>
   );
 }
 
