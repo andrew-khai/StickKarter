@@ -24,6 +24,9 @@ class User(db.Model, UserMixin):
         back_populates="saves"
     )
 
+    def __repr__(self):
+        return f"{self.id} {self.username}"
+
 
     @property
     def password(self):
@@ -40,5 +43,6 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
+            'bio': self.bio,
             'email': self.email
         }

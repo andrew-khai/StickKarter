@@ -3,6 +3,7 @@ import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import './LoginForm.css';
+import { NavLink } from "react-router-dom";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -13,6 +14,16 @@ function LoginFormPage() {
 
   if (sessionUser) return <Redirect to="/" />;
 
+  const demoUser = async (e) => {
+    e.preventDefault();
+    let email = 'demo@aa.io'
+    let password = 'password'
+    const data = await dispatch(login(email, password));
+    if (data) {
+      setErrors(data);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
@@ -22,35 +33,41 @@ function LoginFormPage() {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
+    <div id="login-form-page-container">
+      <form id="login-form-container" onSubmit={handleSubmit}>
+        <h1>Log In</h1>
+        <ul className="errors-list">
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li className="errors" key={idx}>{error}</li>
           ))}
         </ul>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Log In</button>
+        <div id="login-form">
+          <label>
+            <input
+              className="login-inputs"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="Email"
+            />
+          </label>
+          <label>
+            <input
+              className="login-inputs"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Password"
+            />
+          </label>
+          <button className="login-button" type="submit">Log In</button>
+          <button className="demo-button" onClick={demoUser}>Demo User</button>
+          <p className="signup-message">New to StickKarter? <NavLink exact to="/signup">Sign up</NavLink></p>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 
