@@ -13,7 +13,7 @@ function Navigation({ isLoaded }) {
 				<NavLink id="discover-link" exact to="/">Discover</NavLink>
 				{sessionUser &&
 					<div>
-						<NavLink id="start-a-project" exact to="/">Start a project</NavLink>
+						<NavLink id="start-a-project" exact to="/projects/new">Start a project</NavLink>
 					</div>
 				}
 			</div>

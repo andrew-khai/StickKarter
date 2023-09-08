@@ -23,7 +23,7 @@ def get_backings():
 
 
 @user_routes.route('/<int:id>')
-@login_required
+# @login_required
 def user(id):
     """
     Query for a user by id and returns that users details in a dictionary

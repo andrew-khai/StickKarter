@@ -8,6 +8,8 @@ import Navigation from "./components/Navigation";
 import CategoryNav from "./components/CategoryNav";
 import ProjectShowContainer from "./components/ProjectShowContainer";
 import FooterNav from "./components/FooterNav";
+import ProjectForm from "./components/ProjectForm";
+import CreateProject from "./components/ProjectForm/CreateProject";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +34,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path="/projects/new">
+            <CreateProject />
           </Route>
         </Switch>
       )}
