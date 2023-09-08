@@ -17,6 +17,8 @@ const RecommendedProjects = ({projects}) => {
         />
       ))}
       </div>
+      <br></br>
+      <div style={{textAlign: "right"}}>{"<  1  2  3  >"}</div>
     </div>
   )
 }
