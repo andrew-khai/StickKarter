@@ -10,10 +10,10 @@ function Navigation({ isLoaded }) {
 	return (
 		<div id='nav-container'>
 			<div id="leftside-nav">
-				<NavLink exact to="/">Discover</NavLink>
+				<NavLink id="discover-link" exact to="/">Discover</NavLink>
 				{sessionUser &&
 					<div>
-						<NavLink exact to="/">Start a project</NavLink>
+						<NavLink id="start-a-project" exact to="/">Start a project</NavLink>
 					</div>
 				}
 			</div>

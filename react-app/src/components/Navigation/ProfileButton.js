@@ -33,6 +33,7 @@ function ProfileButton({ user }) {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    closeMenu()
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -47,13 +48,13 @@ function ProfileButton({ user }) {
         </button>
       </div>
       {!user ? (
-        <NavLink to="/login">Log In</NavLink>
+        <NavLink id="login-link-button" to="/login">Log In</NavLink>
       ) :
-        <button onClick={openMenu}>
+        <button id="user-dropdown-button" onClick={openMenu}>
           {user.username}
         </button>
       }
-      <ul className={ulClassName} ref={ulRef}>
+      <ul id="user-dropdown-container" className={ulClassName} ref={ulRef}>
         {user ? (
           <>
             <li>{user.username}</li>

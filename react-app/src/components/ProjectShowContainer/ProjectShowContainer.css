@@ -1,0 +1,6 @@
+.projects-show-container {
+  display: flex;
+  padding-left: 60px;
+  margin: auto;
+  justify-content: center;
+}

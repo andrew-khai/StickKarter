@@ -1,0 +1,26 @@
+.main-projects-container {
+  background-color: white;
+  margin: auto;
+}
+
+.featured-project-text {
+  font-size: 1rem;
+  color: rgb(98, 97, 97);
+  font-weight: lighter;
+}
+
+.main-featured-project-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 30px;
+  padding-right: 60px;
+  margin-top: 20px;
+  row-gap: 10px;
+  border-right: 1px solid lightgray;;
+}
+
+.featured-project-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}

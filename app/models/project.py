@@ -64,6 +64,7 @@ class Project(db.Model):
       "fundingGoal": self.funding_goal,
       "location": self.location,
       "createdAt": self.created_at,
+      "creator": self.user.to_dict(),
       "backings": [backing.to_dict() for backing in self.backings],
       "rewards": [reward.to_dict() for reward in self.rewards]
     }
