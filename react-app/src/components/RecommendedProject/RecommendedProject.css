@@ -1,0 +1,29 @@
+.recommended-projects-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.rec-projects-container {
+  display: flex;
+  border-bottom: 1px solid lightgray;
+  padding: 10px 0px;
+}
+
+.rec-project-details {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.rec-project-funding {
+  color: #015738;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.rec-project-image {
+  width: 170px;
+  height: 100px;
+  padding-right: 24px;
+}
