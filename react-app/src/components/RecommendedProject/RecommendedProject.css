@@ -16,6 +16,11 @@
   row-gap: 5px;
 }
 
+.rec-project-creator {
+  color: #8d8d8d;
+  font-size: 0.9rem;
+}
+
 .rec-project-funding {
   color: #015738;
   font-weight: bold;

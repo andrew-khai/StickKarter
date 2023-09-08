@@ -1,0 +1,11 @@
+.main-formpage-container {
+  padding: 50px 0px;
+  border-top: 1px solid lightgray;
+}
+
+.formpage-container {
+  text-align: center;
+  max-width: 500px;
+  background-color: white;
+  margin: auto;
+}

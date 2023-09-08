@@ -54,5 +54,6 @@ class User(db.Model, UserMixin):
             'bio': self.bio,
             'email': self.email,
             'projects': [project.to_dict() for project in self.projects],
-            'backings': [backing.to_dict() for backing in self.backings]
+            'backings': [backing.to_dict() for backing in self.backings],
+            'saves': [save.to_dict_saves() for save in self.saves]
         }

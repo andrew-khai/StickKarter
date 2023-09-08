@@ -68,3 +68,8 @@ class Project(db.Model):
       "backings": [backing.to_dict() for backing in self.backings],
       "rewards": [reward.to_dict() for reward in self.rewards]
     }
+
+  def to_dict_saves(self):
+    return {
+      "projectId": self.id
+    }

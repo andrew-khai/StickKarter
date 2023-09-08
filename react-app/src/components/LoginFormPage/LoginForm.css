@@ -54,14 +54,14 @@
 }
 
 .errors-list {
-  width: 400px;
+  width: 100%;
   list-style-type: none;
   padding-left: 0px;
 }
 
 .errors {
   color:red;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .signup-message {

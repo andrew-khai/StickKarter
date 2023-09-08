@@ -24,3 +24,19 @@
   flex-direction: column;
   row-gap: 5px;
 }
+
+.save-project-button {
+  /* padding: 2px 6px; */
+  width: 25px;
+  height: 25px;
+  border-radius: 70%;
+  background-color: white;
+  border: 0.1rem solid #DCDEDD;
+  cursor: pointer;
+}
+
+.save-project-button:hover {
+  width: 30px;
+  height: 30px;
+
+}

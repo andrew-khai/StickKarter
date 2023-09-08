@@ -22,6 +22,11 @@ const RecommendedProject = ({ project }) => {
         <div className="rec-project-title">{project.title}</div>
         <div className="rec-project-funding">{Math.ceil((funded(project) / project.fundingGoal) * 100)}% funded</div>
         <div className="rec-project-creator">By {project.creator.username}</div>
+        <div>
+          <button className="save-project-button">
+            <i class="fa-regular fa-bookmark"></i>
+          </button>
+        </div>
       </div>
     </div>
   )
