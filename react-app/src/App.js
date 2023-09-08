@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import CategoryNav from "./components/CategoryNav";
 import ProjectShowContainer from "./components/ProjectShowContainer";
+import FooterNav from "./components/FooterNav";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <FooterNav />
     </>
   );
 }
