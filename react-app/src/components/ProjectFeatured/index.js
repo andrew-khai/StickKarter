@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "./ProjectFeatured.css"
 
 const ProjectFeaturedItem = ({ project }) => {
@@ -14,7 +15,7 @@ const ProjectFeaturedItem = ({ project }) => {
   }
 
   const fundPercent = (sum) => {
-    let number = Math.ceil(((sum)/(project.fundingGoal)) * 100)
+    let number = Math.ceil(((sum) / (project.fundingGoal)) * 100)
     if (number > 100) {
       number = 100;
     }
@@ -25,8 +26,10 @@ const ProjectFeaturedItem = ({ project }) => {
     <div className="main-featured-project-container">
       <h1 class="featured-project-text">FEATURED PROJECT</h1>
       <div className="featured-project-container">
-        <img className="featured-project-image" style={{ width: "625px", height: "auto" }} src={project?.projectImage}></img>
-        <div className="fund-progress-bar" style={{width: funding(project), border: "5px solid green"}}></div>
+        <NavLink to={`/projects/${project.id}`}>
+          <img className="featured-project-image" style={{ width: "625px", height: "auto" }} src={project?.projectImage}></img>
+        </NavLink>
+        <div className="fund-progress-bar" style={{ width: funding(project), border: "5px solid green" }}></div>
         <h2>
           {project.title}
         </h2>

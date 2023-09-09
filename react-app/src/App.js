@@ -43,9 +43,9 @@ function App() {
           <Route exact path="/projects/:projectId">
             <SingleProjectShow />
           </Route>
-          {/* <Route exact path="/tester">
+          <Route exact path="/tester">
             <Tester />
-          </Route> */}
+          </Route>
         </Switch>
       )}
       <FooterNav />

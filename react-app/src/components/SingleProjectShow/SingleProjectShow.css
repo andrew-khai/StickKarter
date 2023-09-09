@@ -1,0 +1,103 @@
+#main-single-project-container {
+  border-top: 1px solid lightgray;
+}
+
+#single-project-container {
+  width: 100%;
+}
+
+.single-project-headers {
+  padding: 1.5rem 0rem;
+  text-align: center;
+}
+
+.single-project-title {
+  margin-bottom: 0px;
+}
+
+.single-project-description {
+  color: #282828;
+  font-size: 1.1rem;
+}
+
+.single-project {
+  width: 1282px;
+  margin: auto;
+  padding: 0px 60px 0 60px;
+}
+
+.single-page-details {
+  display: flex;
+  margin: 0px -18px 30px -18px;
+}
+
+.single-project-image-box {
+  padding: 0px 18px 0px 18px;
+}
+
+.single-project-image-box>img {
+  max-width: 818.66px;
+  max-height: 460.48px;
+  min-height: 420px;
+  min-width: 750px;
+}
+
+.other-details-list {
+  display: flex;
+  list-style-type: none;
+  column-gap: 10px;
+  align-items: center;
+}
+
+.rightside-project-details {
+  width: 390px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.project-funding-details-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 35px;
+}
+
+.project-funding {
+  color: #009E74;
+  font-weight: bolder;
+  font-size: 2rem;
+  padding-top: 10px;
+}
+
+.project-funding-goal {
+  color: #656969;
+}
+
+.project-backer-details {
+  color: #656969;
+  font-size: 2rem;
+}
+
+.project-backings {
+  color: #656969;
+}
+
+.project-date-details {
+  color: #656969;
+  font-size: 2rem;
+}
+
+.project-days-left {
+  color: #656969;
+}
+
+.back-this-button {
+  background-color: #028858;
+  margin-top: 25px;
+  padding: 0.7rem 2.4rem;
+  font-size: 1rem;
+  border: 1px solid #028858;
+  color: white;
+  font-weight: lighter;
+  cursor: pointer;
+}

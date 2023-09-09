@@ -3,11 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { loadSingleProjectThunk } from "../../store/project";
 import { Redirect } from "react-router-dom";
+import "./SingleProjectShow.css"
 
 const SingleProjectShow = () => {
   const { projectId } = useParams();
   const dispatch = useDispatch();
   const [isBacker, setIsBacker] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
+  const [singleProjectId, setSingleSpotId] = useState(projectId);
+
 
 
   useEffect(() => {
@@ -18,7 +22,28 @@ const SingleProjectShow = () => {
 
   const project = useSelector((state) => state.projects.singleProject);
 
-  console.log('project in single project----', project)
+  // if (project) {
+  //   if (project.backings) {
+  //     project.backings.forEach(backing => {
+  //       if (backing.userId === sessionUser.id) {
+  //         setIsBacker(true);
+  //         return;
+  //       }
+  //     })
+  //   }
+  // }
+
+  // const owner = (project) => {
+  //   if (project.creatorId === sessionUser.id) {
+  //     setIsOwner(true);
+  //   }
+  //   return;
+  // }
+
+  // if (sessionUser) {
+  //   owner();
+  // }
+  // console.log('project in single project----', project)
 
 
   // project?.backings.forEach(backing => {
@@ -27,7 +52,25 @@ const SingleProjectShow = () => {
   //   }
   // })
 
-  console.log('is backer check-----', isBacker)
+  // console.log('is backer check-----', isBacker)
+  const funding = (project) => {
+    let sum = 0;
+    if (project.backings) {
+      project.backings.forEach(backing => {
+        sum += backing.amountPledged;
+      })
+      return fundPercent(sum)
+    }
+    return "0%"
+  }
+
+  const fundPercent = (sum) => {
+    let number = Math.ceil(((sum) / (project.fundingGoal)) * 100)
+    if (number > 100) {
+      number = 100;
+    }
+    return number.toString() + '%';
+  }
 
   const funded = (project) => {
     let sum = 0;
@@ -44,62 +87,70 @@ const SingleProjectShow = () => {
   // console.log(endDate)
 
   const differenceInMs = endDate - currentDate;
-  // console.log(differenceInMS)
+  // console.log(differenceInMs)
   const differenceInDays = Math.floor(differenceInMs / (1000 * 60 * 60 * 24))
 
   return (
     <div id="main-single-project-container">
-      {Object.keys(project).length === 0 ? <><h1>No Project Found</h1></> :
+      {project ?
         <>
           <div id="single-project-container">
-            <div className="single-project-headers">
-              <h2>{project.title}</h2>
-              <p>{project.description}</p>
-            </div>
-            <div className="single-project-image-details container">
-              <div className="single-project-image-box">
-                <img src={project?.projectImage} alt={project.title}></img>
+            {/* if backer backer message here */}
+            <div className="single-project">
+              <div className="single-project-headers">
+                <h2 className="single-project-title">{project.title}</h2>
+                <p className="single-project-description">{project.description}</p>
               </div>
-              <ul className="other-details-list">
-                <li>
-                  <i class="fa-regular fa-compass"></i> {project.category?.name}
-                </li>
-                <li>
-                  <i class="fa-solid fa-location-dot"></i> {project?.location}
-                </li>
-              </ul>
-            </div>
-            <div className="rightside-project-details">
-              <div>Progress Bar PlaceHolder</div>
-              <div className="project-funding-details-container">
-                <div className="project-funding-details">
-                  <div>
-                    ${funded(project)}
+              <div className="single-page-details">
+                <div className="single-project-image-details container">
+                  <div className="single-project-image-box">
+                    <img src={project?.projectImage} alt={project.title}></img>
                   </div>
-                  <span>
-                    pledged of ${project?.fundingGoal}
-                  </span>
+                  <ul className="other-details-list">
+                    <li>
+                      <i class="fa-regular fa-compass"></i> {project.category?.name}
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-location-dot"></i> {project?.location}
+                    </li>
+                  </ul>
                 </div>
-                <div className="project-backer-details">
-                  <div>
-                    {project.backings?.length}
+                <div className="rightside-project-details">
+                  <div className="fund-progress-bar" style={{ width: funding(project), border: "5px solid green" }}></div>
+                  <div className="project-funding-details-container">
+                    <div className="project-funding-details">
+                      <div className="project-funding">
+                        ${funded(project)}
+                      </div>
+                      <span className="project-funding-goal">
+                        pledged of ${project?.fundingGoal}
+                      </span>
+                    </div>
+                    <div>
+                      <div className="project-backer-details">
+                        {project.backings?.length}
+                      </div>
+                      <span className="project-backings">
+                        backing(s)
+                      </span>
+                    </div>
+                    <div>
+                      <div className="project-date-details">
+                        {differenceInDays < 0 ? 0 : differenceInDays}
+                      </div>
+                      <span className="project-days-left">
+                        days to go
+                      </span>
+                    </div>
                   </div>
-                  <span>
-                    backing(s)
-                  </span>
-                </div>
-                <div className="project-date-details">
-                  <div>
-                    {differenceInDays}
-                  </div>
-                  <span>
-                    days to go
-                  </span>
+                  <button className="back-this-button">Back this project</button>
                 </div>
               </div>
             </div>
           </div>
         </>
+        :
+        <><h1>No Project Found</h1></>
       }
     </div>
   )

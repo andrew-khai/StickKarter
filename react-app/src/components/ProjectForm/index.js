@@ -44,20 +44,20 @@ const ProjectForm = ({ project, formType }) => {
       location
     }
 
-    console.log('project being sent to thunk----', project)
+    // console.log('project being sent to thunk----', project)
     if (formType === "Create") {
-      console.log('comint into the create if block')
+      // console.log('comint into the create if block')
       const newProject = await dispatch(createProjectThunk(project))
       // console.log('console log after the new project')
 
-      // if (newProject.errors) {
-      //   console.log('came into the create errors block')
-      //   setErrors(newProject.errors);
-      //   return;
-      // }
+      if (newProject?.errors) {
+        // console.log('came into the create errors block')
+        setErrors(newProject?.errors);
+        return;
+      }
+      history.push(`/projects/${newProject?.id}`)
     }
 
-    // history.push('/')
   }
 
   return (
@@ -259,7 +259,7 @@ const ProjectForm = ({ project, formType }) => {
               </input>
             </label>
             <div className="form-button-nav-container">
-              <button className="form-back-page-button" onClick={() => setPage(4)}><i class="fa-solid fa-arrow-left-long"></i> Back: Project Dates & Goals </button>
+              <button className="form-back-page-button" onClick={() => setPage(5)}><i class="fa-solid fa-arrow-left-long"></i> Back: Project Dates & Goals </button>
               <button className="form-next-page-button" disabled={!projectImage} onClick={handleSubmit}>Finalize</button>
             </div>
           </div>
