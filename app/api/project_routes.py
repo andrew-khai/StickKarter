@@ -65,6 +65,36 @@ def create_project():
         return {'project': project.to_dict_summary()}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
+@project_routes.route("/<int:id>", methods=["PUT"])
+@login_required
+def update_project(id):
+    project = Project.query.get(id)
+
+    form = ProjectForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if not project:
+        return {"errors": ["Project is not found"]}, 404
+
+    if current_user.id != project.creator_id:
+        return {"errors": ["You are not authorized to edit this project"]}, 403
+
+    if form.validate_on_submit():
+        project.category_id = form.data["category_id"]
+        project.title = form.data["title"]
+        project.description = form.data["description"]
+        project.story = form.data["story"]
+        project.faq = form.data["faq"]
+        project.project_image = form.data["project_image"]
+        project.start_date = form.data["start_date"]
+        project.end_date = form.data["end_date"]
+        project.funding_goal = form.data["funding_goal"]
+        project.location = form.data["location"]
+        db.session.commit()
+        return {'project': project.to_dict_summary()}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
 @project_routes.route("/<int:id>", methods=["DELETE"])
 @login_required
 def delete_project(id):
