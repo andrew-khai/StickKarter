@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "./RecommendedProject.css"
 
 const RecommendedProject = ({ project }) => {
@@ -14,9 +15,9 @@ const RecommendedProject = ({ project }) => {
   return (
     <div className="rec-projects-container">
       <div className="rec-project-image-container">
-        <a href="">
+        <NavLink to={`/projects/${project.id}`}>
           <img className="rec-project-image" src={project.projectImage}></img>
-        </a>
+        </NavLink>
       </div>
       <div className="rec-project-details">
         <div className="rec-project-title">{project.title}</div>

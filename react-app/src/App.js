@@ -10,6 +10,8 @@ import ProjectShowContainer from "./components/ProjectShowContainer";
 import FooterNav from "./components/FooterNav";
 import ProjectForm from "./components/ProjectForm";
 import CreateProject from "./components/ProjectForm/CreateProject";
+import Tester from "./components/TESTER";
+import SingleProjectShow from "./components/SingleProjectShow";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,9 +37,15 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/projects/new">
+          <Route exact path="/projects/new">
             <CreateProject />
           </Route>
+          <Route exact path="/projects/:projectId">
+            <SingleProjectShow />
+          </Route>
+          {/* <Route exact path="/tester">
+            <Tester />
+          </Route> */}
         </Switch>
       )}
       <FooterNav />

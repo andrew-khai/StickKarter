@@ -236,7 +236,7 @@ const ProjectForm = ({ project, formType }) => {
             </div>
             <div className="form-button-nav-container">
               <button className="form-back-page-button" onClick={() => setPage(4)}><i class="fa-solid fa-arrow-left-long"></i> Back: Project Location</button>
-              <button className="form-next-page-button" disabled={!categoryId} onClick={() => setPage(6)}>Next: Project Image</button>
+              <button className="form-next-page-button" disabled={!startDate || !endDate || !fundingGoal || fundingGoal < 1} onClick={() => setPage(6)}>Next: Project Image</button>
             </div>
           </div>
         }

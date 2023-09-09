@@ -24,10 +24,17 @@ export function createProject(project) {
 }
 
 // get single project
-export function singleProject(project) {
+export function getSingleProject(project) {
   return {
     type: GET_PROJECT,
     project
+  }
+}
+
+export function deleteProject(projectId) {
+  return {
+    type: DELETE_PROJECT,
+    projectId
   }
 }
 
@@ -39,6 +46,19 @@ export const loadProjectsThunk = () => async (dispatch) => {
   if (res.ok) {
     const projects = await res.json();
     dispatch(loadProjects(projects))
+  }
+}
+
+// get single project
+export const loadSingleProjectThunk = (projectId) => async (dispatch) => {
+  const res = await fetch(`/api/projects/${projectId}`)
+  if (res.ok) {
+    const singleProject = await res.json();
+    dispatch(getSingleProject(singleProject));
+    return singleProject;
+  } else {
+    const errors = await res.json();
+    return errors;
   }
 }
 
@@ -68,8 +88,18 @@ export const createProjectThunk = (project) => async (dispatch) => {
   }
 }
 
+// delete a project
+export const deleteProjectThunk = (projectId) => async (dispatch) => {
+  const res = await fetch(`/api/projects/${projectId}`, {
+    method: "DELETE"
+  });
+  dispatch(deleteProject(projectId));
+  return res;
+}
+
 const initialState = {
-  projects: {}
+  projects: {},
+  singleProject: {}
 }
 
 const projectsReducer = (state = initialState, action) => {
@@ -80,11 +110,21 @@ const projectsReducer = (state = initialState, action) => {
       projectArray.forEach(project => newState.projects[project.id] = project)
       return newState;
     }
+    case GET_PROJECT: {
+      let newState = { ...state };
+      newState.singleProject = action.project;
+      return newState;
+    }
     case CREATE_PROJECT: {
       let newState = { ...state };
       console.log('newState in Create project----', newState)
       newState.projects[action.project.id] = action.project;
       console.log('newstate in create project after ----', newState)
+      return newState;
+    }
+    case DELETE_PROJECT: {
+      let newState = { ...state };
+      delete newState.projects[action.projectId];
       return newState;
     }
     default:
