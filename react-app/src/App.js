@@ -12,6 +12,7 @@ import ProjectForm from "./components/ProjectForm";
 import CreateProject from "./components/ProjectForm/CreateProject";
 import Tester from "./components/TESTER";
 import SingleProjectShow from "./components/SingleProjectShow";
+import EditProjectForm from "./components/ProjectForm/UpdateProject";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,9 +44,12 @@ function App() {
           <Route exact path="/projects/:projectId">
             <SingleProjectShow />
           </Route>
-          <Route exact path="/tester">
-            <Tester />
+          <Route path="/projects/:projectId/edit">
+            <EditProjectForm />
           </Route>
+          {/* <Route exact path="/tester">
+            <Tester />
+          </Route> */}
         </Switch>
       )}
       <FooterNav />

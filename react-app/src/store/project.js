@@ -31,6 +31,15 @@ export function getSingleProject(project) {
   }
 }
 
+// update a project
+export function updateProject(project) {
+  return {
+    type: UPDATE_PROJECT,
+    project
+  }
+}
+
+//  delete a project
 export function deleteProject(projectId) {
   return {
     type: DELETE_PROJECT,
@@ -88,6 +97,28 @@ export const createProjectThunk = (project) => async (dispatch) => {
   }
 }
 
+// update a project
+export const updateProjectThunk = (project) => async (dispatch) => {
+  console.log('project in update thunk', project)
+  const res = await fetch(`/api/projects/${project.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(project)
+  })
+
+  if (res.ok) {
+    const updatedProject = await res.json();
+    dispatch(updateProject(updatedProject));
+    return updatedProject;
+  }
+  else {
+    const errors = await res.json();
+    return errors;
+  }
+}
+
 // delete a project
 export const deleteProjectThunk = (projectId) => async (dispatch) => {
   const res = await fetch(`/api/projects/${projectId}`, {
@@ -117,9 +148,15 @@ const projectsReducer = (state = initialState, action) => {
     }
     case CREATE_PROJECT: {
       let newState = { ...state };
-      console.log('newState in Create project----', newState)
+      // console.log('newState in Create project----', newState)
       newState.projects[action.project.id] = action.project;
-      console.log('newstate in create project after ----', newState)
+      // console.log('newstate in create project after ----', newState)
+      return newState;
+    }
+    case UPDATE_PROJECT: {
+      let newState = { ...state };
+      newState.projects[action.project.id] = action.project;
+      console.log('new state in update project reducer-----', newState)
       return newState;
     }
     case DELETE_PROJECT: {

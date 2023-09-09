@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect, useHistory } from "react-router-dom";
 import "./ProjectForm.css"
-import { createProjectThunk } from "../../store/project";
+import { createProjectThunk, updateProjectThunk } from "../../store/project";
 
 const ProjectForm = ({ project, formType }) => {
   const dispatch = useDispatch();
@@ -31,6 +31,7 @@ const ProjectForm = ({ project, formType }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     project = {
+      ...project,
       creator_id: sessionUser.id,
       category_id: parseInt(categoryId),
       title,
@@ -53,9 +54,18 @@ const ProjectForm = ({ project, formType }) => {
       if (newProject?.errors) {
         // console.log('came into the create errors block')
         setErrors(newProject?.errors);
-        return;
       }
       history.push(`/projects/${newProject?.id}`)
+    }
+
+    if (formType === "Update") {
+      console.log('its coming into the update if block')
+      const updatedProject = await dispatch(updateProjectThunk(project))
+
+      if (updatedProject?.errors) {
+        setErrors(updatedProject?.errors);
+      }
+      // history.push(`/projects/${updatedProject?.id}`)
     }
 
   }
@@ -70,7 +80,9 @@ const ProjectForm = ({ project, formType }) => {
             <h1 className="project-form-header">Select a primary category for your project</h1>
             <h2 className="project-form-explanation">These will help backers find your project, and you can it later if you need to</h2>
             <br></br>
-            <select defaultValue={project.categoryId ? `${project.categoryId}` : ''} className="project-form-categories" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
+            <select
+            // defaultValue={project.categoryId ? `${project.categoryId}` : ''}
+            className="project-form-categories" value={categoryId || ''} onChange={(e) => setCategoryId(e.target.value)}>
               <option value='' disabled={true}>Select</option>
               <option value="1">Arts</option>
               <option value="2">Comics & Illustration</option>
