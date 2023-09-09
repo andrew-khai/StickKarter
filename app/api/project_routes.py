@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app import db
 from app.models import Project, Reward
 from app.forms import ProjectForm
@@ -64,6 +64,18 @@ def create_project():
         db.session.commit()
         return {'project': project.to_dict_summary()}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+@project_routes.route("/<int:id>", methods=["DELETE"])
+@login_required
+def delete_project(id):
+    project = Project.query.get(id)
+    if not project:
+        return {"errors": ["Project is not found"]}, 404
+    if current_user.id != project.creator_id:
+        return {"errors": ["You are not authroized to delete this project"]}, 403
+    db.session.delete(project)
+    db.session.commit()
+    return {"message": "project deleted"}
 
 # @project_routes.route("/test")
 # def test():

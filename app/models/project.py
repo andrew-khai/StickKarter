@@ -66,7 +66,8 @@ class Project(db.Model):
       "createdAt": self.created_at,
       "creator": self.user.to_dict(),
       "backings": [backing.to_dict() for backing in self.backings],
-      "rewards": [reward.to_dict() for reward in self.rewards]
+      "rewards": [reward.to_dict() for reward in self.rewards],
+      "category": self.category.to_dict()
     }
 
   def to_dict_saves(self):
