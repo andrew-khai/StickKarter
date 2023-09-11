@@ -138,7 +138,7 @@
 }
 
 .dropdown-information-container {
-  padding: 48px 18px 48px 60px;
+  padding: 48px 60px 48px 60px;
   margin: auto;
   display: flex;
   justify-content: space-around;
@@ -183,4 +183,15 @@
   align-items: center;
   justify-content: center;
   column-gap: 20px;
+}
+
+.creator-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.creator-username {
+  font-size: 1.5rem;
+  font-weight: bold;
 }

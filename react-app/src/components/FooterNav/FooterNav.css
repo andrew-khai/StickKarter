@@ -5,6 +5,8 @@
   padding: 10px 90px;
   border-bottom: 1px solid lightgray;
   border-top: 1px solid lightgray;
+  position: relative;
+  width: 100%;
 }
 
 #footer-nav-container a {

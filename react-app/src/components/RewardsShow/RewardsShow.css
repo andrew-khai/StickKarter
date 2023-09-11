@@ -1,0 +1,52 @@
+.creator-container {
+  border: 1px solid #DCDEDD;
+  ;
+  width: 250px;
+  padding: 1.8rem;
+}
+
+.no-reward-pledge {
+  border: 1px solid #DCDEDD;
+  ;
+  width: 250px;
+  padding: 1.8rem;
+}
+
+.no-reward-pledge>p {
+  font-size: 1.2rem;
+  margin: 0px;
+}
+
+.pledge-input-container {
+  display: flex;
+  column-gap: 10px;
+  border: 1px solid black;
+  padding: 0px 5px;
+}
+
+.pledge-input {
+  border: none;
+}
+
+.main-single-rewards-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.single-reward-container {
+  border: 1px solid #DCDEDD;
+  width: 250px;
+  padding: 1.5rem;
+}
+
+.single-reward-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.reward-title {
+  margin: 0px;
+}

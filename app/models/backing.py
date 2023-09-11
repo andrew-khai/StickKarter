@@ -24,6 +24,7 @@ class Backing(db.Model):
       "id": self.id,
       "userId": self.user_id,
       "projectId": self.project_id,
+      "project": self.project.to_dict_short(),
       "rewardId": self.reward_id,
       "amountPledged": self.amount_pledged,
       "createdAt": self.created_at

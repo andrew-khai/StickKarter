@@ -4,10 +4,12 @@ import { useParams } from "react-router-dom"
 import { loadSingleProjectThunk } from "../../store/project";
 import { Redirect } from "react-router-dom";
 import "./SingleProjectShow.css"
+import "../RewardsShow/RewardsShow.css"
 import { NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteProjectModal from "../DeleteProjectModal";
 import { useHistory } from "react-router-dom";
+import RewardsShow from "../RewardsShow";
 
 const SingleProjectShow = () => {
   const { projectId } = useParams();
@@ -15,6 +17,7 @@ const SingleProjectShow = () => {
   const dispatch = useDispatch();
   const [isBacker, setIsBacker] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
+  const [pledge, setPledge] = useState(1);
   const [singleProjectId, setSingleSpotId] = useState(projectId);
 
 
@@ -26,6 +29,13 @@ const SingleProjectShow = () => {
   const sessionUser = useSelector((state) => state.session.user);
 
   const project = useSelector((state) => state.projects.singleProject);
+  console.log('project ------', project)
+
+  if (!project || !project.id) {
+    return null
+  }
+  const rewards = project.rewards
+  // console.log('rewards here-----', rewards)
 
   // if (project) {
   //   if (project.backings) {
@@ -160,7 +170,7 @@ const SingleProjectShow = () => {
                     <button onClick={redirectToLogin} className="back-this-button">Back this project</button>
                     :
                     <button className="back-this-button">Back this project</button>
-                }
+                  }
                   <div className="single-project-buttons-container">
                     {sessionUser && sessionUser.id !== project.creatorId &&
                       <button className="save-project-rectangle-button">
@@ -186,47 +196,81 @@ const SingleProjectShow = () => {
           </div>
         </>
         :
-        <><h1>No Project Found</h1></>
+        <><h1 style={{textAlign: "center"}}>No Project Found</h1></>
       }
-      <nav className="single-project-dropdown-container">
-        <div className="story-rewards-div">
-          <div className="dropdown-story">Story</div>
-          <div className="dropdown-faq">FAQ</div>
-        </div>
-        <div className="back-save-button-container">
-          {sessionUser && sessionUser.id !== project.creatorId &&
-            <>
-              <button className="mini-back-this-button">Back this project</button>
-              <button className="mini-save-project-rectangle-button">
-                <i class="fa-regular fa-bookmark"></i> Save this Project
-              </button>
-            </>
-          }
-        </div>
-      </nav>
-      <div className="dropdown-information-container">
-        <div className="dropdown-story-div">
-          <h2 className="dropdown-story-header">
-            Story
-          </h2>
-          <div className="dropdown-story">
-            {project?.story}
+      {Object.keys(project).length > 0 &&
+        <>
+          <nav className="single-project-dropdown-container">
+            <div className="story-rewards-div">
+              <div className="dropdown-story">Story</div>
+              <div className="dropdown-faq">FAQ</div>
+            </div>
+            <div className="back-save-button-container">
+              {sessionUser && sessionUser.id !== project.creatorId &&
+                <>
+                  <button className="mini-back-this-button">Back this project</button>
+                  <button className="mini-save-project-rectangle-button">
+                    <i class="fa-regular fa-bookmark"></i> Save this Project
+                  </button>
+                </>
+              }
+            </div>
+          </nav>
+          <div className="dropdown-information-container">
+            <div className="dropdown-story-div">
+              <h2 className="dropdown-story-header">
+                Story
+              </h2>
+              <div className="dropdown-story">
+                {project?.story}
+              </div>
+            </div>
+            <div className="creator-rewards-container">
+              <div className="creator-container">
+                <div className="creator-username">
+                  {project.creator?.username}
+                </div>
+                <div className="creator-details">
+                  {project.creator?.projects.length} created • {project.creator?.backings.length} backed
+                </div>
+                <div className="creator-bio">
+                  {project.creator?.bio}
+                </div>
+              </div>
+              <br></br>
+              <div className="single-project-rewards-container">
+                <h2>Support</h2>
+                <div className="no-reward-pledge">
+                  <p style={{ marginBottom: "0px" }}>Make a pledge without a reward</p>
+                  <div className="pledge-amount-container">
+                    <p>Pledge amount</p>
+                    <div className="pledge-input-container">
+                      <div className="pledge-money-sign">
+                        <p style={{ margin: "0px", padding: "5px 10px 5px 5px", borderRight: "1px solid black" }}>$</p>
+                      </div>
+                      <input
+                        className="pledge-input"
+                        type="number"
+                        value={pledge}
+                        onChange={(e) => setPledge(e.target.value)}
+                      >
+                      </input>
+                    </div>
+                  </div>
+                </div>
+                <h2>Available Rewards</h2>
+                <div className="main-single-rewards-container">
+                  {rewards?.length > 0 &&
+                    <RewardsShow
+                      rewards={rewards}
+                    />
+                  }
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="creator-rewards-container">
-          <div className="creator-container">
-            <div className="creator-username">
-              {project.creator?.username}
-            </div>
-            <div className="creator-details">
-              {project.creator?.projects.length} created • {project.creator?.backings.length} backed
-            </div>
-            <div className="creator-bio">
-              {project.creator?.bio}
-            </div>
-          </div>
-        </div>
-      </div>
+        </>
+      }
     </div>
   )
 }

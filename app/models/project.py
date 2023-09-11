@@ -36,7 +36,7 @@ class Project(db.Model):
     return {
       "id": self.id,
       "creatorId": self.creator_id,
-      "catergoryId": self.category_id,
+      "categoryId": self.category_id,
       "title": self.title,
       "description": self.description,
       "story": self.story,
@@ -49,11 +49,18 @@ class Project(db.Model):
       "createdAt": self.created_at
     }
 
+  def to_dict_short(self):
+    return {
+      "id": self.id,
+      "title": self.title,
+      "projectImage": self.project_image,
+    }
+
   def to_dict_summary(self):
     return {
       "id": self.id,
       "creatorId": self.creator_id,
-      "catergoryId": self.category_id,
+      "categoryId": self.category_id,
       "title": self.title,
       "description": self.description,
       "story": self.story,
