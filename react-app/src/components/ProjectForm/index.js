@@ -60,7 +60,7 @@ const ProjectForm = ({ project, formType }) => {
 
     if (formType === "Update") {
       console.log('its coming into the update if block')
-      const updatedProject = await dispatch(updateProjectThunk(project))
+      const updatedProject = await dispatch(updateProjectThunk(project, project.id))
 
       if (updatedProject?.errors) {
         setErrors(updatedProject?.errors);

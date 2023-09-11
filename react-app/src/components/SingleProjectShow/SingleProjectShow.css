@@ -101,3 +101,86 @@
   font-weight: lighter;
   cursor: pointer;
 }
+
+.back-this-button:hover,
+.mini-back-this-button:hover {
+  background-color: #015738;
+  border-color: #015738;
+}
+
+.single-project-buttons-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.creator-buttons-container button {
+  cursor: pointer;
+}
+
+.single-project-dropdown-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  padding: 20px 60px;
+}
+
+.story-rewards-div {
+  display: flex;
+  column-gap: 10px;
+}
+
+.dropdown-story,
+.dropdown-faq {
+  font-size: 1.4rem;
+  margin: 0px 18px;
+}
+
+.dropdown-information-container {
+  padding: 48px 18px 48px 60px;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.dropdown-story-div {
+  max-width: 850px;
+  padding: 0px 18px;
+}
+
+.mini-back-this-button {
+  background-color: #028858;
+  padding: 0.7rem 2.4rem;
+  font-size: 1rem;
+  border: 1px solid #028858;
+  color: white;
+  font-weight: lighter;
+  cursor: pointer;
+}
+
+.save-project-rectangle-button {
+  padding: 1rem 2.5rem;
+  font-size: 0.9rem;
+  border: 1px solid lightgray;
+  background-color: white;
+  cursor: pointer;
+}
+
+.save-project-rectangle-button:hover {
+  border: 1px solid black;
+}
+
+.mini-save-project-rectangle-button {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.back-save-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 20px;
+}

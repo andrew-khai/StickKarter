@@ -32,10 +32,11 @@ export function getSingleProject(project) {
 }
 
 // update a project
-export function updateProject(project) {
+export function updateProject(project, projectId) {
   return {
     type: UPDATE_PROJECT,
-    project
+    project,
+    projectId
   }
 }
 
@@ -98,9 +99,9 @@ export const createProjectThunk = (project) => async (dispatch) => {
 }
 
 // update a project
-export const updateProjectThunk = (project) => async (dispatch) => {
-  console.log('project in update thunk', project)
-  const res = await fetch(`/api/projects/${project.id}`, {
+export const updateProjectThunk = (project, projectId) => async (dispatch) => {
+  // console.log('project in update thunk', project)
+  const res = await fetch(`/api/projects/${projectId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
@@ -109,12 +110,14 @@ export const updateProjectThunk = (project) => async (dispatch) => {
   })
 
   if (res.ok) {
+    // console.log('its in the update thunk ok ----')
     const updatedProject = await res.json();
-    dispatch(updateProject(updatedProject));
+    dispatch(updateProject(updatedProject, ));
     return updatedProject;
   }
   else {
     const errors = await res.json();
+    console.log('we in the errors update thunk')
     return errors;
   }
 }
@@ -155,7 +158,7 @@ const projectsReducer = (state = initialState, action) => {
     }
     case UPDATE_PROJECT: {
       let newState = { ...state };
-      newState.projects[action.project.id] = action.project;
+      newState.projects[action.projectId] = action.project;
       console.log('new state in update project reducer-----', newState)
       return newState;
     }
