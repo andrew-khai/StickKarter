@@ -86,7 +86,7 @@ function ProfileButton({ user }) {
               <span>Backed Projects</span>
               <ul className="backing-projects-list">
                 <UserBackedProjects
-                backed={currentUser.backings.slice(0,4)}
+                backed={currentUser.backings?.slice(0,4)}
                 />
               </ul>
             </div>
@@ -94,7 +94,7 @@ function ProfileButton({ user }) {
               <span>Created Projects</span>
               <ul className="backing-projects-list">
                 <UserCreated
-                created={currentUser.projects.slice(0,4)}
+                created={currentUser.projects?.slice(0,4)}
                 />
               </ul>
             </div>

@@ -18,7 +18,7 @@ const ProjectForm = ({ project, formType }) => {
   const [projectImage, setProjectImage] = useState(project?.projectImage);
   const [startDate, setStartDate] = useState(project?.startDate);
   const [endDate, setEndDate] = useState(project?.endDate);
-  const [fundingGoal, setFundingGoal] = useState(project?.fundingGoal);
+  const [fundingGoal, setFundingGoal] = useState(project?.fundingGoal || 100);
   const [location, setLocation] = useState(project?.location);
 
   // console.log('category id', categoryId)
@@ -57,10 +57,8 @@ const ProjectForm = ({ project, formType }) => {
         setErrors(newProject?.errors);
       }
 
-      if (newProject) {
-        console.log('console log after the new project', newProject)
-        history.push(`/projects/${newProject.id}`)
-      }
+      // console.log('console log after the new project', newProject)
+      history.push(`/projects/${newProject.id}`)
     }
 
     if (formType === "Update") {
@@ -70,10 +68,23 @@ const ProjectForm = ({ project, formType }) => {
       if (updatedProject?.errors) {
         setErrors(updatedProject?.errors);
       }
-      console.log('updated prjec', updatedProject)
+      // console.log('updated prjec', updatedProject)
       history.push(`/projects/${updatedProject.project.id}`)
     }
 
+  }
+  // console.log("start:", project.startDate, "end:", project.endDate)
+
+  const formatDate = (date) => {
+    const dateObject = new Date(date);
+
+    const year = dateObject.getFullYear();
+    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObject.getDate()).padStart(2, "0");
+
+    let formattedDate = `${year}-${month}-${day}`;
+
+    return formattedDate;
   }
 
   return (
@@ -87,8 +98,8 @@ const ProjectForm = ({ project, formType }) => {
             <h2 className="project-form-explanation">These will help backers find your project, and you can it later if you need to</h2>
             <br></br>
             <select
-            // defaultValue={project.categoryId ? `${project.categoryId}` : ''}
-            className="project-form-categories" value={categoryId || ''} onChange={(e) => setCategoryId(e.target.value)}>
+              // defaultValue={project.categoryId ? `${project.categoryId}` : ''}
+              className="project-form-categories" value={categoryId || ''} onChange={(e) => setCategoryId(e.target.value)}>
               <option value='' disabled={true}>Select</option>
               <option value="1">Arts</option>
               <option value="2">Comics & Illustration</option>
@@ -222,7 +233,7 @@ const ProjectForm = ({ project, formType }) => {
                 <input
                   className="form-date-inputs"
                   type="date"
-                  value={startDate}
+                  value={formatDate(startDate)}
                   onChange={(e) => setStartDate(e.target.value)}
                 >
                 </input>
@@ -234,7 +245,7 @@ const ProjectForm = ({ project, formType }) => {
                 <input
                   className="form-date-inputs"
                   type="date"
-                  value={endDate}
+                  value={formatDate(endDate)}
                   onChange={(e) => setEndDate(e.target.value)}
                 >
                 </input>
