@@ -7,9 +7,11 @@ import "./SingleProjectShow.css"
 import { NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteProjectModal from "../DeleteProjectModal";
+import { useHistory } from "react-router-dom";
 
 const SingleProjectShow = () => {
   const { projectId } = useParams();
+  const history = useHistory()
   const dispatch = useDispatch();
   const [isBacker, setIsBacker] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
@@ -88,6 +90,11 @@ const SingleProjectShow = () => {
     return sum;
   }
 
+  const redirectToLogin = () => {
+
+    history.push("/login")
+  }
+
   const currentDate = new Date();
   let endDate = new Date(project.endDate)
   // console.log(endDate)
@@ -149,14 +156,18 @@ const SingleProjectShow = () => {
                       </span>
                     </div>
                   </div>
-                  <button className="back-this-button">Back this project</button>
+                  {!sessionUser ?
+                    <button onClick={redirectToLogin} className="back-this-button">Back this project</button>
+                    :
+                    <button className="back-this-button">Back this project</button>
+                }
                   <div className="single-project-buttons-container">
-                    {sessionUser.id !== project.creatorId &&
+                    {sessionUser && sessionUser.id !== project.creatorId &&
                       <button className="save-project-rectangle-button">
                         <i class="fa-regular fa-bookmark"></i> Save Project
                       </button>
                     }
-                    {sessionUser.id === project.creatorId &&
+                    {sessionUser && sessionUser.id === project.creatorId &&
                       <div className="creator-buttons-container">
                         <NavLink exact to={`/projects/${project.id}/edit`}>
                           <button className="single-project-edit-button"><i class="fa-regular fa-pen-to-square"></i></button>
@@ -183,7 +194,7 @@ const SingleProjectShow = () => {
           <div className="dropdown-faq">FAQ</div>
         </div>
         <div className="back-save-button-container">
-          {sessionUser.id !== project.creatorId &&
+          {sessionUser && sessionUser.id !== project.creatorId &&
             <>
               <button className="mini-back-this-button">Back this project</button>
               <button className="mini-save-project-rectangle-button">
