@@ -74,7 +74,7 @@ export const loadSingleProjectThunk = (projectId) => async (dispatch) => {
 
 // creates a project
 export const createProjectThunk = (project) => async (dispatch) => {
-  // console.log('it is making it into the thunk', project)
+  console.log('it is making it into the thunk')
   const res = await fetch("/api/projects/new", {
     method: "POST",
     headers: { "Content-Type": "application/json"},
@@ -82,18 +82,18 @@ export const createProjectThunk = (project) => async (dispatch) => {
   });
 
   if (res.ok) {
-    // console.log("create project was OKAY")
+    console.log("create project was OKAY")
     const data = await res.json();
     dispatch(createProject(data.project));
     return null;
   } else if (res.status < 500) {
-    // console.log("hit this res status < 500 else if")
+    console.log("hit this res status < 500 else if")
     const data = await res.json();
     if (data.errors) {
       return data.errors;
     }
   } else {
-    // console.log('create project hit the else errors')
+    console.log('create project hit the else errors')
     return ["An error occurred. Please try again."]
   }
 }
@@ -112,7 +112,7 @@ export const updateProjectThunk = (project, projectId) => async (dispatch) => {
   if (res.ok) {
     // console.log('its in the update thunk ok ----')
     const updatedProject = await res.json();
-    dispatch(updateProject(updatedProject, ));
+    dispatch(updateProject(updatedProject, updatedProject.id));
     return updatedProject;
   }
   else {
@@ -153,7 +153,7 @@ const projectsReducer = (state = initialState, action) => {
       let newState = { ...state };
       // console.log('newState in Create project----', newState)
       newState.projects[action.project.id] = action.project;
-      // console.log('newstate in create project after ----', newState)
+      console.log('newstate in create project after ----', newState)
       return newState;
     }
     case UPDATE_PROJECT: {

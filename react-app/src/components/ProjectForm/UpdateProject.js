@@ -15,7 +15,7 @@ const EditProjectForm = () => {
 
   const sessionUser = useSelector((state) => state.session.user);
   const project = useSelector(state => state.projects.singleProject);
-  console.log('sessionID and project creator ID', sessionUser.id, project.creatorId)
+  // console.log('sessionID and project creator ID cat ID', sessionUser.id, project.creatorId, project.categoryId)
 
   if (project.creatorId === undefined) {
     return <div>Loading...</div>;

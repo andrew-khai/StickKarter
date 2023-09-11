@@ -21,6 +21,8 @@ const ProjectForm = ({ project, formType }) => {
   const [fundingGoal, setFundingGoal] = useState(project?.fundingGoal);
   const [location, setLocation] = useState(project?.location);
 
+  // console.log('category id', categoryId)
+
 
   if (!sessionUser) {
     return <Redirect to="/" />;
@@ -49,23 +51,27 @@ const ProjectForm = ({ project, formType }) => {
     if (formType === "Create") {
       // console.log('comint into the create if block')
       const newProject = await dispatch(createProjectThunk(project))
-      // console.log('console log after the new project')
 
       if (newProject?.errors) {
-        // console.log('came into the create errors block')
+        console.log('came into the create errors block')
         setErrors(newProject?.errors);
       }
-      history.push(`/projects/${newProject?.id}`)
+
+      if (newProject) {
+        console.log('console log after the new project', newProject)
+        history.push(`/projects/${newProject.id}`)
+      }
     }
 
     if (formType === "Update") {
-      console.log('its coming into the update if block')
+      // console.log('its coming into the update if block')
       const updatedProject = await dispatch(updateProjectThunk(project, project.id))
 
       if (updatedProject?.errors) {
         setErrors(updatedProject?.errors);
       }
-      // history.push(`/projects/${updatedProject?.id}`)
+      console.log('updated prjec', updatedProject)
+      history.push(`/projects/${updatedProject.project.id}`)
     }
 
   }

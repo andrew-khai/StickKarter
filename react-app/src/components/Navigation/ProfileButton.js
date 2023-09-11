@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { loadCurrentUserThunk } from "../../store/user";
+import UserBackedProjects from "../ProfileProjects/UserBackedProjects";
+import UserCreated from "../ProfileProjects/UserCreated";
 
 function ProfileButton({ user }) {
   const history = useHistory()
@@ -13,10 +16,18 @@ function ProfileButton({ user }) {
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
+  const sessionUser = useSelector((state) => state.session.user);
+
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
   };
+
+  useEffect(() => {
+    if (sessionUser) {
+      dispatch(loadCurrentUserThunk(sessionUser.id))
+    }
+  }, [dispatch])
 
   useEffect(() => {
     if (!showMenu) return;
@@ -31,6 +42,9 @@ function ProfileButton({ user }) {
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
+
+  const currentUser = useSelector((state) => state.users.currentUser)
+  console.log('currentuser here -------', currentUser)
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -59,13 +73,32 @@ function ProfileButton({ user }) {
       }
       <ul id="user-dropdown-container" className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={handleLogout}>Log Out</button>
-            </li>
-          </>
+          <div className="main-profile-container">
+            <div className="profile-container">
+              <span>Your Account</span>
+              <li>{user.username}</li>
+              <li>{user.email}</li>
+              <li>
+                <button onClick={handleLogout}>Log Out</button>
+              </li>
+            </div>
+            <div className="profile-backed-projects-container">
+              <span>Backed Projects</span>
+              <ul className="backing-projects-list">
+                <UserBackedProjects
+                backed={currentUser.backings.slice(0,4)}
+                />
+              </ul>
+            </div>
+            <div className="profile-backed-projects-container">
+              <span>Created Projects</span>
+              <ul className="backing-projects-list">
+                <UserCreated
+                created={currentUser.projects.slice(0,4)}
+                />
+              </ul>
+            </div>
+          </div>
         ) : (
           <>
             {/* <NavLink to="/login">Log In</NavLink> */}
