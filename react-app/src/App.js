@@ -47,9 +47,9 @@ function App() {
           <Route path="/projects/:projectId/edit">
             <EditProjectForm />
           </Route>
-          {/* <Route exact path="/tester">
+          <Route exact path="/tester">
             <Tester />
-          </Route> */}
+          </Route>
         </Switch>
       )}
       <FooterNav />

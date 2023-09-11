@@ -4,6 +4,9 @@ import { useParams } from "react-router-dom"
 import { loadSingleProjectThunk } from "../../store/project";
 import { Redirect } from "react-router-dom";
 import "./SingleProjectShow.css"
+import { NavLink } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import DeleteProjectModal from "../DeleteProjectModal";
 
 const SingleProjectShow = () => {
   const { projectId } = useParams();
@@ -43,7 +46,10 @@ const SingleProjectShow = () => {
   // if (sessionUser) {
   //   owner();
   // }
-  // console.log('project in single project----', project)
+  // console.log('project in single project----', Object.keys(project))
+  // if (Object.keys(project).length < 1) {
+  //   return <Redirect to="/" />
+  // }
 
 
   // project?.backings.forEach(backing => {
@@ -92,7 +98,7 @@ const SingleProjectShow = () => {
 
   return (
     <div id="main-single-project-container">
-      {project ?
+      {Object.keys(project).length > 0 ?
         <>
           <div id="single-project-container">
             {/* if backer backer message here */}
@@ -144,6 +150,25 @@ const SingleProjectShow = () => {
                     </div>
                   </div>
                   <button className="back-this-button">Back this project</button>
+                  <div className="single-project-buttons-container">
+                    {sessionUser.id !== project.creatorId &&
+                      <button className="save-project-rectangle-button">
+                        <i class="fa-regular fa-bookmark"></i> Save Project
+                      </button>
+                    }
+                    {sessionUser.id === project.creatorId &&
+                      <div className="creator-buttons-container">
+                        <NavLink exact to={`/projects/${project.id}/edit`}>
+                          <button className="single-project-edit-button"><i class="fa-regular fa-pen-to-square"></i></button>
+                        </NavLink>
+                        {/* <OpenModalButton
+                          className="project-delete-button"
+                          buttonText={<i class="fa-regular fa-trash-can"></i>}
+                          modalComponent={<DeleteProjectModal project={project} />}
+                        /> */}
+                      </div>
+                    }
+                  </div>
                 </div>
               </div>
             </div>
@@ -152,6 +177,45 @@ const SingleProjectShow = () => {
         :
         <><h1>No Project Found</h1></>
       }
+      <nav className="single-project-dropdown-container">
+        <div className="story-rewards-div">
+          <div className="dropdown-story">Story</div>
+          <div className="dropdown-faq">FAQ</div>
+        </div>
+        <div className="back-save-button-container">
+          {sessionUser.id !== project.creatorId &&
+            <>
+              <button className="mini-back-this-button">Back this project</button>
+              <button className="mini-save-project-rectangle-button">
+                <i class="fa-regular fa-bookmark"></i> Save this Project
+              </button>
+            </>
+          }
+        </div>
+      </nav>
+      <div className="dropdown-information-container">
+        <div className="dropdown-story-div">
+          <h2 className="dropdown-story-header">
+            Story
+          </h2>
+          <div className="dropdown-story">
+            {project?.story}
+          </div>
+        </div>
+        <div className="creator-rewards-container">
+          <div className="creator-container">
+            <div className="creator-username">
+              {project.creator?.username}
+            </div>
+            <div className="creator-details">
+              {project.creator?.projects.length} created • {project.creator?.backings.length} backed
+            </div>
+            <div className="creator-bio">
+              {project.creator?.bio}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

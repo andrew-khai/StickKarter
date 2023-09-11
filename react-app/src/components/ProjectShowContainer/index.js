@@ -24,7 +24,7 @@ const ProjectShowContainer = () => {
 
   // console.log('projects here -----', projects[0])
   // console.log('projects array------', projectsArr)
-  console.log('rec projects--- ', recommendedProjects)
+  // console.log('rec projects--- ', recommendedProjects)
 
 
   return (
