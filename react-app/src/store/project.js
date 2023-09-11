@@ -85,7 +85,7 @@ export const createProjectThunk = (project) => async (dispatch) => {
     console.log("create project was OKAY")
     const data = await res.json();
     dispatch(createProject(data.project));
-    return null;
+    return data.project;
   } else if (res.status < 500) {
     console.log("hit this res status < 500 else if")
     const data = await res.json();

@@ -1,8 +1,11 @@
 import { NavLink } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import "./ProjectFeatured.css"
 
 const ProjectFeaturedItem = ({ project }) => {
   // console.log('project -----', project)
+  const sessionUser = useSelector((state) => state.session.user);
+
   const funding = (project) => {
     let sum = 0;
     if (project.backings) {
@@ -37,9 +40,11 @@ const ProjectFeaturedItem = ({ project }) => {
           {project.description}
         </div>
         <div>
-          <button className="save-project-button">
-            <i class="fa-regular fa-bookmark"></i>
-          </button>
+          {sessionUser && sessionUser.id !== project.creatorId &&
+            <button className="save-project-button">
+              <i class="fa-regular fa-bookmark"></i>
+            </button>
+          }
         </div>
       </div>
     </div>
