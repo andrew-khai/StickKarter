@@ -1,21 +1,32 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom";
-import { getProjectRewardsThunk } from "../../store/reward";
+import { createRewardThunk, getProjectRewardsThunk, updateRewardThunk } from "../../store/reward";
+import OpenModalButton from "../OpenModalButton";
+import DeleteRewardModal from "../DeleteRewardModal";
+import EditRewardModal from "../EditRewardModal";
 
 const RewardsPage = () => {
   const { projectId } = useParams()
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(1);
+  const [price, setPrice] = useState(5);
   const [errors, setErrors] = useState({});
+
+  const rewards = useSelector(state => Object.values(state.rewards?.rewards))
 
   useEffect(() => {
     dispatch(getProjectRewardsThunk(projectId))
   }, [dispatch, projectId])
 
-  const rewards = useSelector(state => Object.values(state.rewards.rewards))
+  const handleUpdate = async (updatedRewardData, updatedRewardId) => {
+    console.log('making it into this call', updatedRewardData)
+    await dispatch(updateRewardThunk(updatedRewardData, updatedRewardId));
+    await dispatch(getProjectRewardsThunk(projectId))
+
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -25,6 +36,18 @@ const RewardsPage = () => {
       description,
       price
     }
+
+    const newReward = await dispatch(createRewardThunk(reward))
+    if (newReward.errors) {
+      setErrors(newReward?.errors)
+    }
+
+    setTitle("");
+    setDescription("");
+    setPrice(5);
+
+    await dispatch(getProjectRewardsThunk(projectId))
+
   }
 
   const addReward = () => {
@@ -46,19 +69,18 @@ const RewardsPage = () => {
             <div>
               Reward Description
             </div>
-            <input
-              type="text"
+            <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             >
-            </input>
+            </textarea>
           </label>
           <label className="reward-form-labels">
             <div>
               Reward Price
             </div>
             <input
-              type="text"
+              type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             >
@@ -97,12 +119,14 @@ const RewardsPage = () => {
           <div>
             Price: {reward.price}
           </div>
-          <button>
-            Edit
-          </button>
-          <button>
-            Delete
-          </button>
+          <OpenModalButton
+            buttonText={"Edit Reward"}
+            modalComponent={<EditRewardModal reward={reward} onUpdate={handleUpdate} />}
+          />
+          <OpenModalButton
+            buttonText={"Delete Reward"}
+            modalComponent={<DeleteRewardModal reward={reward} />}
+          />
         </div>
       ))}
       {addReward()}

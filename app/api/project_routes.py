@@ -55,26 +55,6 @@ def create_project():
         return {'project': project.to_dict_summary()}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
-@project_routes.route("/<int:id>/rewards")
-@login_required
-def get_rewards(id):
-    """
-    Query for project rewards
-    """
-    project = Project.query.get(id)
-
-    if not project:
-        return {"errors": ["Project is not found"]}, 404
-
-    if current_user.id != project.creator_id:
-        return {"errors": ["You are not authorized to edit rewards for this project"]}, 403
-
-    rewards = Reward.query.filter(project.id == Reward.project_id).all()
-    return {"rewards": {entry.id: entry.to_dict() for entry in rewards}}
-
-
-
-
 @project_routes.route("/<int:id>/rewards", methods=["POST"])
 @login_required
 def create_reward(id):
@@ -109,6 +89,23 @@ def create_reward(id):
         return {
             "errors": form.errors
         }
+
+@project_routes.route("/<int:id>/rewards")
+@login_required
+def get_rewards(id):
+    """
+    Query for project rewards
+    """
+    project = Project.query.get(id)
+
+    if not project:
+        return {"errors": ["Project is not found"]}, 404
+
+    if current_user.id != project.creator_id:
+        return {"errors": ["You are not authorized to edit rewards for this project"]}, 403
+
+    rewards = Reward.query.filter(project.id == Reward.project_id).all()
+    return {"rewards": {entry.id: entry.to_dict() for entry in rewards}}
 
 
 
