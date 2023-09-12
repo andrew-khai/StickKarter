@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
 from app import db
 from app.models import Project, Reward
-from app.forms import ProjectForm
+from app.forms import ProjectForm, RewardForm
 from datetime import datetime
 
 project_routes = Blueprint('projects', __name__)
@@ -55,6 +55,40 @@ def create_project():
         return {'project': project.to_dict_summary()}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
+@project_routes.route("/<int:id>/rewards")
+@login_required
+def create_reward(id):
+    project = Project.query.get(id)
+
+    form = RewardForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if not project:
+        return {"errors": ["Project is not found"]}, 404
+
+    if current_user.id != project.creator_id:
+        return {"errors": ["You are not authorized to edit this project"]}, 403
+
+    if form.validate_on_submit():
+        reward = Reward(
+            project_id = id,
+            title = form.data["title"],
+            description = form.data["description"],
+            price = form.data["price"]
+        )
+        db.session.add(reward)
+        db.session.commit()
+        return {
+            "project": project.to_dict_summary()
+        }
+    else:
+        return {
+            "errors": form.errors
+        }
+
+
+
 @project_routes.route("/<int:id>", methods=["PUT"])
 @login_required
 def update_project(id):
@@ -83,7 +117,8 @@ def update_project(id):
         project.location = form.data["location"]
         db.session.commit()
         return {'project': project.to_dict_summary()}
-    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+    else:
+        return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 @project_routes.route("/<int:id>")
 def project(id):

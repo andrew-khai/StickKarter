@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteProjectThunk } from "../../store/project";
+import { removeUserProjectThunk } from "../../store/user";
 
 function DeleteProjectModal ({project}) {
   const dispatch = useDispatch();
@@ -8,6 +9,7 @@ function DeleteProjectModal ({project}) {
   const handleDelete = (e) => {
     e.preventDefault();
     dispatch(deleteProjectThunk(project.id))
+    dispatch(removeUserProjectThunk(project.id))
 
     closeModal()
   }

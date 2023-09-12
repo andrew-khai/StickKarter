@@ -2,13 +2,11 @@ import { NavLink } from "react-router-dom"
 import "./ProfileProjects.css"
 
 const UserBackedProjects = ({ backed }) => {
-  console.log('backed projects here', backed)
+  // console.log('backed projects here', backed)
   if (!backed) {
     return null
   }
-  return (
-    <>
-      {backed.map(backing => (
+  return backed.map(backing => (
         <li key={backing.id}>
           <NavLink to={`/projects/${backing.project.id}`} className="backing-container">
             <div className="backing-image">
@@ -19,9 +17,8 @@ const UserBackedProjects = ({ backed }) => {
             </div>
           </NavLink>
         </li>
-      ))}
-    </>
-  )
+      ))
+
 }
 
 export default UserBackedProjects;

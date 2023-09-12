@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/session";
-import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+// import OpenModalButton from "../OpenModalButton";
+// import LoginFormModal from "../LoginFormModal";
+// import SignupFormModal from "../SignupFormModal";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { loadCurrentUserThunk } from "../../store/user";
+import { loadCurrentUserThunk, loadUserBackingsThunk, loadUserProjectsThunk, removeCurrentUserThunk } from "../../store/user";
 import UserBackedProjects from "../ProfileProjects/UserBackedProjects";
 import UserCreated from "../ProfileProjects/UserCreated";
 
@@ -17,16 +17,18 @@ function ProfileButton({ user }) {
   const ulRef = useRef();
 
   const sessionUser = useSelector((state) => state.session.user);
+  const projects = useSelector(state => state.users.projects);
+  const backings = useSelector(state => state.users.backings);
 
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
   };
 
-  useEffect(() => {
-    if (sessionUser) {
-      dispatch(loadCurrentUserThunk(sessionUser.id))
-    }
+  useEffect(async () => {
+      await dispatch(loadCurrentUserThunk(sessionUser.id))
+      await dispatch(loadUserProjectsThunk())
+      await dispatch(loadUserBackingsThunk())
   }, [dispatch])
 
   useEffect(() => {
@@ -44,10 +46,11 @@ function ProfileButton({ user }) {
   }, [showMenu]);
 
   const currentUser = useSelector((state) => state.users.currentUser)
-  console.log('currentuser here -------', currentUser)
+  // console.log('currentuser here -------', currentUser)
 
   const handleLogout = (e) => {
     e.preventDefault();
+    dispatch(removeCurrentUserThunk())
     dispatch(logout());
     closeMenu()
     history.push("/")
@@ -86,15 +89,16 @@ function ProfileButton({ user }) {
               <span>Backed Projects</span>
               <ul className="backing-projects-list">
                 <UserBackedProjects
-                backed={currentUser.backings?.slice(0,4)}
+                backed={Object.values(backings).slice(0,4)}
                 />
+                <li className="project-summary-link"><NavLink onClick={closeMenu} to="/user/summary">View/Edit Projects</NavLink></li>
               </ul>
             </div>
             <div className="profile-backed-projects-container">
               <span>Created Projects</span>
               <ul className="backing-projects-list">
                 <UserCreated
-                created={currentUser.projects?.slice(0,4)}
+                created={Object.values(projects).slice(0,4)}
                 />
               </ul>
             </div>

@@ -79,5 +79,7 @@ class Project(db.Model):
 
   def to_dict_saves(self):
     return {
-      "projectId": self.id
+      "projectId": self.id,
+      "title": self.title,
+      "projectImage": self.project_image
     }
