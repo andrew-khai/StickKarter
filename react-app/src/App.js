@@ -14,6 +14,7 @@ import Tester from "./components/TESTER";
 import SingleProjectShow from "./components/SingleProjectShow";
 import EditProjectForm from "./components/ProjectForm/UpdateProject";
 import UserSummary from "./components/UserSummaryPage";
+import RewardsPage from "./components/RewardsPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,11 +47,14 @@ function App() {
           <Route exact path="/projects/new">
             <CreateProject />
           </Route>
+          <Route exact path="/projects/:projectId/edit">
+            <EditProjectForm />
+          </Route>
+          <Route exact path="/projects/:projectId/rewards">
+            <RewardsPage />
+          </Route>
           <Route exact path="/projects/:projectId">
             <SingleProjectShow />
-          </Route>
-          <Route path="/projects/:projectId/edit">
-            <EditProjectForm />
           </Route>
           <Route exact path="/tester">
             <Tester />

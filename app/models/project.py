@@ -56,6 +56,13 @@ class Project(db.Model):
       "projectImage": self.project_image,
     }
 
+  def to_dict_rewards(self):
+    return {
+      "id": self.id,
+      "title": self.title,
+      "rewards": [reward.to_dict() for reward in self.rewards],
+    }
+
   def to_dict_summary(self):
     return {
       "id": self.id,
