@@ -57,7 +57,30 @@ def create_project():
 
 @project_routes.route("/<int:id>/rewards")
 @login_required
+def get_rewards(id):
+    """
+    Query for project rewards
+    """
+    project = Project.query.get(id)
+
+    if not project:
+        return {"errors": ["Project is not found"]}, 404
+
+    if current_user.id != project.creator_id:
+        return {"errors": ["You are not authorized to edit rewards for this project"]}, 403
+
+    rewards = Reward.query.filter(project.id == Reward.project_id).all()
+    return {"rewards": {entry.id: entry.to_dict() for entry in rewards}}
+
+
+
+
+@project_routes.route("/<int:id>/rewards", methods=["POST"])
+@login_required
 def create_reward(id):
+    """
+    Create a project reward
+    """
     project = Project.query.get(id)
 
     form = RewardForm()
@@ -80,7 +103,7 @@ def create_reward(id):
         db.session.add(reward)
         db.session.commit()
         return {
-            "project": project.to_dict_summary()
+            "project": project.to_dict_rewards()
         }
     else:
         return {

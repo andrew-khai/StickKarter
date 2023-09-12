@@ -46,9 +46,9 @@ export const login = (email, password) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(setUser(data));
-		await dispatch(loadCurrentUserThunk(data.id))
-    await dispatch(loadUserProjectsThunk())
-    await dispatch(loadUserBackingsThunk())
+		// await dispatch(loadCurrentUserThunk(data.id))
+    // await dispatch(loadUserProjectsThunk())
+    // await dispatch(loadUserBackingsThunk())
 
 		return null;
 	} else if (response.status < 500) {

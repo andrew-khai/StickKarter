@@ -25,5 +25,6 @@ class Reward(db.Model):
       "title": self.title,
       "description": self.description,
       "price": self.price,
-      "createdAt": self.created_at
+      "createdAt": self.created_at,
+      "creatorId": self.project.creator_id
     }

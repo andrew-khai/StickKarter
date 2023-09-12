@@ -17,7 +17,9 @@ const UsersCreated = ({ projects }) => {
           </div>
           <div>
             <NavLink to={`/projects/${project.id}/edit`}>Edit Project</NavLink>
-            <button>Edit/Add Rewards</button>
+            <NavLink to={`/projects/${project.id}/rewards`}>
+              <button>Edit/Add Rewards</button>
+            </NavLink>
             <OpenModalButton
               className="project-delete-button"
               buttonText="Delete"
