@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import './LoginForm.css';
 import { NavLink } from "react-router-dom";
+import { loadCurrentUserThunk, loadUserBackingsThunk, loadUserProjectsThunk } from "../../store/user";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -30,6 +31,11 @@ function LoginFormPage() {
     if (data) {
       setErrors(data);
     }
+    // else {
+    //   await dispatch(loadCurrentUserThunk(sessionUser.id))
+    //   await dispatch(loadUserProjectsThunk())
+    //   await dispatch(loadUserBackingsThunk())
+    // }
   };
 
   return (

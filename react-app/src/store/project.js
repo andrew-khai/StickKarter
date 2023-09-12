@@ -2,6 +2,7 @@
 const CREATE_PROJECT = "CREATE_PROJECT"
 const GET_ALL_PROJECTS = "GET_ALL_PROJECTS"
 const GET_PROJECT = "GET_PROJECT"
+const UNLOAD_PROJECT = "UNLOAD_PROJECT"
 const UPDATE_PROJECT = "UPDATE_PROJECT"
 const DELETE_PROJECT = "DELETE_PROJECT"
 
@@ -29,6 +30,12 @@ export function getSingleProject(project) {
     type: GET_PROJECT,
     project
   }
+}
+
+export function unloadSingleProject() {
+  return {
+    type: UNLOAD_PROJECT
+  };
 }
 
 // update a project
@@ -70,6 +77,14 @@ export const loadSingleProjectThunk = (projectId) => async (dispatch) => {
     const errors = await res.json();
     return errors;
   }
+}
+
+// export const loadUserProjectsThunk = () => (dispatch, getState) => {
+//   const state = getState()
+// }
+
+export const unloadSingleProjectThunk = () => async (dispatch) => {
+  dispatch(unloadSingleProject());
 }
 
 // creates a project
@@ -117,7 +132,7 @@ export const updateProjectThunk = (project, projectId) => async (dispatch) => {
   }
   else {
     const errors = await res.json();
-    console.log('we in the errors update thunk')
+    // console.log('we in the errors update thunk')
     return errors;
   }
 }
@@ -146,7 +161,13 @@ const projectsReducer = (state = initialState, action) => {
     }
     case GET_PROJECT: {
       let newState = { ...state };
+      // console.log('reducer start dte', action.project.startDate, action.project.endDate)
       newState.singleProject = action.project;
+      return newState;
+    }
+    case UNLOAD_PROJECT: {
+      let newState = { ...state };
+      newState.singleProject = {};
       return newState;
     }
     case CREATE_PROJECT: {
@@ -164,7 +185,7 @@ const projectsReducer = (state = initialState, action) => {
     }
     case DELETE_PROJECT: {
       let newState = { ...state };
-      delete newState.projects[action.projectId];
+      delete newState.singleProject[action.projectId];
       return newState;
     }
     default:

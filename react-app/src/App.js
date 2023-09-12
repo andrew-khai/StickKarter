@@ -13,12 +13,14 @@ import CreateProject from "./components/ProjectForm/CreateProject";
 import Tester from "./components/TESTER";
 import SingleProjectShow from "./components/SingleProjectShow";
 import EditProjectForm from "./components/ProjectForm/UpdateProject";
+import UserSummary from "./components/UserSummaryPage";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
+
   }, [dispatch]);
 
   return (
@@ -38,6 +40,9 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
+          <Route exact path="/user/summary">
+            <UserSummary />
+          </Route>
           <Route exact path="/projects/new">
             <CreateProject />
           </Route>
@@ -49,6 +54,9 @@ function App() {
           </Route>
           <Route exact path="/tester">
             <Tester />
+          </Route>
+          <Route>
+            <h1> PAGE NOT FOUND </h1>
           </Route>
         </Switch>
       )}

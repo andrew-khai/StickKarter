@@ -231,7 +231,7 @@ const SingleProjectShow = () => {
                   {project.creator?.username}
                 </div>
                 <div className="creator-details">
-                  {project.creator?.projects.length} created • {project.creator?.backings.length} backed
+                  {project.creator?.projects} created • {project.creator?.backings} backed
                 </div>
                 <div className="creator-bio">
                   {project.creator?.bio}

@@ -1,0 +1,52 @@
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 331-425-864
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id AS users_id, users.username AS users_username, users.bio AS users_bio, users.email AS users_email, users.hashed_password AS users_hashed_password 
+FROM users 
+WHERE users.id = ?
+INFO:sqlalchemy.engine.Engine:[generated in 0.00017s] (1,)
+INFO:sqlalchemy.engine.Engine:SELECT projects.id AS projects_id, projects.creator_id AS projects_creator_id, projects.category_id AS projects_category_id, projects.title AS projects_title, projects.description AS projects_description, projects.story AS projects_story, projects.faq AS projects_faq, projects.project_image AS projects_project_image, projects.start_date AS projects_start_date, projects.end_date AS projects_end_date, projects.funding_goal AS projects_funding_goal, projects.location AS projects_location, projects.created_at AS projects_created_at 
+FROM projects
+INFO:sqlalchemy.engine.Engine:[generated in 0.00026s] ()
+INFO:sqlalchemy.engine.Engine:ROLLBACK
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2023 23:05:04] "GET /api/users/projects HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/andrewchan/Desktop/StickKarter/app/api/user_routes.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 331-425-864
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id AS users_id, users.username AS users_username, users.bio AS users_bio, users.email AS users_email, users.hashed_password AS users_hashed_password 
+FROM users 
+WHERE users.id = ?
+INFO:sqlalchemy.engine.Engine:[generated in 0.00047s] (1,)
+INFO:sqlalchemy.engine.Engine:SELECT projects.id AS projects_id, projects.creator_id AS projects_creator_id, projects.category_id AS projects_category_id, projects.title AS projects_title, projects.description AS projects_description, projects.story AS projects_story, projects.faq AS projects_faq, projects.project_image AS projects_project_image, projects.start_date AS projects_start_date, projects.end_date AS projects_end_date, projects.funding_goal AS projects_funding_goal, projects.location AS projects_location, projects.created_at AS projects_created_at 
+FROM projects
+INFO:sqlalchemy.engine.Engine:[generated in 0.00094s] ()
+INFO:sqlalchemy.engine.Engine:ROLLBACK
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2023 23:06:23] "[35m[1mGET /api/users/projects HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Detected change in '/Users/andrewchan/Desktop/StickKarter/app/api/user_routes.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 331-425-864
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id AS users_id, users.username AS users_username, users.bio AS users_bio, users.email AS users_email, users.hashed_password AS users_hashed_password 
+FROM users 
+WHERE users.id = ?
+INFO:sqlalchemy.engine.Engine:[generated in 0.00044s] (1,)
+INFO:sqlalchemy.engine.Engine:SELECT projects.id AS projects_id, projects.creator_id AS projects_creator_id, projects.category_id AS projects_category_id, projects.title AS projects_title, projects.description AS projects_description, projects.story AS projects_story, projects.faq AS projects_faq, projects.project_image AS projects_project_image, projects.start_date AS projects_start_date, projects.end_date AS projects_end_date, projects.funding_goal AS projects_funding_goal, projects.location AS projects_location, projects.created_at AS projects_created_at 
+FROM projects
+INFO:sqlalchemy.engine.Engine:[generated in 0.00029s] ()
+INFO:sqlalchemy.engine.Engine:ROLLBACK
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2023 23:06:36] "[35m[1mGET /api/users/projects HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Detected change in '/Users/andrewchan/Desktop/StickKarter/app/api/user_routes.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 331-425-864
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id AS users_id, users.username AS users_username, users.bio AS users_bio, users.email AS users_email, users.hashed_password AS users_hashed_password 
+FROM users 
+WHERE users.id = ?
+INFO:sqlalchemy.engine.Engine:[generated in 0.00028s] (1,)
+INFO:sqlalchemy.engine.Engine:SELECT projects.id AS projects_id, projects.creator_id AS projects_creator_id, projects.category_id AS projects_category_id, projects.title AS projects_title, projects.description AS projects_description, projects.story AS projects_story, projects.faq AS projects_faq, projects.project_image AS projects_project_image, projects.start_date AS projects_start_date, projects.end_date AS projects_end_date, projects.funding_goal AS projects_funding_goal, projects.location AS projects_location, projects.created_at AS projects_created_at 
+FROM projects
+INFO:sqlalchemy.engine.Engine:[generated in 0.00095s] ()
+INFO:sqlalchemy.engine.Engine:ROLLBACK
+INFO:werkzeug:127.0.0.1 - - [11/Sep/2023 23:07:00] "GET /api/users/projects HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/andrewchan/Desktop/StickKarter/app/api/user_routes.py', reloading

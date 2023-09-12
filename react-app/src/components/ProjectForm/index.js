@@ -4,6 +4,59 @@ import { Redirect, useHistory } from "react-router-dom";
 import "./ProjectForm.css"
 import { createProjectThunk, updateProjectThunk } from "../../store/project";
 
+ /**
+  *Takes in a date string in YYYY-MM-DD format and converts it into a GMT date string
+  * @method
+  * @name toSimpleDateString
+  * @param {string} date - date string
+  * @returns {string} returns GMT string format
+  */
+  const toSimpleDateString = (date) => {
+    // console.log('date', date)
+    // console.log(typeof date)
+
+    const dateObject = new Date(date);
+    // console.log('dateobjet', dateObject.toLocaleString('en-US', { timezone: 'GMT'}));
+    // console.log('string---', dateObject.toString())
+
+    const year = dateObject.getFullYear();
+    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObject.getDate()).padStart(2, "0");
+
+    let formattedDate = `${year}-${month}-${day}`;
+
+    return formattedDate;
+  }
+
+  /**
+  *Takes in a date string in YYYY-MM-DD format and converts it into a GMT date string
+  * @method
+  * @name formatStringToDate
+  * @param {string} dateString - date string
+  * @returns {string} returns GMT string format
+  */
+  const formatStringToDate = (dateString) => {
+    console.log()
+    const monthIndex = {
+      "01": 0,
+      "02": 1,
+      "03": 2,
+      "04": 3,
+      "05": 4,
+      "06": 5,
+      "07": 6,
+      "08": 7,
+      "09": 8,
+      "10": 9,
+      "11": 10,
+      "12": 11,
+    }
+    const [YYYY, MM, DD] = dateString.split('-');
+    let dateObject = new Date(YYYY, monthIndex[MM], DD);
+    console.log('dateObject to datestring ', dateObject.toLocaleString('en-US', {timeZone: "GMT"}));
+    return dateObject.toDateString();
+  }
+
 const ProjectForm = ({ project, formType }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -20,6 +73,8 @@ const ProjectForm = ({ project, formType }) => {
   const [endDate, setEndDate] = useState(project?.endDate);
   const [fundingGoal, setFundingGoal] = useState(project?.fundingGoal || 100);
   const [location, setLocation] = useState(project?.location);
+
+  // console.log(typeof startDate, startDate, typeof endDate, endDate)
 
   // console.log('category id', categoryId)
 
@@ -41,8 +96,8 @@ const ProjectForm = ({ project, formType }) => {
       story,
       faq,
       project_image: projectImage,
-      start_date: startDate,
-      end_date: endDate,
+      start_date: toSimpleDateString(startDate),
+      end_date: toSimpleDateString(endDate),
       funding_goal: fundingGoal,
       location
     }
@@ -73,19 +128,8 @@ const ProjectForm = ({ project, formType }) => {
     }
 
   }
-  // console.log("start:", project.startDate, "end:", project.endDate)
 
-  const formatDate = (date) => {
-    const dateObject = new Date(date);
 
-    const year = dateObject.getFullYear();
-    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
-    const day = String(dateObject.getDate()).padStart(2, "0");
-
-    let formattedDate = `${year}-${month}-${day}`;
-
-    return formattedDate;
-  }
 
   return (
     <div className="main-formpage-container">
@@ -233,8 +277,10 @@ const ProjectForm = ({ project, formType }) => {
                 <input
                   className="form-date-inputs"
                   type="date"
-                  value={formatDate(startDate)}
-                  onChange={(e) => setStartDate(e.target.value)}
+                  value={toSimpleDateString(startDate)}
+                  onChange={(e) => {
+                    setStartDate(formatStringToDate(e.target.value))
+                  }}
                 >
                 </input>
               </label>
@@ -245,8 +291,10 @@ const ProjectForm = ({ project, formType }) => {
                 <input
                   className="form-date-inputs"
                   type="date"
-                  value={formatDate(endDate)}
-                  onChange={(e) => setEndDate(e.target.value)}
+                  value={toSimpleDateString(endDate)}
+                  onChange={(e) => {
+                    setEndDate(formatStringToDate(e.target.value))
+                  }}
                 >
                 </input>
               </label>

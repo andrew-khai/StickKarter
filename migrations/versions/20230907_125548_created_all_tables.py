@@ -1,7 +1,7 @@
 """created all tables
 
 Revision ID: 6313d3453033
-Revises: 
+Revises:
 Create Date: 2023-09-07 12:55:48.060369
 
 """

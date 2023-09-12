@@ -5,7 +5,7 @@ import "./RecommendedProjects.css"
 const RecommendedProjects = ({projects}) => {
   // const [page, setPage] = useState(1)
 
-  console.log("recommnded", projects)
+  // console.log("recommnded", projects)
   return (
     <div className="main-recommended-projects-container">
       <h1 className="recommended-text">RECOMMENDED FOR YOU</h1>

@@ -1,15 +1,23 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { loadProjectsThunk } from "../../store/project"
+import { loadProjectsThunk, unloadSingleProjectThunk } from "../../store/project"
 import ProjectFeaturedItem from "../ProjectFeatured"
 import RecommendedProjects from "../RecommendedProjects"
 import "./ProjectShowContainer.css"
+import { loadCurrentUserThunk, removeCurrentUserThunk } from "../../store/user"
 
 const ProjectShowContainer = () => {
   const dispatch = useDispatch()
 
-  useEffect(() => {
+  const sessionUser = useSelector(state => state.session.user)
+
+  useEffect(async () => {
     dispatch(loadProjectsThunk());
+    await dispatch(unloadSingleProjectThunk())
+    // dispatch(removeCurrentUserThunk())
+    if (sessionUser) {
+      await dispatch(loadCurrentUserThunk())
+    }
   }, [dispatch])
 
   const projects = useSelector(state => Object.keys(state.projects.projects).map(project => {
@@ -29,8 +37,8 @@ const ProjectShowContainer = () => {
 
   return (
     <div className="projects-show-container">
-      <ProjectFeaturedItem project={projects[0]}/>
-      <RecommendedProjects projects={recommendedProjects}/>
+      <ProjectFeaturedItem project={projects[0]} />
+      <RecommendedProjects projects={recommendedProjects} />
     </div>
   )
 }
