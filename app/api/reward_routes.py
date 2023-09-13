@@ -41,7 +41,7 @@ def update_reward(id):
         db.session.commit()
         return {"reward": reward.to_dict()}
     else:
-        return {"errors": form.errors}
+        return {"errors": validation_errors_to_error_messages(form.errors)}
 
 @reward_routes.route("/<int:id>", methods=["DELETE"])
 def delete_reward(id):
