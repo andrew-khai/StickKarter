@@ -33,15 +33,15 @@ function EditRewardModal({ reward, onUpdate }) {
       <form onSubmit={handleSubmit}>
         <label>
           Reward Title:
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <input type="text" maxLength={60} value={title} onChange={(e) => setTitle(e.target.value)} />
         </label>
         <label>
           Reward Description:
-          <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+          <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
         </label>
         <label>
           Price:
-          <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+          <input type="number" min={5} value={price} onChange={(e) => setPrice(e.target.value)} />
         </label>
         <button type="submit">Update Reward</button>
       </form>

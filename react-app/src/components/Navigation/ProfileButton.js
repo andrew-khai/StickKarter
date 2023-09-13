@@ -11,6 +11,7 @@ import UserBackedProjects from "../ProfileProjects/UserBackedProjects";
 import UserCreated from "../ProfileProjects/UserCreated";
 
 function ProfileButton({ user }) {
+  // console.log(user)
   const history = useHistory()
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
@@ -26,10 +27,12 @@ function ProfileButton({ user }) {
   };
 
   useEffect(async () => {
-      await dispatch(loadCurrentUserThunk(sessionUser.id))
+    if (user) {
+      await dispatch(loadCurrentUserThunk(user.id))
       await dispatch(loadUserProjectsThunk())
       await dispatch(loadUserBackingsThunk())
-  }, [dispatch])
+    }
+  }, [dispatch, user])
 
   useEffect(() => {
     if (!showMenu) return;
@@ -90,6 +93,7 @@ function ProfileButton({ user }) {
               <ul className="backing-projects-list">
                 <UserBackedProjects
                 backed={Object.values(backings).slice(0,4)}
+                closeMenu={closeMenu}
                 />
                 <li className="project-summary-link"><NavLink onClick={closeMenu} to="/user/summary">View/Edit Projects</NavLink></li>
               </ul>
@@ -99,6 +103,7 @@ function ProfileButton({ user }) {
               <ul className="backing-projects-list">
                 <UserCreated
                 created={Object.values(projects).slice(0,4)}
+                closeMenu={closeMenu}
                 />
               </ul>
             </div>

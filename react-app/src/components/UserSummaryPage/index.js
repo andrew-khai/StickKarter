@@ -9,6 +9,7 @@ import UserBacked from "./UsersBacked";
 import UserCreated from "./UsersCreated";
 import { loadProjectsThunk } from "../../store/project";
 import UsersCreated from "./UsersCreated";
+import "./UserSummaryPage.css"
 
 const UserSummary = () => {
   const dispatch = useDispatch();
