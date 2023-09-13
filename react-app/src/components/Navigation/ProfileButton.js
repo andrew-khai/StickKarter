@@ -81,15 +81,15 @@ function ProfileButton({ user }) {
         {user ? (
           <div className="main-profile-container">
             <div className="profile-container">
-              <span>Your Account</span>
+              <div className="profile-container-headers">Your Account</div>
               <li>{user.username}</li>
               <li>{user.email}</li>
               <li>
-                <button onClick={handleLogout}>Log Out</button>
+                <button id="logout-button" onClick={handleLogout}>Log Out</button>
               </li>
             </div>
             <div className="profile-backed-projects-container">
-              <span>Backed Projects</span>
+              <div className="profile-container-headers">Backed Projects</div>
               <ul className="backing-projects-list">
                 <UserBackedProjects
                 backed={Object.values(backings).slice(0,4)}
@@ -99,7 +99,7 @@ function ProfileButton({ user }) {
               </ul>
             </div>
             <div className="profile-backed-projects-container">
-              <span>Created Projects</span>
+              <div className="profile-container-headers">Created Projects</div>
               <ul className="backing-projects-list">
                 <UserCreated
                 created={Object.values(projects).slice(0,4)}

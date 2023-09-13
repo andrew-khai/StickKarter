@@ -45,53 +45,60 @@ const UserSummary = () => {
   return (
     <>
       <div id="main-user-summary-container">
-        <div className="users-created-container">
-          <div className="users-created-header">
-            <h2>Created Projects</h2>
-            <p>{Object.keys(projects).length} project(s)</p>
+        <div id="user-summary-container">
+          <div className="users-created-container">
+            <div className="users-created-header">
+              <h2>Created Projects</h2>
+              <p>{Object.keys(projects).length} project(s)</p>
+            </div>
+            <div className="users-created-list-container">
+              <ul className="users-created-list">
+                <UsersCreated
+                  projects={projects}
+                  funded={funded}
+                />
+              </ul>
+            </div>
           </div>
-          <div className="users-created-list-container">
-            <ul className="users-created-list">
-              <UsersCreated
-              projects={projects}
-              />
-            </ul>
+          <div className="users-backed-container">
+            <div className="users-backed-header">
+              <h2>Backed Projects</h2>
+              <p>{Object.keys(backings).length} project(s)</p>
+            </div>
+            <div className="users-backed-list-container">
+              <ul className="users-backed-list">
+                <UserBacked
+                  backings={backings}
+                />
+              </ul>
+            </div>
           </div>
-        </div>
-        <div className="users-backed-container">
-          <div className="users-backed-header">
-            <h2>Backed Projects</h2>
-            <p>{Object.keys(backings).length} project(s)</p>
-          </div>
-          <div className="users-backed-list-container">
-            <ul className="users-backed-list">
-              <UserBacked
-              backings={backings}
-              />
-            </ul>
-          </div>
-        </div>
-        <div className="users-saved-container">
-          <div className="users-saved-header">
-            <h2>Saved Projects</h2>
-            <p>{user.saves?.length} project(s)</p>
-          </div>
-          <div className="users-saved-list-container">
-            <ul className="users-saved-list">
-              {user && user.saves?.length > 0 &&
-                user.saves.map(save => (
-                  <li key={save.id}>
-                    <div>
-                      <div>
-                        {save.title}
+          <div className="users-saved-container">
+            <div className="users-saved-header">
+              <h2>Saved Projects</h2>
+              <p>{user.saves?.length} project(s)</p>
+            </div>
+            <div className="users-saved-list-container">
+              <ul className="users-saved-list">
+                {user && user.saves?.length > 0 &&
+                  user.saves.map(save => (
+                    <li key={save.id}>
+                      <div className="the-project-info-container">
+                        <NavLink to={`/projects/${save.projectId}`} className="project-info-container">
+                          <img src={save.projectImage} style={{ width: "70px", height: "50px" }}></img>
+                          <div>
+                            {save.title}
+                          </div>
+                        </NavLink>
+                        <div>
+                          <button>Remove from Saved Projects</button>
+                        </div>
                       </div>
-                      <img src={save.projectImage} style={{ width: "70px", height: "50px" }}></img>
-                      <button>Remove from Saved Projects</button>
-                    </div>
-                  </li>
-                ))
-              }
-            </ul>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
           </div>
         </div>
       </div>

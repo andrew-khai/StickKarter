@@ -4,60 +4,60 @@ import { Redirect, useHistory } from "react-router-dom";
 import "./ProjectForm.css"
 import { createProjectThunk, updateProjectThunk } from "../../store/project";
 
- /**
-  *Takes in a date string in YYYY-MM-DD format and converts it into a GMT date string
-  * @method
-  * @name toSimpleDateString
-  * @param {string} date - date string
-  * @returns {string} returns GMT string format
-  */
-  const toSimpleDateString = (date) => {
-    // console.log('date', date)
-    // console.log(typeof date)
+/**
+ *Takes in a date string in YYYY-MM-DD format and converts it into a GMT date string
+ * @method
+ * @name toSimpleDateString
+ * @param {string} date - date string
+ * @returns {string} returns GMT string format
+ */
+const toSimpleDateString = (date) => {
+  // console.log('date', date)
+  // console.log(typeof date)
 
-    const dateObject = new Date(date);
-    // console.log('dateobjet', dateObject.toLocaleString('en-US', { timezone: 'GMT'}));
-    // console.log('string---', dateObject.toString())
+  const dateObject = new Date(date);
+  // console.log('dateobjet', dateObject.toLocaleString('en-US', { timezone: 'GMT'}));
+  // console.log('string---', dateObject.toString())
 
-    const year = dateObject.getFullYear();
-    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
-    const day = String(dateObject.getDate()).padStart(2, "0");
+  const year = dateObject.getFullYear();
+  const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+  const day = String(dateObject.getDate()).padStart(2, "0");
 
-    let formattedDate = `${year}-${month}-${day}`;
+  let formattedDate = `${year}-${month}-${day}`;
 
-    return formattedDate;
+  return formattedDate;
+}
+
+
+
+/**
+*Takes in a date string in YYYY-MM-DD format and converts it into a GMT date string
+* @method
+* @name formatStringToDate
+* @param {string} dateString - date string
+* @returns {string} returns GMT string format
+*/
+const formatStringToDate = (dateString) => {
+  console.log()
+  const monthIndex = {
+    "01": 0,
+    "02": 1,
+    "03": 2,
+    "04": 3,
+    "05": 4,
+    "06": 5,
+    "07": 6,
+    "08": 7,
+    "09": 8,
+    "10": 9,
+    "11": 10,
+    "12": 11,
   }
-
-
-
-  /**
-  *Takes in a date string in YYYY-MM-DD format and converts it into a GMT date string
-  * @method
-  * @name formatStringToDate
-  * @param {string} dateString - date string
-  * @returns {string} returns GMT string format
-  */
-  const formatStringToDate = (dateString) => {
-    console.log()
-    const monthIndex = {
-      "01": 0,
-      "02": 1,
-      "03": 2,
-      "04": 3,
-      "05": 4,
-      "06": 5,
-      "07": 6,
-      "08": 7,
-      "09": 8,
-      "10": 9,
-      "11": 10,
-      "12": 11,
-    }
-    const [YYYY, MM, DD] = dateString.split('-');
-    let dateObject = new Date(YYYY, monthIndex[MM], DD);
-    console.log('dateObject to datestring ', dateObject.toLocaleString('en-US', {timeZone: "GMT"}));
-    return dateObject.toDateString();
-  }
+  const [YYYY, MM, DD] = dateString.split('-');
+  let dateObject = new Date(YYYY, monthIndex[MM], DD);
+  console.log('dateObject to datestring ', dateObject.toLocaleString('en-US', { timeZone: "GMT" }));
+  return dateObject.toDateString();
+}
 
 const ProjectForm = ({ project, formType }) => {
   const dispatch = useDispatch();
@@ -207,6 +207,7 @@ const ProjectForm = ({ project, formType }) => {
                 Description
               </div>
               <textarea
+                rows="10"
                 className="form-textarea-inputs"
                 value={description}
                 placeholder="Input descritpion here"
@@ -231,6 +232,7 @@ const ProjectForm = ({ project, formType }) => {
                 Story
               </div>
               <textarea
+                rows="10"
                 className="form-textarea-inputs"
                 value={story}
                 placeholder="Input descritpion here"
@@ -244,6 +246,7 @@ const ProjectForm = ({ project, formType }) => {
                 FAQ
               </div>
               <textarea
+                rows="10"
                 className="form-textarea-inputs"
                 value={faq}
                 placeholder="Frequently Asked Questions"
@@ -288,36 +291,38 @@ const ProjectForm = ({ project, formType }) => {
             <h1 className="project-form-header">Set your initial start date and end date for your funding period as well as the funding goal</h1>
             <h2 className="project-form-explanation">These can be updated before your project launch date</h2>
             <div className="project-form-date-containers">
-              <label className="project-form-labels">
-                <div style={{ textAlign: "left" }}>
-                  Start Date
-                </div>
-                <input
-                  className="form-date-inputs"
-                  type="date"
-                  value={toSimpleDateString(startDate)}
-                  min={minStartDate}
-                  onChange={(e) => {
-                    setStartDate(formatStringToDate(e.target.value))
-                  }}
-                >
-                </input>
-              </label>
-              <label className="project-form-labels">
-                <div style={{ textAlign: "left" }}>
-                  End Date
-                </div>
-                <input
-                  className="form-date-inputs"
-                  type="date"
-                  value={toSimpleDateString(endDate)}
-                  min={startDate ? ifStartDate() : minEndDate}
-                  onChange={(e) => {
-                    setEndDate(formatStringToDate(e.target.value))
-                  }}
-                >
-                </input>
-              </label>
+              <div className="project-dates-container">
+                <label className="project-form-labels">
+                  <div style={{ textAlign: "left" }}>
+                    Start Date
+                  </div>
+                  <input
+                    className="form-date-inputs"
+                    type="date"
+                    value={toSimpleDateString(startDate)}
+                    min={minStartDate}
+                    onChange={(e) => {
+                      setStartDate(formatStringToDate(e.target.value))
+                    }}
+                  >
+                  </input>
+                </label>
+                <label className="project-form-labels">
+                  <div style={{ textAlign: "left" }}>
+                    End Date
+                  </div>
+                  <input
+                    className="form-date-inputs"
+                    type="date"
+                    value={toSimpleDateString(endDate)}
+                    min={startDate ? ifStartDate() : minEndDate}
+                    onChange={(e) => {
+                      setEndDate(formatStringToDate(e.target.value))
+                    }}
+                  >
+                  </input>
+                </label>
+              </div>
               <label className="project-form-labels">
                 <div style={{ textAlign: "left" }}>
                   Funding Goal

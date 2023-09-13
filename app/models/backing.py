@@ -30,6 +30,12 @@ class Backing(db.Model):
       "createdAt": self.created_at
     }
 
+  def to_dict_short(self):
+    return {
+      "id": self.id,
+      "amountPledged": self.amount_pledged
+    }
+
   # def to_dict_rewards(self):
   #   return {
   #     "id": self.id,

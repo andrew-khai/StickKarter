@@ -36,6 +36,11 @@
   color: black;
 }
 
+#nav-container a:hover {
+  color: green;
+  text-decoration: underline;
+}
+
 #leftside-nav {
   display: flex;
   align-items: center;
@@ -101,7 +106,33 @@
   width: 210px;
 }
 
+.profile-container,
+.profile-backed-projects-container {
+  border-right: 1px solid lightgray;
+}
+
 .profile-backed-projects-container,
 .profile-creator-projects-container {
   width: 350px;
+}
+
+.backing-projects-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+
+.profile-container-headers {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+#logout-button {
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  margin-top: 20px;
+  padding: 0px;
+  color: red;
 }
