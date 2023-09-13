@@ -5,6 +5,9 @@ import { createRewardThunk, getProjectRewardsThunk, updateRewardThunk } from "..
 import OpenModalButton from "../OpenModalButton";
 import DeleteRewardModal from "../DeleteRewardModal";
 import EditRewardModal from "../EditRewardModal";
+import { getSingleProject } from "../../store/project";
+import { Redirect } from "react-router-dom";
+import "./RewardsPage.css"
 
 const RewardsPage = () => {
   const { projectId } = useParams()
@@ -14,18 +17,26 @@ const RewardsPage = () => {
   const [price, setPrice] = useState(5);
   const [errors, setErrors] = useState({});
 
+  const sessionUser = useSelector((state) => state.session.user);
   const rewards = useSelector(state => Object.values(state.rewards?.rewards))
+  // console.log('id', sessionUser.id)
+  // console.log(rewards[0]?.creatorId)
+  const projects = useSelector(state => state.users.projects)
+  const project = projects[projectId];
+  // console.log(project)
 
   useEffect(() => {
     dispatch(getProjectRewardsThunk(projectId))
+    // dispatch(getSingleProject(projectId))
   }, [dispatch, projectId])
 
   const handleUpdate = async (updatedRewardData, updatedRewardId) => {
     console.log('making it into this call', updatedRewardData)
     await dispatch(updateRewardThunk(updatedRewardData, updatedRewardId));
     await dispatch(getProjectRewardsThunk(projectId))
-
   }
+
+
 
 
   const handleSubmit = async (e) => {
@@ -94,13 +105,18 @@ const RewardsPage = () => {
     )
   }
 
+  if (sessionUser.id !== project?.creatorId) {
+    return <Redirect to="/" />
+  }
+
   if (rewards.length < 1) {
     return (
-      <>
-        <h1>No rewards Yet</h1>
-        <h2>Add a Reward for potential backers!</h2>
+      <div className="main-rewards-container">
+        <h1>{project?.title}: Rewards</h1>
+        <h2>No rewards Yet</h2>
+        <h3>Add a Reward for potential backers!</h3>
         {addReward()}
-      </>
+      </div>
     )
   }
 
@@ -109,9 +125,10 @@ const RewardsPage = () => {
 
   // console.log(projectId)
   return (
-    <>
+    <div className="main-rewards-container">
+      <h1>{project?.title}: Rewards</h1>
       {rewards && rewards.length > 0 && rewards.map(reward => (
-        <div className="main-rewards-container" key={reward.id}>
+        <div className="mini-rewards-container" key={reward.id}>
           <div>
             Reward Title: {reward.title}
           </div>
@@ -132,7 +149,7 @@ const RewardsPage = () => {
         </div>
       ))}
       {addReward()}
-    </>
+    </div>
   )
 }
 

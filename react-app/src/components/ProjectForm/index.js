@@ -76,6 +76,10 @@ const ProjectForm = ({ project, formType }) => {
   const [fundingGoal, setFundingGoal] = useState(project?.fundingGoal || 100);
   const [location, setLocation] = useState(project?.location);
 
+  if (!sessionUser) {
+    return <Redirect to="/" />
+  }
+
   // console.log(typeof startDate, startDate, typeof endDate, endDate)
 
   // console.log('category id', categoryId)
@@ -292,7 +296,7 @@ const ProjectForm = ({ project, formType }) => {
                   className="form-date-inputs"
                   type="date"
                   value={toSimpleDateString(startDate)}
-                  min={startDate ? toSimpleDateString(startDate) : minStartDate}
+                  min={minStartDate}
                   onChange={(e) => {
                     setStartDate(formatStringToDate(e.target.value))
                   }}
