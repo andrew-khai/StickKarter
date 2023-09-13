@@ -16,6 +16,11 @@
   color: #05ce78;
 }
 
+#nav-logo:hover {
+  color: #05ce78;
+  text-decoration: none;
+}
+
 .hidden {
   display: none;
 }
@@ -34,11 +39,6 @@
 #nav-container a {
   text-decoration: none;
   color: black;
-}
-
-#nav-container a:hover {
-  color: green;
-  text-decoration: underline;
 }
 
 #leftside-nav {

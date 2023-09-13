@@ -32,7 +32,9 @@ function ProfileButton({ user }) {
       await dispatch(loadUserProjectsThunk())
       await dispatch(loadUserBackingsThunk())
     }
-  }, [dispatch, user])
+  }, [dispatch, user, loadUserProjectsThunk])
+
+  console.log('projects-------', projects)
 
   useEffect(() => {
     if (!showMenu) return;

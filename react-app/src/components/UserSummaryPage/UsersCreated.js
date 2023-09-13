@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteProjectModal from "../DeleteProjectModal";
+import { useEffect } from "react";
 
 const UsersCreated = ({ projects, funded }) => {
 
@@ -17,7 +18,7 @@ const UsersCreated = ({ projects, funded }) => {
               </div>
             </NavLink>
             <div className="total-funds">
-              {funded(project)}
+              ${funded(project).toFixed(2)}
             </div>
             <div className="created-projects-buttons-container">
               <NavLink to={`/projects/${project.id}/edit`}>Edit Project</NavLink>

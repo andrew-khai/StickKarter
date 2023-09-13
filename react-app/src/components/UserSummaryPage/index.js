@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import UserBacked from "./UsersBacked";
 import UserCreated from "./UsersCreated";
-import { loadProjectsThunk } from "../../store/project";
+import { clearStateThunk, loadProjectsThunk } from "../../store/project";
 import UsersCreated from "./UsersCreated";
 import "./UserSummaryPage.css"
 
@@ -19,6 +19,7 @@ const UserSummary = () => {
   const backings = useSelector(state => state.users.backings);
 
   useEffect(async () => {
+    await dispatch(clearStateThunk())
     await dispatch(loadCurrentUserThunk(sessionUser.id))
     await dispatch(loadUserProjectsThunk())
     await dispatch(loadUserBackingsThunk())
@@ -51,6 +52,22 @@ const UserSummary = () => {
               <h2>Created Projects</h2>
               <p>{Object.keys(projects).length} project(s)</p>
             </div>
+            <div className="section-descriptions-container">
+              <div className="section-description">
+                Keep track of your created projects
+              </div>
+            </div>
+            <div className="users-created-labels">
+              <div className="created-labels">
+                My Projects
+              </div>
+              <div className="created-labels">
+                Total Funded
+              </div>
+              <div className="created-labels">
+                Creator Controls
+              </div>
+            </div>
             <div className="users-created-list-container">
               <ul className="users-created-list">
                 <UsersCreated
@@ -65,6 +82,19 @@ const UserSummary = () => {
               <h2>Backed Projects</h2>
               <p>{Object.keys(backings).length} project(s)</p>
             </div>
+            <div className="section-descriptions-container">
+              <div className="section-description">
+                Keep track of the projects you have backed
+              </div>
+            </div>
+            <div className="users-created-labels">
+              <div className="created-labels">
+                Projects I backed
+              </div>
+              <div className="created-labels">
+                Remove Pledge
+              </div>
+            </div>
             <div className="users-backed-list-container">
               <ul className="users-backed-list">
                 <UserBacked
@@ -77,6 +107,19 @@ const UserSummary = () => {
             <div className="users-saved-header">
               <h2>Saved Projects</h2>
               <p>{user.saves?.length} project(s)</p>
+            </div>
+            <div className="section-descriptions-container">
+              <div className="section-description">
+                Your saved for later projects
+              </div>
+            </div>
+            <div className="users-created-labels">
+              <div className="created-labels">
+                Projects I saved
+              </div>
+              <div className="created-labels">
+                Remove From Saved
+              </div>
             </div>
             <div className="users-saved-list-container">
               <ul className="users-saved-list">
