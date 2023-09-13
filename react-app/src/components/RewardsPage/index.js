@@ -68,7 +68,7 @@ const RewardsPage = () => {
     return (
       <div className="rewards-form-container">
         <div>
-        {/* <ul className="errors-list">
+          {/* <ul className="errors-list">
           {errors.map((error, idx) => (
             <li className="errors" key={idx}>{error}</li>
           ))}
@@ -90,6 +90,7 @@ const RewardsPage = () => {
               Reward Description
             </div>
             <textarea
+              rows="10"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             >

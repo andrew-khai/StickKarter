@@ -2,3 +2,8 @@
 * {
   box-sizing: border-box;
 }
+
+textarea {
+  resize: none;
+  rows: 20;
+}

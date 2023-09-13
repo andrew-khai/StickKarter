@@ -56,7 +56,7 @@ function EditRewardModal({ reward, onUpdate }) {
         </label>
         <label>
           Reward Description:
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+          <textarea rows="10" value={description} onChange={(e) => setDescription(e.target.value)} />
         </label>
         <label>
           Price:

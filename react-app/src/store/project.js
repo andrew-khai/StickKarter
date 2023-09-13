@@ -1,3 +1,5 @@
+import { addUserProject, deleteUserProject } from "./user"
+
 // TYPES
 const CREATE_PROJECT = "CREATE_PROJECT"
 const GET_ALL_PROJECTS = "GET_ALL_PROJECTS"
@@ -5,8 +7,15 @@ const GET_PROJECT = "GET_PROJECT"
 const UNLOAD_PROJECT = "UNLOAD_PROJECT"
 const UPDATE_PROJECT = "UPDATE_PROJECT"
 const DELETE_PROJECT = "DELETE_PROJECT"
+const CLEAR_STATE = "CLEAR_STATE"
 
 // ACTION CREATORS
+
+export function clearState() {
+  return {
+    type: CLEAR_STATE
+  }
+}
 
 // get all projects
 export function loadProjects(projects) {
@@ -56,6 +65,10 @@ export function deleteProject(projectId) {
 }
 
 // thunk action creator
+export const clearStateThunk = () => async (dispatch) => {
+  dispatch(clearState())
+}
+
 // loads all projects
 export const loadProjectsThunk = () => async (dispatch) => {
   const res = await fetch("/api/projects")
@@ -99,7 +112,8 @@ export const createProjectThunk = (project) => async (dispatch) => {
   if (res.ok) {
     console.log("create project was OKAY")
     const data = await res.json();
-    dispatch(createProject(data.project));
+    await dispatch(createProject(data.project));
+    await dispatch(addUserProject(data.project));
     return data.project;
   } else if (res.status < 500) {
     console.log("hit this res status < 500 else if")
@@ -143,6 +157,7 @@ export const deleteProjectThunk = (projectId) => async (dispatch) => {
     method: "DELETE"
   });
   dispatch(deleteProject(projectId));
+  dispatch(deleteUserProject(projectId))
   return res;
 }
 
@@ -153,6 +168,9 @@ const initialState = {
 
 const projectsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLEAR_STATE: {
+      return {...initialState}
+    }
     case GET_ALL_PROJECTS: {
       const projectArray = action.projects.projects;
       let newState = { ...state };

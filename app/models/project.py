@@ -49,6 +49,24 @@ class Project(db.Model):
       "createdAt": self.created_at
     }
 
+  def to_dict_user(self):
+    return {
+      "id": self.id,
+      "creatorId": self.creator_id,
+      "categoryId": self.category_id,
+      "title": self.title,
+      "description": self.description,
+      "story": self.story,
+      "faq": self.faq,
+      "projectImage": self.project_image,
+      "startDate": self.start_date,
+      "endDate": self.end_date,
+      "fundingGoal": self.funding_goal,
+      "location": self.location,
+      "createdAt": self.created_at,
+      "backings": [backing.to_dict_short() for backing in self.backings],
+    }
+
   def to_dict_short(self):
     return {
       "id": self.id,

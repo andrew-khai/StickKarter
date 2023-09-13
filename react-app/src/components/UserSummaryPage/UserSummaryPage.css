@@ -1,4 +1,80 @@
 #main-user-summary-container {
   padding: 10px;
   border-top: 1px solid lightgray;
+  background-color: #f3f3f3;
+}
+
+#user-summary-container {
+  padding: 0px 50px;
+  margin: 0px auto;
+  width: 1000px;
+}
+
+.users-created-header,
+.users-backed-header,
+.users-saved-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+}
+
+.users-created-list-container,
+.users-backed-list-container,
+.users-saved-list-container {
+  background-color: white;
+  padding: 10px 20px;
+}
+
+.users-created-list,
+.users-backed-list,
+.users-saved-list {
+  padding-left: 0px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+}
+
+.the-project-info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  /* border-bottom: 1px solid lightgray;
+  border-top: 1px solid lightgray; */
+}
+
+.project-info-container {
+  display: flex;
+  column-gap: 10px;
+  width: 280px;
+}
+
+.total-funds {
+  font-size: 1.5rem
+}
+
+.section-description {
+  font-size: 1.4rem;
+  font-weight: lighter;
+  padding: 10px;
+  margin-bottom: 21px;
+}
+
+.users-created-labels {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px 0px;
+}
+
+.created-labels {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.created-projects-buttons-container {
+  display: flex;
+  align-items: center;
+  column-gap: 25px;
 }

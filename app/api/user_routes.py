@@ -23,7 +23,7 @@ def user_projects():
     projects = Project.query.filter(current_user.id == Project.creator_id).all()
     # logging.info("!!!!!!!", projects)
     # logging.info("!!!!!!", {entry["id"]: entry for entry in projects})
-    return {"projects": {entry.id: entry.to_dict() for entry in projects}}
+    return {"projects": {entry.id: entry.to_dict_user() for entry in projects}}
 
 
 @user_routes.route("/backings")
