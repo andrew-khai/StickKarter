@@ -1,5 +1,6 @@
 const UserBacked = ({ backings }) => {
   if (!backings) return null;
+
   return Object.values(backings).map(backing => (
     <li key={backing.id}>
       <div>

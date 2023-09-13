@@ -60,6 +60,7 @@ const RewardsPage = () => {
             </div>
             <input
               type="text"
+              maxLength={60}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             >
@@ -82,6 +83,7 @@ const RewardsPage = () => {
             <input
               type="number"
               value={price}
+              min={5}
               onChange={(e) => setPrice(e.target.value)}
             >
             </input>
