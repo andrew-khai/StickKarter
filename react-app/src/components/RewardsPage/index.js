@@ -15,7 +15,7 @@ const RewardsPage = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(5);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
 
   const sessionUser = useSelector((state) => state.session.user);
   const rewards = useSelector(state => Object.values(state.rewards?.rewards))
@@ -33,6 +33,9 @@ const RewardsPage = () => {
   const handleUpdate = async (updatedRewardData, updatedRewardId) => {
     console.log('making it into this call', updatedRewardData)
     await dispatch(updateRewardThunk(updatedRewardData, updatedRewardId));
+    // if (updatedReward.errors) {
+    //   setErrors(updatedReward.errors)
+    // }
     await dispatch(getProjectRewardsThunk(projectId))
   }
 
@@ -50,7 +53,7 @@ const RewardsPage = () => {
 
     const newReward = await dispatch(createRewardThunk(reward))
     if (newReward.errors) {
-      setErrors(newReward?.errors)
+      setErrors(newReward.errors)
     }
 
     setTitle("");
@@ -65,6 +68,11 @@ const RewardsPage = () => {
     return (
       <div className="rewards-form-container">
         <div>
+        {/* <ul className="errors-list">
+          {errors.map((error, idx) => (
+            <li className="errors" key={idx}>{error}</li>
+          ))}
+        </ul> */}
           <label className="reward-form-labels">
             <div>
               Reward Title
@@ -100,7 +108,7 @@ const RewardsPage = () => {
             </input>
           </label>
         </div>
-        <button onClick={handleSubmit}>Submit Reward</button>
+        <button onClick={handleSubmit} disabled={title?.length < 0 && description?.length < 0 && price < 5}>Submit Reward</button>
       </div>
     )
   }

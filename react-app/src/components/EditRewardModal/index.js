@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteRewardThunk } from "../../store/reward";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function EditRewardModal({ reward, onUpdate }) {
   const dispatch = useDispatch();
@@ -9,28 +9,47 @@ function EditRewardModal({ reward, onUpdate }) {
   const [title, setTitle] = useState(reward?.title)
   const [description, setDescription] = useState(reward?.description)
   const [price, setPrice] = useState(reward?.price)
+  const [errors, setErrors] = useState({})
 
   const sessionUser = useSelector((state) => state.session.user);
-  console.log('reward here -----', reward)
+  // console.log('reward here -----', reward)
+
+  useEffect(() => {
+    const errorsObj = {}
+    if (title.length <= 0) errorsObj.title = "Title is required"
+    if (description.length <= 0) errorsObj.description = "Description is required"
+    if (price < 5) errorsObj.price = "Price must be at least 5"
+    setErrors(errorsObj)
+  }, [title, description, price])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-   let updatedReward = {
-    project_id: reward.projectId,
-    title,
-    description,
-    price
-   }
+    let updatedReward = {
+      project_id: reward.projectId,
+      title,
+      description,
+      price
+    }
 
     onUpdate(updatedReward, reward.id)
 
     closeModal()
   }
 
+  console.log(errors)
+
   return (
     <div id="confirm-delete-container">
       <h2>Edit Reward</h2>
+      {errors.title && <p className="errors">{errors.title}</p>}
+      {errors.description && <p className="errors">{errors.description}</p>}
+      {errors.price && <p className="errors">{errors.price}</p>}
       <form onSubmit={handleSubmit}>
+        {/* <ul className="errors-list">
+          {errors.map((error, idx) => (
+            <li className="errors" key={idx}>{error}</li>
+          ))}
+        </ul> */}
         <label>
           Reward Title:
           <input type="text" maxLength={60} value={title} onChange={(e) => setTitle(e.target.value)} />

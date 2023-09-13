@@ -87,7 +87,7 @@ def create_reward(id):
         }
     else:
         return {
-            "errors": form.errors
+            "errors": validation_errors_to_error_messages(form.errors)
         }
 
 @project_routes.route("/<int:id>/rewards")
