@@ -28,6 +28,8 @@ import { createProjectThunk, updateProjectThunk } from "../../store/project";
     return formattedDate;
   }
 
+
+
   /**
   *Takes in a date string in YYYY-MM-DD format and converts it into a GMT date string
   * @method
@@ -77,11 +79,22 @@ const ProjectForm = ({ project, formType }) => {
   // console.log(typeof startDate, startDate, typeof endDate, endDate)
 
   // console.log('category id', categoryId)
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const minStartDate = tomorrow.toISOString().split("T")[0];
 
-
-  if (!sessionUser) {
-    return <Redirect to="/" />;
+  const ifStartDate = () => {
+    if (startDate) {
+      const oneDayAfterStartDate = new Date(startDate);
+      oneDayAfterStartDate.setDate(oneDayAfterStartDate.getDate() + 7);
+      const minEndDate = oneDayAfterStartDate.toISOString().split("T")[0];
+      return minEndDate;
+    }
   }
+
+
+  tomorrow.setDate(tomorrow.getDate() + 14);
+  const minEndDate = tomorrow.toISOString().split("T")[0];
 
   // console.log('project here--------- in form', project)
 
@@ -253,6 +266,7 @@ const ProjectForm = ({ project, formType }) => {
                 className="form-text-inputs"
                 type="text"
                 value={location}
+                maxLength={60}
                 placeholder="Input location here"
                 onChange={(e) => setLocation(e.target.value)}
               >
@@ -278,6 +292,7 @@ const ProjectForm = ({ project, formType }) => {
                   className="form-date-inputs"
                   type="date"
                   value={toSimpleDateString(startDate)}
+                  min={startDate ? toSimpleDateString(startDate) : minStartDate}
                   onChange={(e) => {
                     setStartDate(formatStringToDate(e.target.value))
                   }}
@@ -292,6 +307,7 @@ const ProjectForm = ({ project, formType }) => {
                   className="form-date-inputs"
                   type="date"
                   value={toSimpleDateString(endDate)}
+                  min={startDate ? ifStartDate() : minEndDate}
                   onChange={(e) => {
                     setEndDate(formatStringToDate(e.target.value))
                   }}
