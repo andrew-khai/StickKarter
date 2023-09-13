@@ -17,9 +17,13 @@ const EditProjectForm = () => {
   const project = useSelector(state => state.projects.singleProject);
   // console.log('sessionID and project creator ID cat ID', sessionUser.id, project.creatorId, project.categoryId)
 
-  if (project.creatorId === undefined) {
+  if (project?.creatorId === undefined) {
     return <div>Loading...</div>;
-  } else if (sessionUser.id !== project.creatorId) {
+  }
+  if (sessionUser?.id !== project?.creatorId) {
+    return <Redirect to="/" />
+  }
+  if (!sessionUser) {
     return <Redirect to="/" />
   }
 

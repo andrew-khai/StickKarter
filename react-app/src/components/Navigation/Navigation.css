@@ -84,6 +84,7 @@
 }
 
 #user-dropdown-container {
+  z-index: 1;
   background-color: white;
   padding: 10px;
   border: 1px solid lightgray;
