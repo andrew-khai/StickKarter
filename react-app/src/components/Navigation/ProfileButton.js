@@ -34,7 +34,7 @@ function ProfileButton({ user }) {
     }
   }, [dispatch, user, loadUserProjectsThunk])
 
-  console.log('projects-------', projects)
+  // console.log('projects-------', projects)
 
   useEffect(() => {
     if (!showMenu) return;
