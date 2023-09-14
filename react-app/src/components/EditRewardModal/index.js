@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteRewardThunk } from "../../store/reward";
 import { useEffect, useState } from "react";
+import "./EditRewardModal.css"
 
 function EditRewardModal({ reward, onUpdate }) {
   const dispatch = useDispatch();
@@ -41,28 +42,23 @@ function EditRewardModal({ reward, onUpdate }) {
   return (
     <div id="confirm-delete-container">
       <h2>Edit Reward</h2>
-      {errors.title && <p className="errors">{errors.title}</p>}
-      {errors.description && <p className="errors">{errors.description}</p>}
-      {errors.price && <p className="errors">{errors.price}</p>}
       <form onSubmit={handleSubmit}>
-        {/* <ul className="errors-list">
-          {errors.map((error, idx) => (
-            <li className="errors" key={idx}>{error}</li>
-          ))}
-        </ul> */}
-        <label>
+        <label className="edit-rewards-labels">
           Reward Title:
           <input type="text" maxLength={60} value={title} onChange={(e) => setTitle(e.target.value)} />
         </label>
-        <label>
+          {errors.title && <p  className="errors">{errors.title}</p>}
+        <label className="edit-rewards-labels">
           Reward Description:
           <textarea rows="10" value={description} onChange={(e) => setDescription(e.target.value)} />
         </label>
-        <label>
+          {errors.description && <p className="errors">{errors.description}</p>}
+        <label className="edit-rewards-labels">
           Price:
           <input type="number" min={5} value={price} onChange={(e) => setPrice(e.target.value)} />
         </label>
-        <button type="submit">Update Reward</button>
+          {errors.price && <p className="errors">{errors.price}</p>}
+        <button id="update-reward-button" type="submit">Update Reward</button>
       </form>
     </div>
   )

@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteProjectThunk } from "../../store/project";
 import { removeUserProjectThunk } from "../../store/user";
+import "./DeleteProjectModal.css"
 
 function DeleteProjectModal ({project}) {
   const dispatch = useDispatch();

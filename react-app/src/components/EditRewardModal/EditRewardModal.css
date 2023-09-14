@@ -1,0 +1,19 @@
+.edit-rewards-labels {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+#update-reward-button {
+  padding: 10px;
+  background-color: #028858;
+  color: white;
+  cursor: pointer;
+  border: none;
+  margin: 10px 95px;
+}
+
+#update-reward-button:hover {
+  background-color: #015738;
+  text-align: center;
+}

@@ -24,6 +24,7 @@
 .users-saved-list-container {
   background-color: white;
   padding: 10px 20px;
+  border: 1px solid lightgray;
 }
 
 .users-created-list,

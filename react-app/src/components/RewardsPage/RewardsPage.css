@@ -1,4 +1,88 @@
 .main-rewards-container {
   padding: 10px;
   border-top: 1px solid lightgray;
+  background-color: #f3f3f3;
+  border: 1px solid lightgray;
+}
+
+.main-rewards-container>h1 {
+  text-align: center;
+}
+
+.rewards-container-div {
+  max-width: 800px;
+  margin: 0px auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  background-color: white;
+  padding: 10px 20px;
+}
+
+.rewards-form-container {
+  max-width: 300px;
+  margin: 0px auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.reward-form-labels {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.rewards-form-container > h2 {
+  text-align: center;
+}
+
+.reward-form-inputs {
+  width: 100%;
+}
+
+.submit-reward-button {
+  padding: 10px;
+  background-color: #028858;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.submit-reward-button:hover {
+  background-color: #015738;
+}
+
+.mini-rewards-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.mini-rewards-container button {
+  padding: 10px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.mini-rewards-container button:nth-child(1) {
+  background-color: #028858;
+}
+
+.mini-rewards-container button:nth-child(2) {
+  background-color: red;
+}
+
+.mini-rewards-container button:nth-child(1):hover {
+  background-color: #015738;
+}
+.mini-rewards-container button:nth-child(2):hover {
+  background-color: rgb(140, 9, 9);
+}
+
+.rewards-buttons-container {
+  display: flex;
+  column-gap: 10px;
 }
