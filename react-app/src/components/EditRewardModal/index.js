@@ -26,13 +26,14 @@ function EditRewardModal({ reward, onUpdate }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     let updatedReward = {
+      id: reward.id,
       project_id: reward.projectId,
       title,
       description,
       price
     }
 
-    onUpdate(updatedReward, reward.id)
+    onUpdate(updatedReward)
 
     closeModal()
   }
