@@ -16,6 +16,7 @@ const RewardsPage = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(5);
   const [errors, setErrors] = useState([]);
+  const [rewardsAreLoading, setRewardsAreLoading] = useState(true);
 
   const sessionUser = useSelector((state) => state.session.user);
   const rewards = useSelector(state => Object.values(state.rewards?.rewards))
@@ -25,14 +26,14 @@ const RewardsPage = () => {
   const project = projects[projectId];
   // console.log(project)
 
-  useEffect(() => {
-    dispatch(getProjectRewardsThunk(projectId))
-    // dispatch(getSingleProject(projectId))
+  useEffect(async () => {
+    await dispatch(getProjectRewardsThunk(projectId));
+    await dispatch(getSingleProject(projectId))
   }, [dispatch, projectId])
 
-  const handleUpdate = async (updatedRewardData, updatedRewardId) => {
+  const handleUpdate = async (updatedRewardData) => {
     console.log('making it into this call', updatedRewardData)
-    await dispatch(updateRewardThunk(updatedRewardData, updatedRewardId));
+    await dispatch(updateRewardThunk(updatedRewardData));
     // if (updatedReward.errors) {
     //   setErrors(updatedReward.errors)
     // }
@@ -118,11 +119,11 @@ const RewardsPage = () => {
     )
   }
 
-  if (sessionUser.id !== project?.creatorId) {
+  if (project && sessionUser.id !== project?.creatorId) {
     return <Redirect to="/" />
   }
 
-  if (rewards.length < 1) {
+  if (project && rewards.length < 1) {
     return (
       <div className="main-rewards-container">
         <h1>{project?.title}: Rewards</h1>
@@ -137,6 +138,7 @@ const RewardsPage = () => {
 
 
   // console.log(projectId)
+
   return (
     <div className="main-rewards-container">
       <h1>{project?.title}: Rewards</h1>

@@ -17,11 +17,10 @@ export function createReward(reward) {
   }
 }
 
-export function updateReward(reward, rewardId) {
+export function updateReward(reward) {
   return {
     type: UPDATE_REWARD,
-    reward,
-    rewardId
+    reward
   }
 }
 
@@ -37,7 +36,7 @@ export const getProjectRewardsThunk = (projectId) => async (dispatch) => {
 
   if (res.ok) {
     const rewards = await res.json();
-    dispatch(getProjectRewards(rewards))
+    await dispatch(getProjectRewards(rewards))
     return rewards;
   }
   else {
@@ -67,9 +66,9 @@ export const createRewardThunk = (reward) => async (dispatch) => {
   }
 }
 
-export const updateRewardThunk = (reward, rewardId) => async (dispatch) => {
-  console.log('making it into update Thunk', reward, 'id', rewardId)
-  const res = await fetch(`/api/rewards/${rewardId}`, {
+export const updateRewardThunk = (reward) => async (dispatch) => {
+  // console.log('making it into update Thunk', reward, 'id', rewardId)
+  const res = await fetch(`/api/rewards/${reward.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
@@ -79,7 +78,7 @@ export const updateRewardThunk = (reward, rewardId) => async (dispatch) => {
 
   if (res.ok) {
     const updatedReward = await res.json();
-    dispatch(updateReward(updatedReward, updatedReward.id))
+    dispatch(updateReward(updatedReward))
   }
   else {
     const errors = await res.json();
@@ -113,7 +112,10 @@ const rewardsReducer = (state = initialState, action) => {
     }
     case UPDATE_REWARD: {
       let newState = {...state};
-      newState.rewards[action.rewardId] = action.reward;
+      // console.log('action------', action.reward.reward)
+      // console.log('newstate update reward---', newState)
+      newState.rewards[action.reward.reward.id] = action.reward.reward;
+      // console.log('newstate after key----', newState)
       return newState;
     }
     case DELETE_REWARD: {
