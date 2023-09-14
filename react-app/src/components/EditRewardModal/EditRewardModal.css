@@ -13,6 +13,16 @@
   margin: 10px 95px;
 }
 
+#update-reward-button:disabled {
+  background-color: #64877b;
+  cursor: not-allowed;
+}
+
+#update-reward-button:disabled:hover {
+  background-color: #64877b;
+  cursor: not-allowed;
+}
+
 #update-reward-button:hover {
   background-color: #015738;
   text-align: center;

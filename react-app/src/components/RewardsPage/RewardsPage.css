@@ -50,6 +50,17 @@
   margin-bottom: 20px;
 }
 
+
+.submit-reward-button:disabled {
+  background-color: #64877b;
+  cursor: not-allowed;
+}
+
+.submit-reward-button:disabled:hover {
+  background-color: #64877b;
+  cursor: not-allowed;
+}
+
 .submit-reward-button:hover {
   background-color: #015738;
 }

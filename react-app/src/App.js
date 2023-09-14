@@ -64,7 +64,7 @@ function App() {
           </Route>
         </Switch>
       )}
-      <FooterNav />
+      {/* <FooterNav /> */}
     </>
   );
 }

@@ -58,7 +58,7 @@ function EditRewardModal({ reward, onUpdate }) {
           <input type="number" min={5} value={price} onChange={(e) => setPrice(e.target.value)} />
         </label>
           {errors.price && <p className="errors">{errors.price}</p>}
-        <button id="update-reward-button" type="submit">Update Reward</button>
+        <button disabled={!title || !description}  id="update-reward-button" type="submit">Update Reward</button>
       </form>
     </div>
   )
