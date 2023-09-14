@@ -67,7 +67,10 @@ function ProfileButton({ user }) {
   return (
     <div id="rightside-nav">
       <div id='navigation-search'>
-        <button id="search-button" onClick={() => alert("Feature coming soon!")}>
+        <button
+        id="search-button"
+        // onClick={() => alert("Feature coming soon!")}
+        >
           Search
           <span><i class="fa-solid fa-magnifying-glass"></i></span>
         </button>

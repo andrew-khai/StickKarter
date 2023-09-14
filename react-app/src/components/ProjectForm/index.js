@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect, useHistory } from "react-router-dom";
 import "./ProjectForm.css"
@@ -59,6 +59,13 @@ const formatStringToDate = (dateString) => {
   return dateObject.toDateString();
 }
 
+const getDateTime = (date) => {
+  const dateString = new Date(date).toDateString()
+  const dateObj = new Date(dateString).getTime()
+
+  return dateObj;
+}
+
 const ProjectForm = ({ project, formType }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -76,9 +83,23 @@ const ProjectForm = ({ project, formType }) => {
   const [fundingGoal, setFundingGoal] = useState(project?.fundingGoal || 100);
   const [location, setLocation] = useState(project?.location);
 
+  useEffect(() => {
+    const errorsObj = {};
+    // if (getDateTime(startDate) > getDateTime(endDate)) errorsObj.startDate = "End Date cannot be before Start Date"
+    if (getDateTime(startDate) > getDateTime(endDate)) errorsObj.endDate = "End Date cannot be before Start Date";
+    else if (getDateTime(endDate) - getDateTime(startDate) < 7 * 24 * 60 * 60 * 1000) errorsObj.endDate = "End Date must be at least 1 week from Start Date";
+
+    const today = new Date()
+    if (getDateTime(startDate) < getDateTime(today)) errorsObj.startDate = "Start Date cannot be in the past"
+
+    setErrors(errorsObj);
+
+  }, [startDate, endDate])
+
   if (!sessionUser) {
     return <Redirect to="/" />
   }
+
 
   // console.log(typeof startDate, startDate, typeof endDate, endDate)
 
@@ -101,6 +122,7 @@ const ProjectForm = ({ project, formType }) => {
   const minEndDate = tomorrow.toISOString().split("T")[0];
 
   // console.log('project here--------- in form', project)
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -323,6 +345,8 @@ const ProjectForm = ({ project, formType }) => {
                   </input>
                 </label>
               </div>
+              {errors.startDate && <p className="errors">{errors.startDate}</p>}
+              {errors.endDate && <p className="errors">{errors.endDate}</p>}
               <label className="project-form-labels">
                 <div style={{ textAlign: "left" }}>
                   Funding Goal
@@ -331,6 +355,7 @@ const ProjectForm = ({ project, formType }) => {
                   className="form-funds-input"
                   type="number"
                   value={fundingGoal}
+                  min={100}
                   onChange={(e) => setFundingGoal(e.target.value)}
                 >
                 </input>

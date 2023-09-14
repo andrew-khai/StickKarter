@@ -113,7 +113,7 @@ const RewardsPage = () => {
             </input>
           </label>
         </div>
-        <button className="submit-reward-button" onClick={handleSubmit} disabled={title?.length < 0 && description?.length < 0 && price < 5}>Submit Reward</button>
+        <button disabled={!title || !description} className="submit-reward-button" onClick={handleSubmit}>Submit Reward</button>
       </div>
     )
   }
