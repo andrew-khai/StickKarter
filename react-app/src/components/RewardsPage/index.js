@@ -67,17 +67,19 @@ const RewardsPage = () => {
   const addReward = () => {
     return (
       <div className="rewards-form-container">
-        <div>
+        <h2>Add Reward</h2>
+        <div className="rewards-form">
           {/* <ul className="errors-list">
           {errors.map((error, idx) => (
             <li className="errors" key={idx}>{error}</li>
           ))}
-        </ul> */}
+          </ul> */}
           <label className="reward-form-labels">
             <div>
               Reward Title
             </div>
             <input
+              className="reward-form-inputs"
               type="text"
               maxLength={60}
               value={title}
@@ -90,7 +92,8 @@ const RewardsPage = () => {
               Reward Description
             </div>
             <textarea
-              rows="10"
+              className="reward-form-inputs"
+              rows="5"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             >
@@ -101,6 +104,7 @@ const RewardsPage = () => {
               Reward Price
             </div>
             <input
+              className="reward-form-inputs"
               type="number"
               value={price}
               min={5}
@@ -109,7 +113,7 @@ const RewardsPage = () => {
             </input>
           </label>
         </div>
-        <button onClick={handleSubmit} disabled={title?.length < 0 && description?.length < 0 && price < 5}>Submit Reward</button>
+        <button className="submit-reward-button" onClick={handleSubmit} disabled={title?.length < 0 && description?.length < 0 && price < 5}>Submit Reward</button>
       </div>
     )
   }
@@ -136,27 +140,31 @@ const RewardsPage = () => {
   return (
     <div className="main-rewards-container">
       <h1>{project?.title}: Rewards</h1>
-      {rewards && rewards.length > 0 && rewards.map(reward => (
-        <div className="mini-rewards-container" key={reward.id}>
-          <div>
-            Reward Title: {reward.title}
+      <div className="rewards-container-div">
+        {rewards && rewards.length > 0 && rewards.map(reward => (
+          <div className="mini-rewards-container" key={reward.id}>
+            <div className="rewards-information">
+              Reward Title: {reward.title}
+            </div>
+            <div className="rewards-information">
+              Reward Description: {reward.description}
+            </div>
+            <div className="rewards-information">
+              Price: {reward.price}
+            </div>
+            <div className="rewards-buttons-container">
+              <OpenModalButton
+                buttonText={"Edit Reward"}
+                modalComponent={<EditRewardModal reward={reward} onUpdate={handleUpdate} />}
+              />
+              <OpenModalButton
+                buttonText={"Delete Reward"}
+                modalComponent={<DeleteRewardModal reward={reward} />}
+              />
+            </div>
           </div>
-          <div>
-            Reward Description: {reward.description}
-          </div>
-          <div>
-            Price: {reward.price}
-          </div>
-          <OpenModalButton
-            buttonText={"Edit Reward"}
-            modalComponent={<EditRewardModal reward={reward} onUpdate={handleUpdate} />}
-          />
-          <OpenModalButton
-            buttonText={"Delete Reward"}
-            modalComponent={<DeleteRewardModal reward={reward} />}
-          />
-        </div>
-      ))}
+        ))}
+      </div>
       {addReward()}
     </div>
   )

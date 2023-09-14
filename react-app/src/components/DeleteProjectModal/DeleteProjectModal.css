@@ -1,0 +1,43 @@
+#modal-content {
+  border-radius: 20px;
+}
+
+#confirm-delete-container {
+  padding: 20px;
+  width: 350px;
+  border-radius: 10px;
+}
+
+#confirm-delete-container h2 {
+  text-align: center;
+}
+
+#confirm-delete-buttons-container {
+  display: flex;
+  column-gap: 10px;
+  justify-content: center;
+}
+
+#yes-button {
+  padding: 10px;
+  background-color: #028858;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+#yes-button:hover {
+  background-color: #015738;
+}
+
+#no-button:hover {
+  background-color: rgb(140, 9, 9);
+}
+
+#no-button {
+  padding: 10px;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
