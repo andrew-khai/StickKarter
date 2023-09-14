@@ -20,10 +20,10 @@ const UserSummary = () => {
   const backings = useSelector(state => state.users.backings);
 
   useEffect(async () => {
+    await dispatch(clearStateThunk())
     await dispatch(loadCurrentUserThunk(sessionUser.id))
     await dispatch(loadUserProjectsThunk())
     await dispatch(loadUserBackingsThunk())
-    // await dispatch(clearStateThunk())
   }, [dispatch])
 
   const user = useSelector((state) => state.users.currentUser)
