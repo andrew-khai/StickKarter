@@ -104,7 +104,7 @@ function ProfileButton({ user }) {
               <div className="profile-container-headers">Created Projects</div>
               <ul className="backing-projects-list">
                 <UserCreated
-                created={Object.values(projects).slice(0,4)}
+                created={Object.values(projects)?.slice(0,4)}
                 closeMenu={closeMenu}
                 />
               </ul>

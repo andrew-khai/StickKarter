@@ -9,7 +9,7 @@ function DeleteProjectModal ({project}) {
   const handleDelete = (e) => {
     e.preventDefault();
     dispatch(deleteProjectThunk(project.id))
-    // dispatch(removeUserProjectThunk(project.id))
+    dispatch(removeUserProjectThunk(project.id))
 
     closeModal()
   }

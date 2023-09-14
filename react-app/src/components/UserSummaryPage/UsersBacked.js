@@ -8,12 +8,12 @@ const UserBacked = ({ backings }) => {
       <div className="the-project-info-container">
         <NavLink to={`/projects/${backing.project.id}`} className="project-info-container">
           <img src={backing.project.projectImage} style={{ width: "70px", height: "50px" }}></img>
-          <div>
+          <div style={{width: "250px"}}>
             {backing.project.title}
           </div>
         </NavLink>
         <div>
-          <button>Remove Pledge</button>
+          <button className="remove-buttons">Remove Pledge</button>
         </div>
       </div>
     </li>

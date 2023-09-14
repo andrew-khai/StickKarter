@@ -10,6 +10,7 @@ import UserCreated from "./UsersCreated";
 import { clearStateThunk, loadProjectsThunk } from "../../store/project";
 import UsersCreated from "./UsersCreated";
 import "./UserSummaryPage.css"
+import { Redirect } from "react-router-dom";
 
 const UserSummary = () => {
   const dispatch = useDispatch();
@@ -19,10 +20,10 @@ const UserSummary = () => {
   const backings = useSelector(state => state.users.backings);
 
   useEffect(async () => {
-    await dispatch(clearStateThunk())
     await dispatch(loadCurrentUserThunk(sessionUser.id))
     await dispatch(loadUserProjectsThunk())
     await dispatch(loadUserBackingsThunk())
+    // await dispatch(clearStateThunk())
   }, [dispatch])
 
   const user = useSelector((state) => state.users.currentUser)
@@ -30,7 +31,7 @@ const UserSummary = () => {
   //   console.log(user)
   // }
   if (!user) {
-    return null;
+    return <Redirect to="/" />
   }
 
   const funded = (project) => {
@@ -129,12 +130,12 @@ const UserSummary = () => {
                       <div className="the-project-info-container">
                         <NavLink to={`/projects/${save.projectId}`} className="project-info-container">
                           <img src={save.projectImage} style={{ width: "70px", height: "50px" }}></img>
-                          <div>
+                          <div style={{width: "250px"}}>
                             {save.title}
                           </div>
                         </NavLink>
                         <div>
-                          <button>Remove from Saved Projects</button>
+                          <button className="remove-saved-button">Remove from Saved Projects</button>
                         </div>
                       </div>
                     </li>
