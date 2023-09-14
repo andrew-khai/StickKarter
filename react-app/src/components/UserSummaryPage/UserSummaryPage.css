@@ -49,6 +49,14 @@
   display: flex;
   column-gap: 10px;
   width: 280px;
+  text-decoration: none;
+  color: black;
+  font-size: 1.1rem;
+}
+
+.project-info-container:hover {
+  color: #034752;
+  text-decoration: underline;
 }
 
 .total-funds {
@@ -77,4 +85,49 @@
   display: flex;
   align-items: center;
   column-gap: 25px;
+}
+
+.creator-edit-buttons {
+  padding: 10px;
+  background-color: #028858;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.creator-edit-buttons:hover {
+  background-color: #015738;
+}
+
+.created-projects-buttons-container button:nth-child(3) {
+  padding: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.remove-buttons {
+  padding: 10px;
+  margin-right: 135px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.remove-saved-button {
+  padding: 10px;
+  margin-right: 105px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.remove-buttons:hover,
+.remove-saved-button:hover,
+.created-projects-buttons-container button:nth-child(3):hover {
+  background-color: rgb(140, 9, 9);
 }

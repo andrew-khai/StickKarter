@@ -1,4 +1,4 @@
-import { addUserProject, deleteUserProject } from "./user"
+import { addUserProject, deleteUserProject, updateUserProject } from "./user"
 
 // TYPES
 const CREATE_PROJECT = "CREATE_PROJECT"
@@ -141,7 +141,8 @@ export const updateProjectThunk = (project, projectId) => async (dispatch) => {
   if (res.ok) {
     // console.log('its in the update thunk ok ----')
     const updatedProject = await res.json();
-    dispatch(updateProject(updatedProject, updatedProject.id));
+    await dispatch(updateProject(updatedProject, updatedProject.id));
+    // await dispatch(updateUserProject(updatedProject, updatedProject.id));
     return updatedProject;
   }
   else {

@@ -6,6 +6,7 @@ const DELETE_USER_PROJECT = "DELETE_USER_PROJECT";
 const GET_USER_BACKINGS = "GET_USER_BACKINGS";
 const GET_USER_PROJECTS = "GET_USER_PROJECTS";
 const ADD_USER_PROJECT = "ADD_USER_PROJECT";
+const UPDATE_USER_PROJECT = "UPDATE_USER_PROJECT";
 
 // Action Creators
 
@@ -15,6 +16,14 @@ export function addUserProject(project) {
   return {
     type: ADD_USER_PROJECT,
     project
+  }
+}
+
+export function updateUserProject(project, projectId) {
+  return {
+    type: UPDATE_USER_PROJECT,
+    project,
+    projectId
   }
 }
 
@@ -55,14 +64,14 @@ export function deleteUserProject(projectId) {
 
 // Thunks
 
-// export const removeUserProjectThunk = (projectId) => async (dispatch) => {
-//   const res = await fetch(`/api/project/${projectId}`, {
-//     method: "DELETE"
-//   })
-//   dispatch(deleteUserProject(projectId))
-//   dispatch(loadUserProjectsThunk())
-//   return res;
-// }
+export const removeUserProjectThunk = (projectId) => async (dispatch) => {
+  const res = await fetch(`/api/project/${projectId}`, {
+    method: "DELETE"
+  })
+  dispatch(deleteUserProject(projectId))
+  dispatch(loadUserProjectsThunk())
+  return res;
+}
 
 export const loadUserProjectsThunk = () => async (dispatch) => {
   const res = await fetch(`/api/users/projects`)
@@ -123,9 +132,13 @@ const usersReducer = (state = initialState, action) => {
     case ADD_USER_PROJECT: {
       let newState = {...state};
       newState.projects[action.project.id] = action.project;
-      console.log('action', action)
-      console.log('newstate', newState)
+      // console.log('action', action)
+      // console.log('newstate', newState)
       return newState;
+    }
+    case UPDATE_USER_PROJECT: {
+      let newState = { ...state };
+      newState.projects[action.projectId] = action.project;
     }
     case GET_USER_PROJECTS: {
       let newState = {...state};
