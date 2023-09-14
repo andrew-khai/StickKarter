@@ -128,7 +128,6 @@
 }
 
 .remove-buttons:hover,
-.remove-saved-button:hover,
 .created-projects-buttons-container button:nth-child(3):hover {
   background-color: rgb(140, 9, 9);
 }

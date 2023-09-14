@@ -15,6 +15,7 @@ import SingleProjectShow from "./components/SingleProjectShow";
 import EditProjectForm from "./components/ProjectForm/UpdateProject";
 import UserSummary from "./components/UserSummaryPage";
 import RewardsPage from "./components/RewardsPage";
+import SplashPage from "./components/SplashPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ function App() {
             <SingleProjectShow />
           </Route>
           <Route exact path="/tester">
-            <Tester />
+            <SplashPage />
           </Route>
           <Route>
             <h1> PAGE NOT FOUND </h1>
