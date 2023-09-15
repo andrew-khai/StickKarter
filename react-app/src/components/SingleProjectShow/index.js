@@ -18,12 +18,12 @@ const SingleProjectShow = () => {
   const [isBacker, setIsBacker] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
   const [pledge, setPledge] = useState(5);
-  const [singleProjectId, setSingleSpotId] = useState(projectId);
+  // const [singleProjectId, setSingleSpotId] = useState(projectId);
 
 
 
-  useEffect(() => {
-    dispatch(loadSingleProjectThunk(projectId))
+  useEffect(async () => {
+    await dispatch(loadSingleProjectThunk(projectId))
   }, [dispatch, projectId])
 
   const sessionUser = useSelector((state) => state.session.user);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadCurrentUserThunk, loadUserBackingsThunk, loadUserProjectsThunk } from "../../store/user";
+import { deleteUserBackingThunk, loadCurrentUserThunk, loadUserBackingsThunk, loadUserProjectsThunk } from "../../store/user";
 import OpenModalButton from "../OpenModalButton";
 import DeleteProjectModal from "../DeleteProjectModal";
 import { useHistory } from "react-router-dom";
@@ -98,9 +98,18 @@ const UserSummary = () => {
             </div>
             <div className="users-backed-list-container">
               <ul className="users-backed-list">
-                <UserBacked
+                {Object.values(backings).length > 0 ?
+                Object.values(backings).map(backing => (
+                  <UserBacked
+                  backing={backing}
+                  />
+                ))
+                :
+                <div>No Pledges Yet</div>
+              }
+                {/* <UserBacked
                   backings={backings}
-                />
+                /> */}
               </ul>
             </div>
           </div>

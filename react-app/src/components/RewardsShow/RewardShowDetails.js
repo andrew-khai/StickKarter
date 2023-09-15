@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { createBackingThunk } from "../../store/project";
+import { createBackingThunk, loadSingleProjectThunk } from "../../store/project";
 
 const RewardShowDetails = ({ user, reward, project }) => {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ const RewardShowDetails = ({ user, reward, project }) => {
     }
 
     await dispatch(createBackingThunk(newPledge))
+    await dispatch(loadSingleProjectThunk(project.id))
   }
 
   return (
