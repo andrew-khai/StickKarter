@@ -28,3 +28,8 @@ class Reward(db.Model):
       "createdAt": self.created_at,
       "creatorId": self.project.creator_id
     }
+
+  def to_dict_title(self):
+    return {
+      "title": self.title
+    }

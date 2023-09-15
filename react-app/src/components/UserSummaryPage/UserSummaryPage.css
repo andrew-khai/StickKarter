@@ -111,7 +111,7 @@
 
 .remove-buttons {
   padding: 10px;
-  margin-right: 135px;
+  margin-right: 70px;
   background-color: red;
   color: white;
   border: none;
@@ -130,4 +130,8 @@
 .remove-buttons:hover,
 .created-projects-buttons-container button:nth-child(3):hover {
   background-color: rgb(140, 9, 9);
+}
+
+.backing-rewards {
+  margin-right: 75px;
 }

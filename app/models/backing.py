@@ -20,15 +20,27 @@ class Backing(db.Model):
   reward = db.relationship("Reward", back_populates="backing")
 
   def to_dict(self):
-    return {
-      "id": self.id,
-      "userId": self.user_id,
-      "projectId": self.project_id,
-      "project": self.project.to_dict_short(),
-      "rewardId": self.reward_id,
-      "amountPledged": self.amount_pledged,
-      "createdAt": self.created_at
-    }
+    if self.reward:
+      return {
+        "id": self.id,
+        "userId": self.user_id,
+        "projectId": self.project_id,
+        "project": self.project.to_dict_short(),
+        "rewardId": self.reward_id,
+        "amountPledged": self.amount_pledged,
+        "createdAt": self.created_at,
+        "reward": self.reward.to_dict_title()
+      }
+    else:
+      return {
+        "id": self.id,
+        "userId": self.user_id,
+        "projectId": self.project_id,
+        "project": self.project.to_dict_short(),
+        "rewardId": self.reward_id,
+        "amountPledged": self.amount_pledged,
+        "createdAt": self.created_at
+      }
 
   def to_dict_short(self):
     return {
