@@ -18,17 +18,34 @@ const SingleProjectShow = () => {
   const [isBacker, setIsBacker] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
   const [pledge, setPledge] = useState(5);
+  const [showStory, setShowStory] = useState(true);
+  const [showFaq, setShowFaq] = useState(false);
+  const [errors, setErrors] = useState({});
   // const [singleProjectId, setSingleSpotId] = useState(projectId);
 
+  const toggleStory = () => {
+    setShowStory(true);
+    setShowFaq(false);
+  }
 
+  const toggleFaq = () => {
+    setShowFaq(true);
+    setShowStory(false);
+  }
+
+  // useEffect(() => {
+  //   const errorsObj = {}
+  //   if (sessionUser.id == project.creatorId) errorsObj.user = "Cannot back your own project"
+  //   setErrors(errorsObj)
+  // }, [sessionUser])
 
   useEffect(async () => {
     await dispatch(loadSingleProjectThunk(projectId))
   }, [dispatch, projectId])
-
   const sessionUser = useSelector((state) => state.session.user);
 
   const project = useSelector((state) => state.projects.singleProject);
+
   // console.log('project ------', project)
 
   if (!project || !project.id) {
@@ -216,8 +233,8 @@ const SingleProjectShow = () => {
         <>
           <nav className="single-project-dropdown-container">
             <div className="story-rewards-div">
-              <div className="dropdown-story">Story</div>
-              <div className="dropdown-faq">FAQ</div>
+              <div onClick={toggleStory} id="dropdown-story" className={showStory ? "button-active" : "button-inactive"}>Story</div>
+              <div onClick={toggleFaq} id="dropdown-faq" className={showFaq ? "button-active" : "button-inactive"}>FAQ</div>
             </div>
             <div className="back-save-button-container">
               {sessionUser && sessionUser.id !== project.creatorId &&
@@ -231,6 +248,7 @@ const SingleProjectShow = () => {
             </div>
           </nav>
           <div className="dropdown-information-container">
+            {showStory &&
             <div className="dropdown-story-div">
               <h2 className="dropdown-story-header">
                 Story
@@ -239,6 +257,17 @@ const SingleProjectShow = () => {
                 {project?.story}
               </div>
             </div>
+            }
+            {showFaq &&
+            <div className="dropdown-story-div">
+              <h2 className="dropdown-story-header">
+                FAQ
+              </h2>
+              <div className="dropdown-story">
+                {project?.faq}
+              </div>
+            </div>
+            }
             <div className="creator-rewards-container">
               <div className="creator-container">
                 <div className="creator-username">
@@ -271,6 +300,9 @@ const SingleProjectShow = () => {
                       >
                       </input>
                     </div>
+                    {/* {errors.user &&
+                    <p className="errors">{errors.user}</p>
+                    } */}
                     <button onClick={handleSubmit} disabled={!sessionUser || sessionUser.id === project.creatorId || pledge < 5} className="pledge-button">Pledge</button>
                   </div>
                 </div>
