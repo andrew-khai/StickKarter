@@ -3,7 +3,7 @@ import "./FooterNav.css"
 
 function FooterNav() {
   return (
-    <div id="footer-nav-container">
+    <footer id="footer-nav-container">
       <NavLink to="">
         Arts
       </NavLink>
@@ -28,7 +28,7 @@ function FooterNav() {
       <NavLink to="">
         Publishing
       </NavLink>
-    </div>
+    </footer>
   )
 }
 

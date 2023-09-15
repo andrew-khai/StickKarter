@@ -5,7 +5,9 @@
   padding: 10px 90px;
   border-bottom: 1px solid lightgray;
   border-top: 1px solid lightgray;
-  position: relative;
+  position: fixed;
+  left: 0;
+  bottom: 0;
   width: 100%;
 }
 
@@ -16,7 +18,7 @@
   line-height: 2.4rem;
 }
 
-#footer-nav-container a:hover {
+/* #footer-nav-container a:hover {
   color: #034752;
   text-decoration: underline;
-}
+} */

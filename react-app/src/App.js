@@ -27,6 +27,7 @@ function App() {
 
   return (
     <>
+    <div id="body-container">
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
@@ -57,14 +58,18 @@ function App() {
           <Route exact path="/projects/:projectId">
             <SingleProjectShow />
           </Route>
-          <Route exact path="/tester">
+          {/* <Route exact path="/tester">
             <SplashPage />
-          </Route>
+          </Route> */}
+          {/* <Route exact path="/discover">
+            <h1>hello</h1>
+          </Route> */}
           <Route>
             <h1> PAGE NOT FOUND </h1>
           </Route>
         </Switch>
       )}
+    </div>
       {/* <FooterNav /> */}
     </>
   );

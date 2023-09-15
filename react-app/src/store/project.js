@@ -8,6 +8,7 @@ const UNLOAD_PROJECT = "UNLOAD_PROJECT"
 const UPDATE_PROJECT = "UPDATE_PROJECT"
 const DELETE_PROJECT = "DELETE_PROJECT"
 const CLEAR_STATE = "CLEAR_STATE"
+// const CREATE_BACKING = "CREATE_BACKING"
 
 // ACTION CREATORS
 
@@ -64,6 +65,13 @@ export function deleteProject(projectId) {
   }
 }
 
+// export function createBacking(backing) {
+//   return {
+//     type: CREATE_BACKING,
+//     backing
+//   }
+// }
+
 // thunk action creator
 export const clearStateThunk = () => async (dispatch) => {
   dispatch(clearState())
@@ -102,7 +110,7 @@ export const unloadSingleProjectThunk = () => async (dispatch) => {
 
 // creates a project
 export const createProjectThunk = (project) => async (dispatch) => {
-  console.log('it is making it into the thunk')
+  // console.log('it is making it into the thunk')
   const res = await fetch("/api/projects/new", {
     method: "POST",
     headers: { "Content-Type": "application/json"},
@@ -110,19 +118,20 @@ export const createProjectThunk = (project) => async (dispatch) => {
   });
 
   if (res.ok) {
-    console.log("create project was OKAY")
+    // console.log("create project was OKAY")
     const data = await res.json();
     await dispatch(createProject(data.project));
     await dispatch(addUserProject(data.project));
     return data.project;
   } else if (res.status < 500) {
-    console.log("hit this res status < 500 else if")
+    // console.log("hit this res status < 500 else if")
     const data = await res.json();
+    console.log(data)
     if (data.errors) {
-      return data.errors;
+      return data;
     }
   } else {
-    console.log('create project hit the else errors')
+    // console.log('create project hit the else errors')
     return ["An error occurred. Please try again."]
   }
 }
@@ -160,6 +169,20 @@ export const deleteProjectThunk = (projectId) => async (dispatch) => {
   dispatch(deleteProject(projectId));
   dispatch(deleteUserProject(projectId))
   return res;
+}
+
+export const createBackingThunk = (backing) => async (dispatch) => {
+  const res = await fetch(`/api/projects/${backing.project_id}/backings`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(backing),
+  })
+
+  if (res.ok) {
+    const data = await res.json();
+    console.log('data in create backing thunk', data)
+    await dispatch(updateProject(data, backing.project_id))
+  }
 }
 
 const initialState = {

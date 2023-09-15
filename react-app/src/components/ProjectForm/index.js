@@ -71,6 +71,7 @@ const ProjectForm = ({ project, formType }) => {
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
   const [errors, setErrors] = useState({});
+  const [errorsArr, setErrorsArr] = useState([]);
   const [page, setPage] = useState(1);
   const [categoryId, setCategoryId] = useState(project?.categoryId);
   const [title, setTitle] = useState(project?.title);
@@ -83,14 +84,15 @@ const ProjectForm = ({ project, formType }) => {
   const [fundingGoal, setFundingGoal] = useState(project?.fundingGoal || 100);
   const [location, setLocation] = useState(project?.location);
 
+  const today = new Date()
   useEffect(() => {
     const errorsObj = {};
     // if (getDateTime(startDate) > getDateTime(endDate)) errorsObj.startDate = "End Date cannot be before Start Date"
     if (getDateTime(startDate) > getDateTime(endDate)) errorsObj.endDate = "End Date cannot be before Start Date";
     else if (getDateTime(endDate) - getDateTime(startDate) < 7 * 24 * 60 * 60 * 1000) errorsObj.endDate = "End Date must be at least 1 week from Start Date";
 
-    const today = new Date()
-    if (getDateTime(startDate) < getDateTime(today)) errorsObj.startDate = "Start Date cannot be in the past"
+    if (getDateTime(startDate) < getDateTime(today)) errorsObj.startDate = "Start Date cannot be in the past";
+    if (getDateTime(endDate) < getDateTime(today)) errorsObj.endDate = "End Date cannot be in the past";
 
     setErrors(errorsObj);
 
@@ -146,13 +148,17 @@ const ProjectForm = ({ project, formType }) => {
       // console.log('comint into the create if block')
       const newProject = await dispatch(createProjectThunk(project))
 
-      if (newProject?.errors) {
+      if (newProject) {
         console.log('came into the create errors block')
-        setErrors(newProject?.errors);
+        console.log(newProject, newProject.errors)
+        setErrorsArr(newProject.errors);
       }
 
       // console.log('console log after the new project', newProject)
-      history.push(`/projects/${newProject.id}`)
+      if (!newProject.errors) {
+        console.log("in this confirm if block")
+        history.push(`/projects/${newProject.id}`)
+      }
     }
 
     if (formType === "Update") {
@@ -363,7 +369,17 @@ const ProjectForm = ({ project, formType }) => {
             </div>
             <div className="form-button-nav-container">
               <button className="form-back-page-button" onClick={() => setPage(4)}><i class="fa-solid fa-arrow-left-long"></i> Back: Project Location</button>
-              <button className="form-next-page-button" disabled={!startDate || !endDate || !fundingGoal || fundingGoal < 1} onClick={() => setPage(6)}>Next: Project Image</button>
+              <button className="form-next-page-button"
+                disabled={!startDate ||
+                  !endDate ||
+                  !fundingGoal ||
+                  fundingGoal < 1 ||
+                  getDateTime(startDate) > getDateTime(endDate) ||
+                  getDateTime(endDate) - getDateTime(startDate) < 7 * 24 * 60 * 60 * 1000 ||
+                  getDateTime(startDate) < getDateTime(today) ||
+                  getDateTime(endDate) < getDateTime(today)
+                }
+                onClick={() => setPage(6)}>Next: Project Image</button>
             </div>
           </div>
         }
@@ -371,7 +387,7 @@ const ProjectForm = ({ project, formType }) => {
         {page === 6 &&
           <div className="form-container">
             <h1 className="project-form-header">Lastly, add a photo for your project</h1>
-            <h2 className="project-form-explanation">Enter an image url and show potential backers your beautiful project. (AWS image hosting coming soon)</h2>
+            <h2 className="project-form-explanation">Enter an image URL and show potential backers your beautiful project. (AWS image hosting coming soon)</h2>
             <label className="project-form-labels">
               <div style={{ textAlign: "left" }}>
                 Project Image
@@ -385,6 +401,11 @@ const ProjectForm = ({ project, formType }) => {
               >
               </input>
             </label>
+            <ul className="errors-list">
+              {errorsArr?.map((error, idx) => (
+                <li className="errors" key={idx}>{error}</li>
+              ))}
+            </ul>
             <div className="form-button-nav-container">
               <button className="form-back-page-button" onClick={() => setPage(5)}><i class="fa-solid fa-arrow-left-long"></i> Back: Project Dates & Goals </button>
               <button className="form-next-page-button" disabled={!projectImage} onClick={handleSubmit}>Finalize</button>

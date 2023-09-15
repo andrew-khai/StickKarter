@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
 from app.models import Backing
+from app import db
 
 backing_routes = Blueprint('backings', __name__)
 
@@ -21,3 +22,17 @@ def backings():
   """
   backings = Backing.query.all()
   return {'backings': [backing.to_dict() for backing in backings]}
+
+@backing_routes.route("/<int:id>", methods=["DELETE"])
+def delete_backing(id):
+    """
+    Deletes a backing
+    """
+    backing = Backing.query.get(id)
+
+    if not backing:
+        return {"errors": ["Backing not found"]}, 404
+
+    db.session.delete(backing)
+    db.session.commit()
+    return {"message": "Backing removed"}
