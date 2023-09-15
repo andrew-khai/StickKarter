@@ -1,8 +1,17 @@
 import { useDispatch } from "react-redux";
 import { createBackingThunk, loadSingleProjectThunk } from "../../store/project";
+import { useEffect, useState } from "react";
 
 const RewardShowDetails = ({ user, reward, project }) => {
   const dispatch = useDispatch();
+  const [errors, setErrors] = useState({})
+
+  // useEffect(() => {
+  //   const errorsObj = {}
+  //   if (user.id == project.creatorId) errorsObj.user = "Cannot back your own project"
+  //   setErrors(errorsObj)
+  // }, [user])
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const newPledge = {
@@ -29,6 +38,9 @@ const RewardShowDetails = ({ user, reward, project }) => {
       <div>
         {reward.description}
       </div>
+      {/* {errors.user &&
+      <p className="errors">{errors.user}</p>
+      } */}
       <button onClick={handleSubmit} disabled={!user || user.id == project.creatorId} className="pledge-button">Pledge</button>
     </div>
   )
