@@ -93,6 +93,9 @@ const UserSummary = () => {
                 Projects I backed
               </div>
               <div className="created-labels">
+                Reward
+              </div>
+              <div className="created-labels">
                 Remove Pledge
               </div>
             </div>

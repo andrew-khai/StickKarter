@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
-import { loadSingleProjectThunk } from "../../store/project";
+import { createBackingThunk, loadSingleProjectThunk } from "../../store/project";
 import { Redirect } from "react-router-dom";
 import "./SingleProjectShow.css"
 import "../RewardsShow/RewardsShow.css"
@@ -112,6 +112,18 @@ const SingleProjectShow = () => {
   const differenceInMs = endDate - currentDate;
   // console.log(differenceInMs)
   const differenceInDays = Math.floor(differenceInMs / (1000 * 60 * 60 * 24))
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newPledge = {
+      user_id: sessionUser.id,
+      project_id: projectId,
+      amount_pledged: pledge
+    }
+
+    await dispatch(createBackingThunk(newPledge))
+    await dispatch(loadSingleProjectThunk(projectId))
+  }
 
   return (
     <div id="main-single-project-container">
@@ -259,7 +271,7 @@ const SingleProjectShow = () => {
                       >
                       </input>
                     </div>
-                    <button disabled={!sessionUser || sessionUser.id === project.creatorId || pledge < 5} className="pledge-button">Pledge</button>
+                    <button onClick={handleSubmit} disabled={!sessionUser || sessionUser.id === project.creatorId || pledge < 5} className="pledge-button">Pledge</button>
                   </div>
                 </div>
                 <h2>Available Rewards</h2>
