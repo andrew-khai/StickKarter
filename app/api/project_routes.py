@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
 from app import db
-from app.models import Project, Reward
-from app.forms import ProjectForm, RewardForm
+from app.models import Project, Reward, Backing
+from app.forms import ProjectForm, RewardForm, BackingForm
 from datetime import datetime
 
 project_routes = Blueprint('projects', __name__)
@@ -14,7 +14,7 @@ def validation_errors_to_error_messages(validation_errors):
     errorMessages = []
     for field in validation_errors:
         for error in validation_errors[field]:
-            errorMessages.append(f'{field} : {error}')
+            errorMessages.append(f'{error}')
     return errorMessages
 
 @project_routes.route("")
@@ -51,6 +51,30 @@ def create_project():
            created_at = datetime.today()
         )
         db.session.add(project)
+        db.session.commit()
+        return {'project': project.to_dict_summary()}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+@project_routes.route("/<int:id>/backings", methods=["POST"])
+@login_required
+def create_backing(id):
+    """
+    Create a new backing for a project
+    """
+    project = Project.query.get(id)
+
+    form = BackingForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        backing = Backing(
+            user_id = form.data["user_id"],
+            project_id = id,
+            reward_id = form.data["reward_id"],
+            amount_pledged = form.data["amount_pledged"]
+        )
+        db.session.add(backing)
         db.session.commit()
         return {'project': project.to_dict_summary()}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400

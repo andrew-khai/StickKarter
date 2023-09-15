@@ -17,7 +17,7 @@ const SingleProjectShow = () => {
   const dispatch = useDispatch();
   const [isBacker, setIsBacker] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
-  const [pledge, setPledge] = useState(1);
+  const [pledge, setPledge] = useState(5);
   const [singleProjectId, setSingleSpotId] = useState(projectId);
 
 
@@ -29,7 +29,7 @@ const SingleProjectShow = () => {
   const sessionUser = useSelector((state) => state.session.user);
 
   const project = useSelector((state) => state.projects.singleProject);
-  console.log('project ------', project)
+  // console.log('project ------', project)
 
   if (!project || !project.id) {
     return null
@@ -169,7 +169,9 @@ const SingleProjectShow = () => {
                   {!sessionUser ?
                     <button onClick={redirectToLogin} className="back-this-button">Back this project</button>
                     :
-                    <button className="back-this-button">Back this project</button>
+                    <a href="#support">
+                      <button style={{ width: "100%" }} disabled={sessionUser.id === project.creatorId} className="back-this-button">Back this project</button>
+                    </a>
                   }
                   <div className="single-project-buttons-container">
                     {sessionUser && sessionUser.id !== project.creatorId &&
@@ -180,7 +182,7 @@ const SingleProjectShow = () => {
                     {sessionUser && sessionUser.id === project.creatorId &&
                       <div className="creator-buttons-container">
                         <NavLink exact to={`/projects/${project.id}/edit`}>
-                          <button className="single-project-edit-button"><i class="fa-regular fa-pen-to-square"></i></button>
+                          <button className="single-project-edit-button"><i class="fa-regular fa-pen-to-square"></i> Edit</button>
                         </NavLink>
                         {/* <OpenModalButton
                           className="project-delete-button"
@@ -196,7 +198,7 @@ const SingleProjectShow = () => {
           </div>
         </>
         :
-        <><h1 style={{textAlign: "center"}}>No Project Found</h1></>
+        <><h1 style={{ textAlign: "center" }}>No Project Found</h1></>
       }
       {Object.keys(project).length > 0 &&
         <>
@@ -208,7 +210,7 @@ const SingleProjectShow = () => {
             <div className="back-save-button-container">
               {sessionUser && sessionUser.id !== project.creatorId &&
                 <>
-                  <button className="mini-back-this-button">Back this project</button>
+                  {/* <button className="mini-back-this-button">Back this project</button> */}
                   <button className="mini-save-project-rectangle-button">
                     <i class="fa-regular fa-bookmark"></i> Save this Project
                   </button>
@@ -239,7 +241,7 @@ const SingleProjectShow = () => {
               </div>
               <br></br>
               <div className="single-project-rewards-container">
-                <h2>Support</h2>
+                <h2 id="support">Support</h2>
                 <div className="no-reward-pledge">
                   <p style={{ marginBottom: "0px" }}>Make a pledge without a reward</p>
                   <div className="pledge-amount-container">
@@ -250,19 +252,23 @@ const SingleProjectShow = () => {
                       </div>
                       <input
                         className="pledge-input"
+                        min={5}
                         type="number"
                         value={pledge}
                         onChange={(e) => setPledge(e.target.value)}
                       >
                       </input>
                     </div>
+                    <button disabled={!sessionUser || sessionUser.id === project.creatorId || pledge < 5} className="pledge-button">Pledge</button>
                   </div>
                 </div>
                 <h2>Available Rewards</h2>
                 <div className="main-single-rewards-container">
                   {rewards?.length > 0 &&
                     <RewardsShow
+                      user={sessionUser}
                       rewards={rewards}
+                      project={project}
                     />
                   }
                 </div>

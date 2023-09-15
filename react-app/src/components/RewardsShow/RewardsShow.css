@@ -38,6 +38,8 @@
   border: 1px solid #DCDEDD;
   width: 250px;
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .single-reward-title {

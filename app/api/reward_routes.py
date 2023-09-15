@@ -52,4 +52,4 @@ def delete_reward(id):
 
     db.session.delete(reward)
     db.session.commit()
-    return {}
+    return {"message": "Reward deleted"}
