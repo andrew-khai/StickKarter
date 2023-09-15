@@ -5,6 +5,8 @@ const REMOVE_CURRENT = "REMOVE_CURRENT";
 const DELETE_USER_PROJECT = "DELETE_USER_PROJECT";
 const GET_USER_BACKINGS = "GET_USER_BACKINGS";
 const GET_USER_PROJECTS = "GET_USER_PROJECTS";
+const CREATE_USER_BACKING = "CREATE_USER_BACKING";
+const DELETE_USER_BACKING = "DELETE_USER_BACKING";
 const ADD_USER_PROJECT = "ADD_USER_PROJECT";
 const UPDATE_USER_PROJECT = "UPDATE_USER_PROJECT";
 
@@ -61,6 +63,19 @@ export function deleteUserProject(projectId) {
   }
 }
 
+export function createUserBacking(backing) {
+  return {
+    type: CREATE_USER_BACKING,
+    backing
+  }
+}
+
+export function deleteUserBacking(backingId) {
+  return {
+    type: DELETE_USER_BACKING,
+    backingId
+  }
+}
 
 // Thunks
 
@@ -108,6 +123,14 @@ export const removeCurrentUserThunk = () => async (dispatch) => {
   dispatch(removeCurrentUser())
 }
 
+export const deleteUserBackingThunk = (backingId) => async (dispatch) => {
+  const res = await fetch(`/api/backings/${backingId}`, {
+    method: "DELETE"
+  })
+  await dispatch(deleteUserBacking(backingId));
+  await dispatch(loadUserBackingsThunk())
+}
+
 // Reducer
 const initialState = {
   currentUser: {},
@@ -148,6 +171,16 @@ const usersReducer = (state = initialState, action) => {
     case GET_USER_BACKINGS: {
       let newState = {...state};
       newState.backings = action.backings
+      return newState;
+    }
+    case CREATE_USER_BACKING: {
+      let newState = { ...state };
+      newState.backings[action.backing.id] = action.backing;
+      return newState;
+    }
+    case DELETE_USER_BACKING: {
+      let newState = { ...state };
+      delete newState.backings[action.backingId];
       return newState;
     }
     case DELETE_USER_PROJECT: {

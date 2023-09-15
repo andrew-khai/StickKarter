@@ -1,4 +1,4 @@
-import { addUserProject, deleteUserProject, updateUserProject } from "./user"
+import { addUserProject, createUserBacking, deleteUserProject, updateUserProject } from "./user"
 
 // TYPES
 const CREATE_PROJECT = "CREATE_PROJECT"
@@ -182,8 +182,17 @@ export const createBackingThunk = (backing) => async (dispatch) => {
     const data = await res.json();
     console.log('data in create backing thunk', data)
     await dispatch(updateProject(data, backing.project_id))
+    await dispatch(createUserBacking(data))
+    // await dispatch(loadProjects())
   }
 }
+
+// export const deleteBackingThunk = (backingId) => async (dispatch) => {
+//   const res = await fetch(`/api/backings/${backingId}`, {
+//     method: "DELETE"
+//   });
+
+// }
 
 const initialState = {
   projects: {},
