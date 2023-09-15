@@ -10,7 +10,7 @@ function Navigation({ isLoaded }) {
 	return (
 		<div id='nav-container'>
 			<div id="leftside-nav">
-				<NavLink id="discover-link" exact to="/">Discover</NavLink>
+				<NavLink id="discover-link" exact to="/discover">Discover</NavLink>
 				{sessionUser &&
 					<div>
 						<NavLink id="start-a-project" exact to="/projects/new">Start a project</NavLink>

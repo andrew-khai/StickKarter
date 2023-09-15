@@ -16,6 +16,8 @@ import EditProjectForm from "./components/ProjectForm/UpdateProject";
 import UserSummary from "./components/UserSummaryPage";
 import RewardsPage from "./components/RewardsPage";
 import SplashPage from "./components/SplashPage";
+import Discover from "./components/Discover";
+import CategoryPage from "./components/CategoryPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,49 +29,53 @@ function App() {
 
   return (
     <>
-    <div id="body-container">
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
-        <Switch>
-          <Route exact path="/">
-            <CategoryNav />
-            <div id="main-projects-container">
-              <ProjectShowContainer />
-            </div>
-          </Route>
-          <Route path="/login" >
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-          <Route exact path="/user/summary">
-            <UserSummary />
-          </Route>
-          <Route exact path="/projects/new">
-            <CreateProject />
-          </Route>
-          <Route exact path="/projects/:projectId/edit">
-            <EditProjectForm />
-          </Route>
-          <Route exact path="/projects/:projectId/rewards">
-            <RewardsPage />
-          </Route>
-          <Route exact path="/projects/:projectId">
-            <SingleProjectShow />
-          </Route>
-          {/* <Route exact path="/tester">
+      <div id="body-container">
+        <Navigation isLoaded={isLoaded} />
+        {isLoaded && (
+          <Switch>
+            <Route exact path="/">
+              <CategoryNav />
+              <div id="main-projects-container">
+                <ProjectShowContainer />
+              </div>
+            </Route>
+            <Route path="/login" >
+              <LoginFormPage />
+            </Route>
+            <Route path="/signup">
+              <SignupFormPage />
+            </Route>
+            <Route exact path="/user/summary">
+              <UserSummary />
+            </Route>
+            <Route exact path="/projects/new">
+              <CreateProject />
+            </Route>
+            <Route exact path="/projects/:projectId/edit">
+              <EditProjectForm />
+            </Route>
+            <Route exact path="/projects/:projectId/rewards">
+              <RewardsPage />
+            </Route>
+            <Route exact path="/projects/:projectId">
+              <SingleProjectShow />
+            </Route>
+            <Route exact path="/category/:categoryId">
+              <CategoryNav />
+              <CategoryPage />
+            </Route>
+            {/* <Route exact path="/tester">
             <SplashPage />
           </Route> */}
-          {/* <Route exact path="/discover">
-            <h1>hello</h1>
-          </Route> */}
-          <Route>
-            <h1> PAGE NOT FOUND </h1>
-          </Route>
-        </Switch>
-      )}
-    </div>
+            <Route exact path="/discover">
+              <Discover />
+            </Route>
+            <Route>
+              <h1> PAGE NOT FOUND </h1>
+            </Route>
+          </Switch>
+        )}
+      </div>
       {/* <FooterNav /> */}
     </>
   );

@@ -1,0 +1,38 @@
+.main-discover-page-div {
+  border-top: 1px solid lightgray;
+}
+
+.x-close-button {
+  cursor: pointer;
+  color: #037362;
+}
+
+.discover-collections-div {
+  margin: 10px auto;
+  width: 1246px;
+  padding: 0px 0px 120px;
+}
+
+.discover-collections-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px auto;
+  max-width: 1366px;
+  padding: 10px 0px;
+  border-bottom: 1px solid lightgray;
+}
+
+.section-headers {
+  color: #037362;
+  font-weight: 400;
+}
+
+.category-links-div a{
+  text-decoration: none;
+  color: black;
+}
+
+.category-links-div a:hover {
+  color: #037362;
+}
