@@ -18,6 +18,13 @@ const RewardsShow = ({ user, rewards, project }) => {
   //   }
   // }
 
+  let rewardsByPrice = rewards.sort((a, b) => {
+    let da = a.price;
+    let db = b.price;
+    return da - db;
+  })
+
+
   return (
     <>
       {

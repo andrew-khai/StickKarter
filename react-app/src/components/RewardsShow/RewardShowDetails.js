@@ -4,13 +4,25 @@ import { useEffect, useState } from "react";
 
 const RewardShowDetails = ({ user, reward, project }) => {
   const dispatch = useDispatch();
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({});
+  const [isBacker, setIsBacker] = useState(false);
 
-  // useEffect(() => {
-  //   const errorsObj = {}
-  //   if (user.id == project.creatorId) errorsObj.user = "Cannot back your own project"
-  //   setErrors(errorsObj)
-  // }, [user])
+
+  useEffect(() => {
+    const errorsObj = {}
+    if (user?.id == project?.creatorId) errorsObj.user = "Cannot back your own project"
+    setErrors(errorsObj)
+  }, [user])
+
+  useEffect(() => {
+    if (project) {
+      project.backings?.forEach(backing => {
+        if (backing?.userId === user?.id) {
+          setIsBacker(true)
+        }
+      })
+    }
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -41,7 +53,7 @@ const RewardShowDetails = ({ user, reward, project }) => {
       {/* {errors.user &&
       <p className="errors">{errors.user}</p>
       } */}
-      <button onClick={handleSubmit} disabled={!user || user.id == project.creatorId} className="pledge-button">Pledge</button>
+      <button onClick={handleSubmit} disabled={!user || user.id == project.creatorId || isBacker} className="pledge-button">Pledge</button>
     </div>
   )
 }

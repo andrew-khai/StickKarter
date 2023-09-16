@@ -20,8 +20,10 @@ const Discover = () => {
                 }}
               ><i class="fa-solid fa-xmark"></i></span>
             </div>
-            <div>
-              <h2 className="section-titles">All</h2>
+            <div className="category-links-div">
+              <NavLink to="/discover/all">
+                <h2 className="section-titles">All</h2>
+              </NavLink>
             </div>
             <div className="discover-collections-header">
               <h3 className="section-headers">Sections</h3>

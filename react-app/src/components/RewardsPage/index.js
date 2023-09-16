@@ -127,15 +127,19 @@ const RewardsPage = () => {
     return (
       <div className="main-rewards-container">
         <h1>{project?.title}: Rewards</h1>
-        <h2>No rewards Yet</h2>
-        <h3>Add a Reward for potential backers!</h3>
+        <h2 style={{textAlign: "center"}}>No rewards Yet</h2>
+        <h3 style={{textAlign: "center"}}>Add a Reward for potential backers!</h3>
         {addReward()}
       </div>
     )
   }
 
 
-
+  let rewardsByPrice = rewards.sort((a, b) => {
+    let da = a.price;
+    let db = b.price;
+    return da - db;
+  })
 
   // console.log(projectId)
 

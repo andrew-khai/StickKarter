@@ -136,3 +136,16 @@
   padding: 0px;
   color: red;
 }
+
+.project-summary-link {
+  margin-top: 20px;
+}
+
+.project-summary-link > a:hover {
+  color: #05ce78 !important;
+}
+
+.backing-container:hover {
+  color: #034752 !important;
+  text-decoration: underline !important;
+}

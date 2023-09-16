@@ -18,6 +18,7 @@ import RewardsPage from "./components/RewardsPage";
 import SplashPage from "./components/SplashPage";
 import Discover from "./components/Discover";
 import CategoryPage from "./components/CategoryPage";
+import DiscoverAll from "./components/Discover/DiscoverAll";
 
 function App() {
   const dispatch = useDispatch();
@@ -67,6 +68,9 @@ function App() {
             {/* <Route exact path="/tester">
             <SplashPage />
           </Route> */}
+            <Route exact path="/discover/all">
+              <DiscoverAll />
+            </Route>
             <Route exact path="/discover">
               <Discover />
             </Route>
