@@ -187,13 +187,6 @@ export const createBackingThunk = (backing) => async (dispatch) => {
   }
 }
 
-// export const deleteBackingThunk = (backingId) => async (dispatch) => {
-//   const res = await fetch(`/api/backings/${backingId}`, {
-//     method: "DELETE"
-//   });
-
-// }
-
 const initialState = {
   projects: {},
   singleProject: {}
@@ -236,6 +229,7 @@ const projectsReducer = (state = initialState, action) => {
     }
     case DELETE_PROJECT: {
       let newState = { ...state };
+      delete newState.projects[action.projectId];
       delete newState.singleProject[action.projectId];
       return newState;
     }

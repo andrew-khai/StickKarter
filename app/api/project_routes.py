@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
 from app import db
-from app.models import Project, Reward, Backing
+from app.models import Project, Reward, Backing, User
 from app.forms import ProjectForm, RewardForm, BackingForm
 from datetime import datetime
 
@@ -187,8 +187,3 @@ def delete_project(id):
     db.session.delete(project)
     db.session.commit()
     return {"message": "project deleted"}
-
-# @project_routes.route("/test")
-# def test():
-#     rewards = Reward.query.all()
-#     return {'rewards': [reward.to_dict() for reward in rewards]}

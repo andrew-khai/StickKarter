@@ -57,3 +57,27 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict_summary()
+
+@user_routes.route("/<int:id>/likes/<int:projectId>", methods=["POST"])
+@login_required
+def add_save(id, projectId):
+    """
+    Adds a project to a user's saved projects
+    """
+    user = User.query.get(id)
+    project = Project.query.get(projectId)
+    project.saves.append(user)
+    db.session.commit()
+    return user.to_dict_summary()
+
+@user_routes.route("/<int:id>/likes/<int:projectId>", methods=["DELETE"])
+@login_required
+def remove_save(id, projectId):
+    """
+    Removes a project to a user's saved projects
+    """
+    user = User.query.get(id)
+    project = Project.query.get(projectId)
+    project.saves.append(user)
+    db.session.commit()
+    return user.to_dict_summary()

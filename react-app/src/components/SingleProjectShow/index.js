@@ -43,7 +43,7 @@ const SingleProjectShow = () => {
     await dispatch(loadSingleProjectThunk(projectId))
   }, [dispatch, projectId])
   const sessionUser = useSelector((state) => state.session.user);
-
+  const currentUser = useSelector(state => state.users.currentUser);
   const project = useSelector((state) => state.projects.singleProject);
 
   useEffect(() => {
@@ -56,48 +56,29 @@ const SingleProjectShow = () => {
     }
   }, [project])
 
+  const saveCheck = (project, user) => {
+    let projectIds = [];
+    let saves= user.saves;
+    saves.forEach(save => projectIds.push(save.projectId))
+    if (projectIds.includes(project.id)) return true;
+    else return false;
+  }
+
+  // const addSave = async () => {
+  //   await dispatch(addSaveThunk(currentUser, project.id))
+  // }
+
+  // const removeSave = async () => {
+  //   await dispatch(removeSaveThunk(currentUser, project.id))
+  // }
+
   // console.log('project ------', project)
 
   if (!project || !project.id) {
     return null
   }
   const rewards = project.rewards
-  // console.log('rewards here-----', rewards)
 
-  // if (project) {
-  //   if (project.backings) {
-  //     project.backings.forEach(backing => {
-  //       if (backing.userId === sessionUser.id) {
-  //         setIsBacker(true);
-  //         return;
-  //       }
-  //     })
-  //   }
-  // }
-
-  // const owner = (project) => {
-  //   if (project.creatorId === sessionUser.id) {
-  //     setIsOwner(true);
-  //   }
-  //   return;
-  // }
-
-  // if (sessionUser) {
-  //   owner();
-  // }
-  // console.log('project in single project----', Object.keys(project))
-  // if (Object.keys(project).length < 1) {
-  //   return <Redirect to="/" />
-  // }
-
-
-  // project?.backings.forEach(backing => {
-  //   if (backing.userId === sessionUser.id) {
-  //     setIsBacker(true);
-  //   }
-  // })
-
-  // console.log('is backer check-----', isBacker)
   const funding = (project) => {
     let sum = 0;
     if (project.backings) {
@@ -213,9 +194,14 @@ const SingleProjectShow = () => {
                     </a>
                   }
                   <div className="single-project-buttons-container">
-                    {sessionUser && sessionUser.id !== project.creatorId &&
+                    {sessionUser && sessionUser.id !== project.creatorId && !saveCheck(project, currentUser) &&
                       <button className="save-project-rectangle-button">
                         <i class="fa-regular fa-bookmark"></i> Save Project
+                      </button>
+                    }
+                    {sessionUser && sessionUser.id !== project.creatorId && saveCheck(project, currentUser) &&
+                      <button style={{color: "blue", borderColor: "blue"}} className="save-project-rectangle-button">
+                        <i style={{color: "blue"}} class="fa-regular fa-bookmark"></i> Save Project
                       </button>
                     }
                     {sessionUser && sessionUser.id === project.creatorId &&
