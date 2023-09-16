@@ -28,6 +28,10 @@
   border: none;
 }
 
+.single-project-rewards-container {
+  max-width: 250px;
+}
+
 .main-single-rewards-container {
   display: flex;
   flex-direction: column;

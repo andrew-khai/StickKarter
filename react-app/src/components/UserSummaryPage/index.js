@@ -44,6 +44,14 @@ const UserSummary = () => {
     return sum;
   }
 
+  let inOrderBackings = Object.values(backings).sort((a, b) => {
+    let da = new Date(a.createdAt);
+    let db = new Date(b.createdAt);
+    return da - db;
+  })
+
+  inOrderBackings.reverse();
+
   return (
     <>
       <div id="main-user-summary-container">
@@ -102,7 +110,7 @@ const UserSummary = () => {
             <div className="users-backed-list-container">
               <ul className="users-backed-list">
                 {Object.values(backings).length > 0 ?
-                Object.values(backings).map(backing => (
+                inOrderBackings.map(backing => (
                   <UserBacked
                   backing={backing}
                   />
@@ -136,7 +144,7 @@ const UserSummary = () => {
             </div>
             <div className="users-saved-list-container">
               <ul className="users-saved-list">
-                {user && user.saves?.length > 0 &&
+                {user && user.saves?.length > 0 ?
                   user.saves.map(save => (
                     <li key={save.id}>
                       <div className="the-project-info-container">
@@ -152,6 +160,8 @@ const UserSummary = () => {
                       </div>
                     </li>
                   ))
+                  :
+                  <div>No Saved Projects yet</div>
                 }
               </ul>
             </div>

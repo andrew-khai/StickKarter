@@ -46,6 +46,16 @@ const SingleProjectShow = () => {
 
   const project = useSelector((state) => state.projects.singleProject);
 
+  useEffect(() => {
+    if (project) {
+      project.backings?.forEach(backing => {
+        if (backing?.userId === sessionUser?.id) {
+          setIsBacker(true)
+        }
+      })
+    }
+  }, [project])
+
   // console.log('project ------', project)
 
   if (!project || !project.id) {
@@ -249,24 +259,24 @@ const SingleProjectShow = () => {
           </nav>
           <div className="dropdown-information-container">
             {showStory &&
-            <div className="dropdown-story-div">
-              <h2 className="dropdown-story-header">
-                Story
-              </h2>
-              <div className="dropdown-story">
-                {project?.story}
+              <div className="dropdown-story-div">
+                <h2 className="dropdown-story-header">
+                  Story
+                </h2>
+                <div className="dropdown-story">
+                  {project?.story}
+                </div>
               </div>
-            </div>
             }
             {showFaq &&
-            <div className="dropdown-story-div">
-              <h2 className="dropdown-story-header">
-                FAQ
-              </h2>
-              <div className="dropdown-story">
-                {project?.faq}
+              <div className="dropdown-story-div">
+                <h2 className="dropdown-story-header">
+                  FAQ
+                </h2>
+                <div className="dropdown-story">
+                  {project?.faq}
+                </div>
               </div>
-            </div>
             }
             <div className="creator-rewards-container">
               <div className="creator-container">
@@ -283,6 +293,9 @@ const SingleProjectShow = () => {
               <br></br>
               <div className="single-project-rewards-container">
                 <h2 id="support">Support</h2>
+                {isBacker &&
+                  <h2 style={{color: "#009E74", textAlign: "center"}}>You have already backed this project!</h2>
+                }
                 <div className="no-reward-pledge">
                   <p style={{ marginBottom: "0px" }}>Make a pledge without a reward</p>
                   <div className="pledge-amount-container">
@@ -303,7 +316,7 @@ const SingleProjectShow = () => {
                     {/* {errors.user &&
                     <p className="errors">{errors.user}</p>
                     } */}
-                    <button onClick={handleSubmit} disabled={!sessionUser || sessionUser.id === project.creatorId || pledge < 5} className="pledge-button">Pledge</button>
+                    <button onClick={handleSubmit} disabled={!sessionUser || sessionUser.id === project.creatorId || pledge < 5 || isBacker} className="pledge-button">Pledge</button>
                   </div>
                 </div>
                 <h2>Available Rewards</h2>

@@ -7,9 +7,18 @@ import "./UserSummaryPage.css"
 const UsersCreated = ({ projects, funded }) => {
 
   // console.log(projects)
+  let inOrderProjects = Object.values(projects).sort((a, b) => {
+    let da = new Date(a.createdAt);
+    let db = new Date(b.createdAt);
+    return da - db;
+  })
+
+
+  inOrderProjects.reverse();
+
   return (
     <>
-      {projects && Object.values(projects).map(project => (
+      {projects && inOrderProjects.map(project => (
         <li key={project.id}>
           <div className="the-project-info-container">
             <NavLink to={`/projects/${project.id}`} className="project-info-container">

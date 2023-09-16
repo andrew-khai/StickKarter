@@ -21,6 +21,25 @@ function ProfileButton({ user }) {
   const projects = useSelector(state => state.users.projects);
   const backings = useSelector(state => state.users.backings);
 
+  // console.log('hahahaha', projects)
+
+  let inOrderProjects = Object.values(projects).sort((a, b) => {
+    let da = new Date(a.createdAt);
+    let db = new Date(b.createdAt);
+    return da - db;
+  })
+
+  // console.log('hehehehe', inOrderProjects)
+  inOrderProjects.reverse();
+
+  let inOrderBackings = Object.values(backings).sort((a, b) => {
+    let da = new Date(a.createdAt);
+    let db = new Date(b.createdAt);
+    return da - db;
+  })
+
+  inOrderBackings.reverse();
+
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -89,6 +108,7 @@ function ProfileButton({ user }) {
               <div className="profile-container-headers">Your Account</div>
               <li>{user.username}</li>
               <li>{user.email}</li>
+              <li className="project-summary-link"><NavLink onClick={closeMenu} to="/user/summary">View/Edit Projects</NavLink></li>
               <li>
                 <button id="logout-button" onClick={handleLogout}>Log Out</button>
               </li>
@@ -97,17 +117,17 @@ function ProfileButton({ user }) {
               <div className="profile-container-headers">Backed Projects</div>
               <ul className="backing-projects-list">
                 <UserBackedProjects
-                backed={Object.values(backings).slice(0,4)}
+                backed={inOrderBackings?.slice(0,4)}
                 closeMenu={closeMenu}
                 />
-                <li className="project-summary-link"><NavLink onClick={closeMenu} to="/user/summary">View/Edit Projects</NavLink></li>
+                {/* <li className="project-summary-link"><NavLink onClick={closeMenu} to="/user/summary">View/Edit Projects</NavLink></li> */}
               </ul>
             </div>
             <div className="profile-backed-projects-container">
               <div className="profile-container-headers">Created Projects</div>
               <ul className="backing-projects-list">
                 <UserCreated
-                created={Object.values(projects)?.slice(0,4)}
+                created={inOrderProjects?.slice(0,4)}
                 closeMenu={closeMenu}
                 />
               </ul>

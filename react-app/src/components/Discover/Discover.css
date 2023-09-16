@@ -28,11 +28,70 @@
   font-weight: 400;
 }
 
-.category-links-div a{
+.category-links-div a {
   text-decoration: none;
   color: black;
 }
 
 .category-links-div a:hover {
   color: #037362;
+}
+
+.main-discover-all-div {
+  padding: 30px 10px;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+}
+
+.discover-all-header-div {
+  max-width: 1200px;
+  margin: 0px auto;
+}
+
+.discover-header {
+  font-size: 1.6rem;
+  text-align: center;
+  margin-right: 55px;
+}
+
+.boxed-all {
+  color: #282828;
+  font-size: 18px;
+  padding: 12px;
+  margin: 0px 5px;
+  box-shadow: 2px 0 6px 0 #b4b4b4;
+}
+
+.projects-grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 390px);
+  column-gap: 40px;
+  max-width: 1250px;
+  margin: 0px auto;
+  row-gap: 30px;
+}
+
+.single-project-discover {
+  width: 390px;
+  border: 1px solid lightgray;
+}
+
+.single-project-main-info {
+  height: 180px;
+  padding: 15px 20px 0px 20px;
+}
+
+.single-project-pledge-info {
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+}
+
+.single-project-other-info {
+  padding: 0px 20px 20px 20px;
+  display: flex;
+  column-gap: 10px;
+  margin-top: 25px;
+  align-items: center;
 }
