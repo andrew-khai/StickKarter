@@ -9,6 +9,8 @@ const CREATE_USER_BACKING = "CREATE_USER_BACKING";
 const DELETE_USER_BACKING = "DELETE_USER_BACKING";
 const ADD_USER_PROJECT = "ADD_USER_PROJECT";
 const UPDATE_USER_PROJECT = "UPDATE_USER_PROJECT";
+const ADD_SAVE = "ADD_SAVE"
+const REMOVE_SAVE = "REMOVE_SAVE"
 
 // Action Creators
 
@@ -77,6 +79,18 @@ export function deleteUserBacking(backingId) {
   }
 }
 
+export function addSave() {
+  return {
+    type: ADD_SAVE,
+  };
+}
+
+export function removeSave() {
+  return {
+    type: REMOVE_SAVE,
+  };
+}
+
 // Thunks
 
 export const removeUserProjectThunk = (projectId) => async (dispatch) => {
@@ -129,6 +143,28 @@ export const deleteUserBackingThunk = (backingId) => async (dispatch) => {
   })
   await dispatch(deleteUserBacking(backingId));
   await dispatch(loadUserBackingsThunk())
+}
+
+export const addSaveThunk = (user, projectId) => async (dispatch) => {
+  const res = await fetch(`/api/users/${user.id}/likes/${projectId}`, {
+    method: "POST",
+    body: JSON.stringify(user, projectId)
+  })
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(loadCurrentUser(user))
+  }
+}
+
+export const removeSaveThunk = (user, projectId) => async (dispatch) => {
+  const res = await fetch(`/api/users/${user.id}/likes/${projectId}`, {
+    method: "DELETE",
+    body: JSON.stringify(user, projectId)
+  })
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(loadCurrentUser(user))
+  }
 }
 
 // Reducer

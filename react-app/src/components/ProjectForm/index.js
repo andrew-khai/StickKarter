@@ -149,8 +149,8 @@ const ProjectForm = ({ project, formType }) => {
       const newProject = await dispatch(createProjectThunk(project))
 
       if (newProject) {
-        console.log('came into the create errors block')
-        console.log(newProject, newProject.errors)
+        // console.log('came into the create errors block')
+        // console.log(newProject, newProject.errors)
         setErrorsArr(newProject.errors);
       }
 

@@ -16,15 +16,15 @@ const ProjectShowContainer = () => {
     await dispatch(unloadSingleProjectThunk())
     // dispatch(removeCurrentUserThunk())
     if (sessionUser) {
-      await dispatch(loadCurrentUserThunk())
+      await dispatch(loadCurrentUserThunk(sessionUser.id))
     }
-  }, [dispatch])
+  }, [dispatch, sessionUser])
 
   const projects = useSelector(state => Object.keys(state.projects.projects).map(project => {
     return state.projects.projects[project]
   }))
 
-  console.log(projects)
+  // console.log(projects)
 
   if (!(projects.length > 0)) {
     return null
