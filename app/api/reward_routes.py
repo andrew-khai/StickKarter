@@ -16,15 +16,15 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
-@reward_routes.route("/<int:id>")
-def get_reward(id):
-    """
-    Test route to get specific reward
-    """
-    reward = Reward.query.get(id)
-    if not reward:
-        return {"errors": ["Reward not found"]}, 404
-    return reward.to_dict()
+# @reward_routes.route("/<int:id>")
+# def get_reward(id):
+#     """
+#     Test route to get specific reward
+#     """
+#     reward = Reward.query.get(id)
+#     if not reward:
+#         return {"errors": ["Reward not found"]}, 404
+#     return reward.to_dict()
 
 @reward_routes.route("/<int:id>", methods=["PUT"])
 def update_reward(id):

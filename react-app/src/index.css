@@ -5,5 +5,9 @@
 
 textarea {
   resize: none;
-  rows: 20;
+  /* rows: 20; */
+}
+
+#body-container {
+  height: 100vh;
 }
