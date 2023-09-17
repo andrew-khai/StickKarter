@@ -17,7 +17,7 @@ function ProfileButton({ user }) {
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
-  const sessionUser = useSelector((state) => state.session.user);
+  // const sessionUser = useSelector((state) => state.session.user);
   const projects = useSelector(state => state.users.projects);
   const backings = useSelector(state => state.users.backings);
 
@@ -69,7 +69,7 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-  const currentUser = useSelector((state) => state.users.currentUser)
+  // const currentUser = useSelector((state) => state.users.currentUser)
   // console.log('currentuser here -------', currentUser)
 
   const handleLogout = (e) => {

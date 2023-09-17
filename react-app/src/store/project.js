@@ -126,7 +126,7 @@ export const createProjectThunk = (project) => async (dispatch) => {
   } else if (res.status < 500) {
     // console.log("hit this res status < 500 else if")
     const data = await res.json();
-    console.log(data)
+    // console.log(data)
     if (data.errors) {
       return data;
     }
@@ -218,13 +218,13 @@ const projectsReducer = (state = initialState, action) => {
       let newState = { ...state };
       // console.log('newState in Create project----', newState)
       newState.projects[action.project.id] = action.project;
-      console.log('newstate in create project after ----', newState)
+      // console.log('newstate in create project after ----', newState)
       return newState;
     }
     case UPDATE_PROJECT: {
       let newState = { ...state };
       newState.projects[action.projectId] = action.project;
-      console.log('new state in update project reducer-----', newState)
+      // console.log('new state in update project reducer-----', newState)
       return newState;
     }
     case DELETE_PROJECT: {
