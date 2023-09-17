@@ -26,7 +26,7 @@ const RecommendedProject = ({ project }) => {
   const saveCheck = (project, user) => {
     let projectIds = [];
     let saves= user.saves;
-    saves.forEach(save => projectIds.push(save.projectId))
+    saves?.forEach(save => projectIds.push(save.projectId))
     if (projectIds.includes(project.id)) return true;
     else return false;
   }

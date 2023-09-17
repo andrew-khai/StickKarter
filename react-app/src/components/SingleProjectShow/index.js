@@ -59,7 +59,7 @@ const SingleProjectShow = () => {
   const saveCheck = (project, user) => {
     let projectIds = [];
     let saves= user.saves;
-    saves.forEach(save => projectIds.push(save.projectId))
+    saves?.forEach(save => projectIds.push(save.projectId))
     if (projectIds.includes(project.id)) return true;
     else return false;
   }
@@ -201,7 +201,7 @@ const SingleProjectShow = () => {
                     }
                     {sessionUser && sessionUser.id !== project.creatorId && saveCheck(project, currentUser) &&
                       <button style={{color: "blue", borderColor: "blue"}} className="save-project-rectangle-button">
-                        <i style={{color: "blue"}} class="fa-regular fa-bookmark"></i> Save Project
+                        <i style={{color: "blue"}} class="fa-regular fa-bookmark"></i> Saved Project
                       </button>
                     }
                     {sessionUser && sessionUser.id === project.creatorId &&
@@ -233,11 +233,19 @@ const SingleProjectShow = () => {
               <div onClick={toggleFaq} id="dropdown-faq" className={showFaq ? "button-active" : "button-inactive"}>FAQ</div>
             </div>
             <div className="back-save-button-container">
-              {sessionUser && sessionUser.id !== project.creatorId &&
+              {sessionUser && sessionUser.id !== project.creatorId && !saveCheck(project, currentUser) &&
                 <>
                   {/* <button className="mini-back-this-button">Back this project</button> */}
                   <button className="mini-save-project-rectangle-button">
                     <i class="fa-regular fa-bookmark"></i> Save this Project
+                  </button>
+                </>
+              }
+              {sessionUser && sessionUser.id !== project.creatorId && saveCheck(project, currentUser) &&
+                <>
+                  {/* <button className="mini-back-this-button">Back this project</button> */}
+                  <button style={{color: "blue"}} className="mini-save-project-rectangle-button">
+                    <i class="fa-regular fa-bookmark"></i> Saved Project
                   </button>
                 </>
               }
@@ -249,9 +257,13 @@ const SingleProjectShow = () => {
                 <h2 className="dropdown-story-header">
                   Story
                 </h2>
+                {project?.story ?
                 <div className="dropdown-story">
                   {project?.story}
                 </div>
+                :
+                <div>No story yet!</div>
+                }
               </div>
             }
             {showFaq &&
@@ -259,9 +271,13 @@ const SingleProjectShow = () => {
                 <h2 className="dropdown-story-header">
                   FAQ
                 </h2>
+                {project?.faq ?
                 <div className="dropdown-story">
                   {project?.faq}
                 </div>
+                :
+                <div>No FAQs yet!</div>
+                }
               </div>
             }
             <div className="creator-rewards-container">
