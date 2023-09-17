@@ -30,7 +30,7 @@ const CategoryPage = () => {
   const categoryProjects = projects.filter(project => project.categoryId == categoryId)
   // console.log(categoryProjects)
 
-  const recommendedProjects = categoryProjects.slice(1, 4)
+  const recommendedProjects = categoryProjects.slice(1, 10)
 
   // if (categoryProjects.length === 0) {
   //   return <Redirect to="/" />

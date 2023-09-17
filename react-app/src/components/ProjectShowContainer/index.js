@@ -30,7 +30,7 @@ const ProjectShowContainer = () => {
     return null
   }
 
-  const recommendedProjects = projects.slice(1, 4)
+  const recommendedProjects = projects.slice(1, 10)
 
   // console.log('projects here -----', projects[0])
   // console.log('projects array------', projectsArr)
