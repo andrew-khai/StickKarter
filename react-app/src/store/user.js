@@ -94,7 +94,7 @@ export function removeSave() {
 // Thunks
 
 export const removeUserProjectThunk = (projectId) => async (dispatch) => {
-  const res = await fetch(`/api/project/${projectId}`, {
+  const res = await fetch(`/api/projects/${projectId}`, {
     method: "DELETE"
   })
   dispatch(deleteUserProject(projectId))
