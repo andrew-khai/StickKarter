@@ -11,7 +11,7 @@ function LoginFormPage() {
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -42,11 +42,11 @@ function LoginFormPage() {
     <div id="login-form-page-container">
       <form id="login-form-container" onSubmit={handleSubmit}>
         <h1>Log In</h1>
-        <ul className="errors-list">
+        {/* <ul className="errors-list">
           {errors.map((error, idx) => (
             <li className="errors" key={idx}>{error}</li>
           ))}
-        </ul>
+        </ul> */}
         <div id="login-form">
           <label>
             <input
@@ -68,6 +68,12 @@ function LoginFormPage() {
               placeholder="Password"
             />
           </label>
+          {errors.email &&
+            <p style={{margin: "0px", textAlign:"center"}} className="errors">{errors.email}</p>
+          }
+          {!errors.email && errors.password &&
+            <p style={{margin: "0px", textAlign:"center"}} className="errors">{errors.password}</p>
+          }
           <button className="login-button" type="submit">Log In</button>
           <button className="demo-button" onClick={demoUser}>Demo User</button>
           <p className="signup-message">New to StickKarter? <NavLink exact to="/signup">Sign up</NavLink></p>
