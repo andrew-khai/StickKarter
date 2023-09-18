@@ -12,7 +12,7 @@ function SignupFormPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -27,6 +27,7 @@ function SignupFormPage() {
   };
 
   const handleSubmit = async (e) => {
+    const errorsObj = {}
     e.preventDefault();
     if (password === confirmPassword) {
       const data = await dispatch(signUp(username, email, password));
@@ -34,7 +35,8 @@ function SignupFormPage() {
         setErrors(data)
       }
     } else {
-      setErrors(['Confirm Password field must be the same as the Password field']);
+      errorsObj.password = 'Confirm Password field must be the same as the Password field';
+      setErrors(errorsObj)
     }
   };
 
@@ -42,9 +44,9 @@ function SignupFormPage() {
     <div id="signup-form-page-container">
       <form id="signup-form-container" onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
-        <ul className="errors-list">
+        {/* <ul className="errors-list">
           {errors.map((error, idx) => <li className="errors" key={idx}>{error}</li>)}
-        </ul>
+        </ul> */}
         <div id="signup-form">
           <label>
             <input
@@ -56,6 +58,9 @@ function SignupFormPage() {
               placeholder="Email"
             />
           </label>
+          {errors.email &&
+          <p style={{margin: "0px", textAlign:"center"}} className="errors">{errors.email}</p>
+          }
           <label>
             <input
               className="signup-inputs"
@@ -66,6 +71,9 @@ function SignupFormPage() {
               placeholder="Username"
             />
           </label>
+          {errors.username &&
+          <p style={{margin: "0px", textAlign:"center"}} className="errors">{errors.username}</p>
+          }
           <label>
             <input
               className="signup-inputs"
@@ -86,6 +94,9 @@ function SignupFormPage() {
               placeholder="Confirm Password"
             />
           </label>
+          {errors.password &&
+          <p style={{margin: "0px", textAlign:"center", textWrap: "balance"}} className="errors">{errors.password}</p>
+          }
           <button className="signup-button" type="submit">Sign Up</button>
           <button className="demo-button" onClick={demoUser}>Demo User</button>
           <p className="signup-message">Have an account already? <NavLink exact to="/login">Login</NavLink></p>
