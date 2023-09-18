@@ -19,9 +19,13 @@ Stickkarter is a fullstack clone of Kickstarter, a crowd-funding site. Features 
 ![login-and-signup](https://github.com/andrew-khai/StickKarter/assets/127797007/1f96d034-4f15-4299-b917-c2e8b2a46363)
 
 Users can navigate through the site and see the projects through the recommended projects pages, and or view each project by category.
+
+
 ![homepage](https://github.com/andrew-khai/StickKarter/assets/127797007/1014f1b2-e570-45ed-b059-bddf3ed8c550)
 
 Users can also see all projects by visitng the discover and clicking "All".
+
+
 ![discoverall](https://github.com/andrew-khai/StickKarter/assets/127797007/94d5d2b2-870b-406b-b9aa-e67a414fd6f6)
 
 ### <a name="technologies"></a> Technologies
