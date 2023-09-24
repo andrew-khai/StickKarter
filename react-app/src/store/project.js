@@ -113,8 +113,8 @@ export const createProjectThunk = (project) => async (dispatch) => {
   // console.log('it is making it into the thunk')
   const res = await fetch("/api/projects/new", {
     method: "POST",
-    headers: { "Content-Type": "application/json"},
-    body: JSON.stringify(project)
+    // headers: { "Content-Type": "application/json"},
+    body: project
   });
 
   if (res.ok) {
@@ -141,10 +141,7 @@ export const updateProjectThunk = (project, projectId) => async (dispatch) => {
   // console.log('project in update thunk', project)
   const res = await fetch(`/api/projects/${projectId}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(project)
+    body: project
   })
 
   if (res.ok) {
@@ -154,9 +151,10 @@ export const updateProjectThunk = (project, projectId) => async (dispatch) => {
     // await dispatch(updateUserProject(updatedProject, updatedProject.id));
     return updatedProject;
   }
+
   else {
     const errors = await res.json();
-    // console.log('we in the errors update thunk')
+    // console.log('we in the errors update thunk', errors)
     return errors;
   }
 }
@@ -195,7 +193,7 @@ const initialState = {
 const projectsReducer = (state = initialState, action) => {
   switch (action.type) {
     case CLEAR_STATE: {
-      return {...initialState}
+      return { ...initialState }
     }
     case GET_ALL_PROJECTS: {
       const projectArray = action.projects.projects;
