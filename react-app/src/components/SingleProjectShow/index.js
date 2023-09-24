@@ -21,6 +21,7 @@ const SingleProjectShow = () => {
   const [showStory, setShowStory] = useState(true);
   const [showFaq, setShowFaq] = useState(false);
   const [errors, setErrors] = useState({});
+  const [fullyFunded, setFullyFunded] = useState(false);
   // const [singleProjectId, setSingleSpotId] = useState(projectId);
 
   const toggleStory = () => {
@@ -58,7 +59,7 @@ const SingleProjectShow = () => {
 
   const saveCheck = (project, user) => {
     let projectIds = [];
-    let saves= user.saves;
+    let saves = user.saves;
     saves?.forEach(save => projectIds.push(save.projectId))
     if (projectIds.includes(project.id)) return true;
     else return false;
@@ -94,6 +95,7 @@ const SingleProjectShow = () => {
     let number = Math.ceil(((sum) / (project.fundingGoal)) * 100)
     if (number > 100) {
       number = 100;
+      // setFullyFunded(true);
     }
     return number.toString() + '%';
   }
@@ -138,6 +140,7 @@ const SingleProjectShow = () => {
       {Object.keys(project).length > 0 ?
         <>
           <div id="single-project-container">
+            {/* {funding(project) == "100%" && <h1 id="completely-funded">This project has been fully funded!</h1>} */}
             {/* if backer backer message here */}
             <div className="single-project">
               <div className="single-project-headers">
@@ -200,8 +203,8 @@ const SingleProjectShow = () => {
                       </button>
                     }
                     {sessionUser && sessionUser.id !== project.creatorId && saveCheck(project, currentUser) &&
-                      <button style={{color: "blue", borderColor: "blue"}} className="save-project-rectangle-button">
-                        <i style={{color: "blue"}} class="fa-regular fa-bookmark"></i> Saved Project
+                      <button style={{ color: "blue", borderColor: "blue" }} className="save-project-rectangle-button">
+                        <i style={{ color: "blue" }} class="fa-regular fa-bookmark"></i> Saved Project
                       </button>
                     }
                     {sessionUser && sessionUser.id === project.creatorId &&
@@ -244,7 +247,7 @@ const SingleProjectShow = () => {
               {sessionUser && sessionUser.id !== project.creatorId && saveCheck(project, currentUser) &&
                 <>
                   {/* <button className="mini-back-this-button">Back this project</button> */}
-                  <button style={{color: "blue"}} className="mini-save-project-rectangle-button">
+                  <button style={{ color: "blue" }} className="mini-save-project-rectangle-button">
                     <i class="fa-regular fa-bookmark"></i> Saved Project
                   </button>
                 </>
@@ -258,11 +261,11 @@ const SingleProjectShow = () => {
                   Story
                 </h2>
                 {project?.story ?
-                <div className="dropdown-story">
-                  {project?.story}
-                </div>
-                :
-                <div>No story yet!</div>
+                  <div className="dropdown-story">
+                    {project?.story}
+                  </div>
+                  :
+                  <div>No story yet!</div>
                 }
               </div>
             }
@@ -272,11 +275,11 @@ const SingleProjectShow = () => {
                   FAQ
                 </h2>
                 {project?.faq ?
-                <div className="dropdown-story">
-                  {project?.faq}
-                </div>
-                :
-                <div>No FAQs yet!</div>
+                  <div className="dropdown-story">
+                    {project?.faq}
+                  </div>
+                  :
+                  <div>No FAQs yet!</div>
                 }
               </div>
             }
@@ -296,7 +299,7 @@ const SingleProjectShow = () => {
               <div className="single-project-rewards-container">
                 <h2 id="support">Support</h2>
                 {isBacker &&
-                  <h2 style={{color: "#009E74", textAlign: "center"}}>You have already backed this project!</h2>
+                  <h2 style={{ color: "#009E74", textAlign: "center" }}>You have already backed this project!</h2>
                 }
                 <div className="no-reward-pledge">
                   <p style={{ marginBottom: "0px" }}>Make a pledge without a reward</p>
