@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Redirect, useHistory } from "react-router-dom";
 import "./ProjectForm.css"
 import { createProjectThunk, updateProjectThunk } from "../../store/project";
+import LoadingModal from "../LoadingModal";
 
 /**
  *Takes in a date string in YYYY-MM-DD format and converts it into a GMT date string
@@ -78,11 +79,13 @@ const ProjectForm = ({ project, formType }) => {
   const [description, setDescription] = useState(project?.description);
   const [story, setStory] = useState(project?.story);
   const [faq, setFaq] = useState(project?.faq);
-  const [projectImage, setProjectImage] = useState(project?.projectImage);
+  const [projectImage, setProjectImage] = useState(project?.projectImage || '');
+  const [originalProjectImage, setOriginalProjectImage] = useState(project?.projectImage)
   const [startDate, setStartDate] = useState(project?.startDate);
   const [endDate, setEndDate] = useState(project?.endDate);
   const [fundingGoal, setFundingGoal] = useState(project?.fundingGoal || 100);
   const [location, setLocation] = useState(project?.location);
+  const [isLoading, setIsLoading] = useState(false);
 
   const today = new Date()
   useEffect(() => {
@@ -123,53 +126,80 @@ const ProjectForm = ({ project, formType }) => {
   tomorrow.setDate(tomorrow.getDate() + 14);
   const minEndDate = tomorrow.toISOString().split("T")[0];
 
-  // console.log('project here--------- in form', project)
+  console.log('project here--------- in form', project)
 
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    project = {
-      ...project,
-      creator_id: sessionUser.id,
-      category_id: parseInt(categoryId),
-      title,
-      description,
-      story,
-      faq,
-      project_image: projectImage,
-      start_date: toSimpleDateString(startDate),
-      end_date: toSimpleDateString(endDate),
-      funding_goal: fundingGoal,
-      location
-    }
+    setIsLoading(true)
+
+    const formData = new FormData();
+    formData.append("creator_id", sessionUser.id);
+    formData.append("category_id", parseInt(categoryId));
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("story", story);
+    formData.append("faq", faq);
+    formData.append("project_image", projectImage);
+    formData.append("start_date", toSimpleDateString(startDate));
+    formData.append("end_date", toSimpleDateString(endDate));
+    formData.append("funding_goal", fundingGoal);
+    formData.append("location", location);
+
+    // if (originalProjectImage !== "") {
+    //   formData.append("project_image", originalProjectImage)
+    // } else {
+    //   formData.append("project_image", projectImage)
+    // }
+
+    // project = {
+    //   ...project,
+    //   creator_id: sessionUser.id,
+    //   category_id: parseInt(categoryId),
+    //   title,
+    //   description,
+    //   story,
+    //   faq,
+    //   project_image: projectImage,
+    //   start_date: toSimpleDateString(startDate),
+    //   end_date: toSimpleDateString(endDate),
+    //   funding_goal: fundingGoal,
+    //   location
+    // }
 
     // console.log('project being sent to thunk----', project)
     if (formType === "Create") {
       // console.log('comint into the create if block')
-      const newProject = await dispatch(createProjectThunk(project))
+      const newProject = await dispatch(createProjectThunk(formData))
 
       if (newProject) {
         // console.log('came into the create errors block')
         // console.log(newProject, newProject.errors)
         setErrorsArr(newProject.errors);
+        setIsLoading(false);
       }
 
       // console.log('console log after the new project', newProject)
       if (!newProject.errors) {
-        console.log("in this confirm if block")
+        // console.log("in this confirm if block")
         history.push(`/projects/${newProject.id}`)
       }
     }
 
     if (formType === "Update") {
       // console.log('its coming into the update if block')
-      const updatedProject = await dispatch(updateProjectThunk(project, project.id))
+      const updatedProject = await dispatch(updateProjectThunk(formData, project.id))
 
       if (updatedProject?.errors) {
-        setErrors(updatedProject?.errors);
+        // console.log('in error update if')
+        setErrorsArr(updatedProject?.errors);
+        setIsLoading(false);
       }
       // console.log('updated prjec', updatedProject)
-      history.push(`/projects/${updatedProject.project.id}`)
+      if (!updatedProject?.errors) {
+        // console.log('in no error update if')
+        history.push(`/projects/${updatedProject?.project.id}`)
+      }
     }
 
   }
@@ -177,7 +207,8 @@ const ProjectForm = ({ project, formType }) => {
 
 
   return (
-    <div className="main-formpage-container">
+    <form className="main-formpage-container" onSubmit={handleSubmit} encType="multipart/form-data">
+      {isLoading && <LoadingModal />}
       <div className="formpage-container">
         {/* Category */}
         {page === 1 && formType === "Create" && <div><h1>First, let's get you set up.</h1></div>}
@@ -387,17 +418,31 @@ const ProjectForm = ({ project, formType }) => {
         {page === 6 &&
           <div className="form-container">
             <h1 className="project-form-header">Lastly, add a photo for your project</h1>
-            <h2 className="project-form-explanation">Enter an image URL and show potential backers your beautiful project. (AWS image hosting coming soon)</h2>
+            <h2 className="project-form-explanation">Please upload a banner image and show potential backers your beautiful project.</h2>
+            {originalProjectImage &&
+              <div className="current-project-image-container">
+                <img style={{width: "100%", height: "300px"}} src={originalProjectImage} />
+                <button
+                  className="remove-image-button"
+                  onClick={() => {
+                    setProjectImage('');
+                    setOriginalProjectImage('');
+                  }}
+                >Remove Image</button>
+              </div>
+            }
             <label className="project-form-labels">
               <div style={{ textAlign: "left" }}>
                 Project Image
               </div>
               <input
+                id="project-image-input"
                 className="form-text-inputs"
-                type="text"
-                value={projectImage}
+                type="file"
+                accept="image/*"
+                // value={projectImage}
                 placeholder="Input image URL here"
-                onChange={(e) => setProjectImage(e.target.value)}
+                onChange={(e) => setProjectImage(e.target.files[0])}
               >
               </input>
             </label>
@@ -408,12 +453,12 @@ const ProjectForm = ({ project, formType }) => {
             </ul>
             <div className="form-button-nav-container">
               <button className="form-back-page-button" onClick={() => setPage(5)}><i class="fa-solid fa-arrow-left-long"></i> Back: Project Dates & Goals </button>
-              <button className="form-next-page-button" disabled={!projectImage} onClick={handleSubmit}>Finalize</button>
+              <button className="form-next-page-button" disabled={!projectImage} type="submit">Finalize</button>
             </div>
           </div>
         }
       </div>
-    </div>
+    </form>
   )
 }
 
