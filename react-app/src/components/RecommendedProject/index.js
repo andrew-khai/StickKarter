@@ -49,7 +49,7 @@ const RecommendedProject = ({ project }) => {
       <div className="rec-project-details">
         <div className="rec-project-title">{project.title}</div>
         <div className="rec-project-funding">{Math.ceil((funded(project) / project.fundingGoal) * 100)}% funded</div>
-        <div className="rec-project-creator">By {project.creator.username}</div>
+        <div className="rec-project-creator">By {project.creator?.username}</div>
         <div>
           {sessionUser && sessionUser.id !== project.creatorId && !saveCheck(project, currentUser) &&
             <button
