@@ -41,8 +41,8 @@ const CategoryPage = () => {
       {categoryProjects && categoryProjects.length > 0 ?
         <div className="category-projects-main">
           <div className="projects-category-div">
-            <h1 style={{marginBottom: "0px", fontWeight: "light"}}>{categoryProjects[0].category.name}</h1>
-            <p style={{marginBottom: "0px", color: "#656969"}}>{categoryProjects[0].category.description}</p>
+            <h1 style={{marginBottom: "0px", fontWeight: "light"}}>{categoryProjects[0].category?.name}</h1>
+            <p style={{marginBottom: "0px", color: "#656969"}}>{categoryProjects[0].category?.description}</p>
           </div>
           <div className="projects-show-container">
             <ProjectFeaturedItem project={categoryProjects[0]} />

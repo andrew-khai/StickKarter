@@ -78,6 +78,6 @@ def remove_save(id, projectId):
     """
     user = User.query.get(id)
     project = Project.query.get(projectId)
-    project.saves.append(user)
+    project.saves.remove(user)
     db.session.commit()
     return user.to_dict_summary()

@@ -1,5 +1,7 @@
 // Types
 
+import { loadProjectsThunk } from "./project";
+
 const GET_CURRENT = "GET_CURRENT";
 const REMOVE_CURRENT = "REMOVE_CURRENT";
 const DELETE_USER_PROJECT = "DELETE_USER_PROJECT";
@@ -152,18 +154,22 @@ export const addSaveThunk = (user, projectId) => async (dispatch) => {
   })
   if (res.ok) {
     const data = await res.json();
-    dispatch(loadCurrentUser(user))
+    dispatch(loadCurrentUser(user));
+    // dispatch(loadProjectsThunk());
   }
 }
 
 export const removeSaveThunk = (user, projectId) => async (dispatch) => {
+  console.log(user, projectId)
   const res = await fetch(`/api/users/${user.id}/likes/${projectId}`, {
     method: "DELETE",
     body: JSON.stringify(user, projectId)
   })
   if (res.ok) {
     const data = await res.json();
-    dispatch(loadCurrentUser(user))
+    console.log(data)
+    await dispatch(loadCurrentUser(user))
+    // await dispatch(loadProjectsThunk());
   }
 }
 
