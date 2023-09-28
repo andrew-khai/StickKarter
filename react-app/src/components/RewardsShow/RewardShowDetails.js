@@ -1,11 +1,15 @@
 import { useDispatch } from "react-redux";
-import { createBackingThunk, loadSingleProjectThunk } from "../../store/project";
+import { createBackingThunk, loadSingleProjectThunk, unloadSingleProjectThunk } from "../../store/project";
 import { useEffect, useState } from "react";
 
 const RewardShowDetails = ({ user, reward, project }) => {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [isBacker, setIsBacker] = useState(false);
+
+  // useEffect(async () => {
+  //   await dispatch(unloadSingleProjectThunk())
+  // }, [])
 
 
   useEffect(() => {

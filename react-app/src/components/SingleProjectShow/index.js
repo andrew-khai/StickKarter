@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
-import { createBackingThunk, loadProjectsThunk, loadSingleProjectThunk } from "../../store/project";
+import { createBackingThunk, loadProjectsThunk, loadSingleProjectThunk, unloadSingleProjectThunk } from "../../store/project";
 import { Redirect } from "react-router-dom";
 import "./SingleProjectShow.css"
 import "../RewardsShow/RewardsShow.css"
@@ -43,6 +43,7 @@ const SingleProjectShow = () => {
   // }, [sessionUser])
 
   useEffect(async () => {
+    await dispatch(unloadSingleProjectThunk())
     await dispatch(loadSingleProjectThunk(projectId))
   }, [dispatch, projectId])
 
@@ -55,6 +56,8 @@ const SingleProjectShow = () => {
       project.backings?.forEach(backing => {
         if (backing?.userId === sessionUser?.id) {
           setIsBacker(true)
+        } else {
+          setIsBacker(false)
         }
       })
     }
