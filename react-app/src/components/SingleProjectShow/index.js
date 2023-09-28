@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
-import { createBackingThunk, loadSingleProjectThunk } from "../../store/project";
+import { createBackingThunk, loadProjectsThunk, loadSingleProjectThunk } from "../../store/project";
 import { Redirect } from "react-router-dom";
 import "./SingleProjectShow.css"
 import "../RewardsShow/RewardsShow.css"
@@ -10,6 +10,7 @@ import OpenModalButton from "../OpenModalButton";
 import DeleteProjectModal from "../DeleteProjectModal";
 import { useHistory } from "react-router-dom";
 import RewardsShow from "../RewardsShow";
+import { addSaveThunk, removeSaveThunk } from "../../store/user";
 
 const SingleProjectShow = () => {
   const { projectId } = useParams();
@@ -22,6 +23,7 @@ const SingleProjectShow = () => {
   const [showFaq, setShowFaq] = useState(false);
   const [errors, setErrors] = useState({});
   const [fullyFunded, setFullyFunded] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   // const [singleProjectId, setSingleSpotId] = useState(projectId);
 
   const toggleStory = () => {
@@ -43,6 +45,7 @@ const SingleProjectShow = () => {
   useEffect(async () => {
     await dispatch(loadSingleProjectThunk(projectId))
   }, [dispatch, projectId])
+
   const sessionUser = useSelector((state) => state.session.user);
   const currentUser = useSelector(state => state.users.currentUser);
   const project = useSelector((state) => state.projects.singleProject);
@@ -57,13 +60,19 @@ const SingleProjectShow = () => {
     }
   }, [project])
 
-  const saveCheck = (project, user) => {
-    let projectIds = [];
-    let saves = user.saves;
-    saves?.forEach(save => projectIds.push(save.projectId))
-    if (projectIds.includes(project.id)) return true;
-    else return false;
-  }
+  useEffect(() => {
+    if (sessionUser && currentUser) {
+      setIsSaved(currentUser.saves?.some((save) => save.projectId === project.id))
+    }
+  }, [sessionUser, currentUser, project.id])
+
+  // const saveCheck = (project, user) => {
+  //   let projectIds = [];
+  //   let saves = user.saves;
+  //   saves?.forEach(save => projectIds.push(save.projectId))
+  //   if (projectIds.includes(project.id)) return true;
+  //   else return false;
+  // }
 
   // const addSave = async () => {
   //   await dispatch(addSaveThunk(currentUser, project.id))
@@ -108,6 +117,20 @@ const SingleProjectShow = () => {
       })
     }
     return sum;
+  }
+
+  const addSave = async () => {
+    // console.log('in the add save block')
+    await dispatch(addSaveThunk(currentUser, project.id));
+    setIsSaved(true);
+    await dispatch(loadProjectsThunk());
+  }
+
+  const removeSave = async () => {
+    // console.log('in the remove save block')
+    await dispatch(removeSaveThunk(currentUser, project.id));
+    setIsSaved(false)
+    await dispatch(loadProjectsThunk())
   }
 
   const redirectToLogin = () => {
@@ -197,13 +220,13 @@ const SingleProjectShow = () => {
                     </a>
                   }
                   <div className="single-project-buttons-container">
-                    {sessionUser && sessionUser.id !== project.creatorId && !saveCheck(project, currentUser) &&
-                      <button className="save-project-rectangle-button">
+                    {sessionUser && sessionUser.id !== project.creatorId && !isSaved &&
+                      <button className="save-project-rectangle-button" onClick={addSave}>
                         <i class="fa-regular fa-bookmark"></i> Save Project
                       </button>
                     }
-                    {sessionUser && sessionUser.id !== project.creatorId && saveCheck(project, currentUser) &&
-                      <button style={{ color: "blue", borderColor: "blue" }} className="save-project-rectangle-button">
+                    {sessionUser && sessionUser.id !== project.creatorId && isSaved &&
+                      <button style={{ color: "blue", borderColor: "blue" }} className="save-project-rectangle-button" onClick={removeSave}>
                         <i style={{ color: "blue" }} class="fa-regular fa-bookmark"></i> Saved Project
                       </button>
                     }
@@ -236,18 +259,18 @@ const SingleProjectShow = () => {
               <div onClick={toggleFaq} id="dropdown-faq" className={showFaq ? "button-active" : "button-inactive"}>FAQ</div>
             </div>
             <div className="back-save-button-container">
-              {sessionUser && sessionUser.id !== project.creatorId && !saveCheck(project, currentUser) &&
+              {sessionUser && sessionUser.id !== project.creatorId && !isSaved &&
                 <>
                   {/* <button className="mini-back-this-button">Back this project</button> */}
-                  <button className="mini-save-project-rectangle-button">
+                  <button className="mini-save-project-rectangle-button" onClick={addSave}>
                     <i class="fa-regular fa-bookmark"></i> Save this Project
                   </button>
                 </>
               }
-              {sessionUser && sessionUser.id !== project.creatorId && saveCheck(project, currentUser) &&
+              {sessionUser && sessionUser.id !== project.creatorId && isSaved &&
                 <>
                   {/* <button className="mini-back-this-button">Back this project</button> */}
-                  <button style={{ color: "blue" }} className="mini-save-project-rectangle-button">
+                  <button style={{ color: "blue" }} className="mini-save-project-rectangle-button" onClick={removeSave}>
                     <i class="fa-regular fa-bookmark"></i> Saved Project
                   </button>
                 </>

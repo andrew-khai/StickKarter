@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUserBackingThunk, loadCurrentUserThunk, loadUserBackingsThunk, loadUserProjectsThunk } from "../../store/user";
+import { deleteUserBackingThunk, loadCurrentUserThunk, loadUserBackingsThunk, loadUserProjectsThunk, removeSaveThunk } from "../../store/user";
 import OpenModalButton from "../OpenModalButton";
 import DeleteProjectModal from "../DeleteProjectModal";
 import { useHistory } from "react-router-dom";
@@ -110,14 +110,14 @@ const UserSummary = () => {
             <div className="users-backed-list-container">
               <ul className="users-backed-list">
                 {Object.values(backings).length > 0 ?
-                inOrderBackings.map(backing => (
-                  <UserBacked
-                  backing={backing}
-                  />
-                ))
-                :
-                <div>No Pledges Yet</div>
-              }
+                  inOrderBackings.map(backing => (
+                    <UserBacked
+                      backing={backing}
+                    />
+                  ))
+                  :
+                  <div>No Pledges Yet</div>
+                }
                 {/* <UserBacked
                   backings={backings}
                 /> */}
@@ -150,12 +150,15 @@ const UserSummary = () => {
                       <div className="the-project-info-container">
                         <NavLink to={`/projects/${save.projectId}`} className="project-info-container">
                           <img src={save.projectImage} style={{ width: "70px", height: "50px" }}></img>
-                          <div style={{width: "250px"}}>
+                          <div style={{ width: "250px" }}>
                             {save.title}
                           </div>
                         </NavLink>
                         <div>
-                          <button className="remove-saved-button">Remove from Saved Projects</button>
+                          <button className="remove-saved-button" onClick={async () => {
+                            await dispatch(removeSaveThunk(user, save.projectId));
+                            await dispatch(loadCurrentUserThunk(user.id))
+                          }}>Remove from Saved Projects</button>
                         </div>
                       </div>
                     </li>

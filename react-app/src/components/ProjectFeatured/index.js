@@ -1,10 +1,36 @@
 import { NavLink } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import "./ProjectFeatured.css"
+import { useState, useEffect } from "react";
+import { addSaveThunk, removeSaveThunk } from "../../store/user";
+import { loadProjectsThunk } from "../../store/project";
 
 const ProjectFeaturedItem = ({ project }) => {
   // console.log('project -----', project)
+  const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+  const currentUser = useSelector(state => state.users.currentUser);
+  const [isSaved, setIsSaved] = useState(false)
+
+  useEffect(() => {
+    if (sessionUser && currentUser) {
+      setIsSaved(currentUser.saves?.some((save) => save.projectId === project.id))
+    }
+  }, [sessionUser, currentUser, project.id])
+
+  const addSave = async () => {
+    // console.log('in the add save block')
+    await dispatch(addSaveThunk(currentUser, project.id));
+    setIsSaved(true);
+    await dispatch(loadProjectsThunk());
+  }
+
+  const removeSave = async () => {
+    // console.log('in the remove save block')
+    await dispatch(removeSaveThunk(currentUser, project.id));
+    setIsSaved(false)
+    await dispatch(loadProjectsThunk())
+  }
 
   const funding = (project) => {
     let sum = 0;
@@ -40,9 +66,23 @@ const ProjectFeaturedItem = ({ project }) => {
           {project?.description}
         </div>
         <div>
-          {sessionUser && sessionUser.id !== project?.creatorId &&
-            <button className="save-project-button">
+        {sessionUser && sessionUser.id !== project.creatorId &&
+          !isSaved
+          &&
+            <button
+            onClick={addSave}
+            className="save-project-button">
               <i class="fa-regular fa-bookmark"></i>
+            </button>
+          }
+          {sessionUser && sessionUser.id !== project.creatorId &&
+          isSaved
+          &&
+            <button
+            onClick={removeSave}
+            style={{borderColor: "blue"}}
+            className="save-project-button">
+              <i style={{color: "blue"}} class="fa-regular fa-bookmark"></i>
             </button>
           }
         </div>

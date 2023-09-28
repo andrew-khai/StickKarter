@@ -71,7 +71,7 @@ const DiscoverShowProjects = ({ project }) => {
       </div>
       <div className="single-project-other-info">
         <div style={{color: "#656969"}}>
-          <i class="fa-regular fa-compass"></i> {project?.category.name}
+          <i class="fa-regular fa-compass"></i> {project.category?.name}
         </div>
         <div style={{color: "#656969"}}>
           <i class="fa-solid fa-location-dot"></i> {project?.location}

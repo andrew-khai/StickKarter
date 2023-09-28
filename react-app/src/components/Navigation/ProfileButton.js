@@ -120,7 +120,7 @@ function ProfileButton({ user }) {
                 backed={inOrderBackings?.slice(0,4)}
                 closeMenu={closeMenu}
                 />
-                {/* <li className="project-summary-link"><NavLink onClick={closeMenu} to="/user/summary">View/Edit Projects</NavLink></li> */}
+                {/* <li className="project-summary-link"><NavLink onClick={closeMenu} to="/user/summary">View Backed Projects</NavLink></li> */}
               </ul>
             </div>
             <div className="profile-backed-projects-container">
