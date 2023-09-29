@@ -43,7 +43,7 @@ const DiscoverShowProjects = ({ project }) => {
     <div className="single-project-discover">
       <div className="single-project-image-div">
         <NavLink to={`/projects/${project?.id}`}>
-          <img src={project?.projectImage} style={{ width: "390px", height: "220px" }}></img>
+          <img src={project?.projectImage} style={{ width: "100%", height: "220px" }}></img>
         </NavLink>
       </div>
       <div className="single-project-main-info">

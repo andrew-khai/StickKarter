@@ -74,6 +74,7 @@
 .single-project-discover {
   width: 390px;
   border: 1px solid lightgray;
+  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
 }
 
 .single-project-main-info {
