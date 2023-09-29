@@ -188,7 +188,9 @@ const SingleProjectShow = () => {
                   </ul>
                 </div>
                 <div className="rightside-project-details">
-                  <div className="fund-progress-bar" style={{ width: funding(project), border: "5px solid green" }}></div>
+                  <div className="progress-bar-container progress">
+                  <div className="fund-progress-bar progress" style={{ width: funding(project), border: "5px solid green" }}></div>
+                  </div>
                   <div className="project-funding-details-container">
                     <div className="project-funding-details">
                       <div className="project-funding">

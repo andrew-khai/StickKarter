@@ -4,18 +4,24 @@ import "./ProjectFeatured.css"
 import { useState, useEffect } from "react";
 import { addSaveThunk, removeSaveThunk } from "../../store/user";
 import { loadProjectsThunk } from "../../store/project";
+import HomepageLoading from "../LoadingModal/homepageloading";
 
 const ProjectFeaturedItem = ({ project }) => {
   // console.log('project -----', project)
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const currentUser = useSelector(state => state.users.currentUser);
-  const [isSaved, setIsSaved] = useState(false)
+  const [isSaved, setIsSaved] = useState(false);
+  // const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // setIsLoading(true);
+
     if (sessionUser && currentUser) {
       setIsSaved(currentUser.saves?.some((save) => save.projectId === project.id))
     }
+
+    // setIsLoading(false);
   }, [sessionUser, currentUser, project.id])
 
   const addSave = async () => {
@@ -51,14 +57,21 @@ const ProjectFeaturedItem = ({ project }) => {
     return number.toString() + '%';
   }
 
+  // if (isLoading) {
+  //   return <HomepageLoading />
+  // }
+
   return (
     <div className="main-featured-project-container">
+      {/* {isLoading && <HomepageLoading />} */}
       <h1 class="featured-project-text">FEATURED PROJECT</h1>
       <div className="featured-project-container" style={{width: "625px"}}>
         <NavLink to={`/projects/${project?.id}`} style={{width: "625px"}}>
           <img className="featured-project-image" style={{ width: "625px", height: "335.08px" }} src={project?.projectImage}></img>
         </NavLink>
-        <div className="fund-progress-bar" style={{ width: funding(project), border: "5px solid green" }}></div>
+        <div className="progress-bar-container progress">
+        <div className="fund-progress-bar progress" style={{ width: funding(project), border: "5px solid green" }}></div>
+        </div>
         <h2>
           {project?.title}
         </h2>

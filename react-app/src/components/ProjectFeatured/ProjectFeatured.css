@@ -40,3 +40,21 @@
   height: 30px;
 
 } */
+
+.progress-bar-container {
+  width:100%;
+  height:1em;
+  position:relative;
+  background-color:#f1f1f1
+}
+
+.fund-progress-bar {
+  background-color:green;
+  height:100%;
+  position:absolute;
+  line-height:inherit;
+}
+
+.progress {
+  border-radius:16px!important
+}
