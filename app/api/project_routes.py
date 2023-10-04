@@ -23,7 +23,12 @@ def projects():
   """
   Query for all projects and return them in a list of project dictionaries
   """
-  projects = Project.query.all()
+  search_query = request.args.get('search')
+  projects = Project.query
+  if search_query:
+      projects = projects.filter((Project.title.ilike(f"%{search_query}%")))
+
+  projects = projects.all()
   return {'projects': [project.to_dict_summary() for project in projects]}
 
 @project_routes.route("/new", methods=["POST"])

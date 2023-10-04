@@ -5,7 +5,6 @@ import ProjectFeaturedItem from "../ProjectFeatured"
 import RecommendedProjects from "../RecommendedProjects"
 import "./ProjectShowContainer.css"
 import { loadCurrentUserThunk, removeCurrentUserThunk } from "../../store/user"
-// import HomepageLoading from "../LoadingModal/homepageloading"
 
 const ProjectShowContainer = () => {
   const dispatch = useDispatch()
@@ -32,6 +31,7 @@ const ProjectShowContainer = () => {
   const projects = useSelector(state => Object.keys(state.projects.projects).map(project => {
     return state.projects.projects[project]
   }))
+  const isLoading = projects.length === 0;
 
   // useEffect(() => {
   //   if (projects.length > 0) {
@@ -52,13 +52,17 @@ const ProjectShowContainer = () => {
 
   // console.log(projects)
 
-  // if (isLoading) {
-  //   return <HomepageLoading />
-  // }
-
-  if (!(projects.length > 0)) {
-    return null
+  if (isLoading) {
+    return (
+      <div className="loader">
+        <span className="loader-inner"></span>
+      </div>
+    );
   }
+
+  // if (!(projects.length > 0)) {
+  //   return null
+  // }
 
   const recommendedProjects = projects.slice(1, 10)
 

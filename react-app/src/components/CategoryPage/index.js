@@ -26,6 +26,15 @@ const CategoryPage = () => {
   const projects = useSelector(state => Object.keys(state.projects.projects).map(project => {
     return state.projects.projects[project]
   }))
+  const isLoading = projects.length === 0;
+
+  if (isLoading) {
+    return (
+      <div className="loader">
+        <span className="loader-inner"></span>
+      </div>
+    );
+  }
   // console.log(projects, categoryId)
   const categoryProjects = projects.filter(project => project.categoryId == categoryId)
   // console.log(categoryProjects)
@@ -50,7 +59,7 @@ const CategoryPage = () => {
           </div>
         </div>
         :
-        <h1 style={{ textAlign: "center" }}>NO CATEGORY FOUND</h1>
+        <h1 style={{ textAlign: "center" }}></h1>
       }
     </>
   )

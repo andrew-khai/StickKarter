@@ -9,19 +9,22 @@ import { useHistory } from "react-router-dom";
 import { loadCurrentUserThunk, loadUserBackingsThunk, loadUserProjectsThunk, removeCurrentUserThunk } from "../../store/user";
 import UserBackedProjects from "../ProfileProjects/UserBackedProjects";
 import UserCreated from "../ProfileProjects/UserCreated";
+import { loadProjectsThunk } from "../../store/project";
 
 function ProfileButton({ user }) {
   // console.log(user)
   const history = useHistory()
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [loadMoreCount, setLoadMoreCount] = useState(4);
   const ulRef = useRef();
 
-  // const sessionUser = useSelector((state) => state.session.user);
   const projects = useSelector(state => state.users.projects);
   const backings = useSelector(state => state.users.backings);
 
-  // console.log('hahahaha', projects)
 
   let inOrderProjects = Object.values(projects).sort((a, b) => {
     let da = new Date(a.createdAt);
@@ -29,7 +32,6 @@ function ProfileButton({ user }) {
     return da - db;
   })
 
-  // console.log('hehehehe', inOrderProjects)
   inOrderProjects.reverse();
 
   let inOrderBackings = Object.values(backings).sort((a, b) => {
@@ -69,6 +71,28 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  useEffect(() => {
+    dispatch(loadProjectsThunk(searchQuery));
+  }, [dispatch, searchQuery])
+
+  const openSearchModal = () => {
+    setIsSearchModalOpen(true);
+  }
+
+  const closeSearchModal = () => {
+    setIsSearchModalOpen(false);
+    setSearchQuery('');
+  }
+
+  const handleSearchInputChange = (e) => {
+    e.preventDefault();
+    setSearchQuery(e.target.value)
+  }
+
+  const performSearch = () => {
+    return;
+  }
+
   // const currentUser = useSelector((state) => state.users.currentUser)
   // console.log('currentuser here -------', currentUser)
 
@@ -87,13 +111,32 @@ function ProfileButton({ user }) {
     <div id="rightside-nav">
       <div id='navigation-search'>
         <button
-        id="search-button"
-        // onClick={() => alert("Feature coming soon!")}
+          id="search-button"
+          // onClick={openSearchModal}
         >
           Search
           <span><i class="fa-solid fa-magnifying-glass"></i></span>
         </button>
       </div>
+      {isSearchModalOpen && (
+        <div id="search-modal" className="modal-overlay">
+          <div className="modal-content search-container">
+            <input
+              className="search-input"
+              type="text"
+              placeholder="Search for projects..."
+              value={searchQuery}
+              onChange={handleSearchInputChange}
+            />
+            <span className="close-button" onClick={closeSearchModal}>
+              &times;
+            </span>
+
+            {/* <button className="search-button" onClick={performSearch}><i class="fa-solid fa-magnifying-glass"></i></button> */}
+            {/* Display search results here */}
+          </div>
+        </div>
+      )}
       {!user ? (
         <NavLink id="login-link-button" to="/login">Log In</NavLink>
       ) :
@@ -117,18 +160,18 @@ function ProfileButton({ user }) {
               <div className="profile-container-headers">Backed Projects</div>
               <ul className="backing-projects-list">
                 <UserBackedProjects
-                backed={inOrderBackings?.slice(0,4)}
-                closeMenu={closeMenu}
+                  backed={inOrderBackings?.slice(0, 4)}
+                  closeMenu={closeMenu}
                 />
                 {/* <li className="project-summary-link"><NavLink onClick={closeMenu} to="/user/summary">View Backed Projects</NavLink></li> */}
               </ul>
             </div>
-            <div className="profile-backed-projects-container">
+            <div className="profile-backed-projects-container no-border-right">
               <div className="profile-container-headers">Created Projects</div>
               <ul className="backing-projects-list">
                 <UserCreated
-                created={inOrderProjects?.slice(0,4)}
-                closeMenu={closeMenu}
+                  created={inOrderProjects?.slice(0, 4)}
+                  closeMenu={closeMenu}
                 />
               </ul>
             </div>
