@@ -11,3 +11,19 @@ footer {
   padding: 20px;
   align-items: center;
 }
+
+.learn-more {
+  display: flex;
+  /* grid-column-gap: 28px; */
+  column-gap: 5px;
+  max-width: 1360px;
+  margin: auto;
+  padding: 20px;
+  align-items: center;
+  padding-top: 0px;
+}
+
+.learn-more a:hover {
+  text-decoration: underline;
+  font-weight: bold;
+}

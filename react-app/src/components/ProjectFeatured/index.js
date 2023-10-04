@@ -18,11 +18,11 @@ const ProjectFeaturedItem = ({ project }) => {
     // setIsLoading(true);
 
     if (sessionUser && currentUser) {
-      setIsSaved(currentUser.saves?.some((save) => save.projectId === project.id))
+      setIsSaved(currentUser.saves?.some((save) => save?.projectId === project?.id))
     }
 
     // setIsLoading(false);
-  }, [sessionUser, currentUser, project.id])
+  }, [sessionUser, currentUser, project?.id])
 
   const addSave = async () => {
     // console.log('in the add save block')
@@ -79,7 +79,7 @@ const ProjectFeaturedItem = ({ project }) => {
           {project?.description}
         </div>
         <div>
-        {sessionUser && sessionUser.id !== project.creatorId &&
+        {sessionUser && sessionUser.id !== project?.creatorId &&
           !isSaved
           &&
             <button
@@ -88,7 +88,7 @@ const ProjectFeaturedItem = ({ project }) => {
               <i class="fa-regular fa-bookmark"></i>
             </button>
           }
-          {sessionUser && sessionUser.id !== project.creatorId &&
+          {sessionUser && sessionUser.id !== project?.creatorId &&
           isSaved
           &&
             <button

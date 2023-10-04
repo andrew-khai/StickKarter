@@ -78,8 +78,12 @@ export const clearStateThunk = () => async (dispatch) => {
 }
 
 // loads all projects
-export const loadProjectsThunk = () => async (dispatch) => {
-  const res = await fetch("/api/projects")
+export const loadProjectsThunk = (searchQuery) => async (dispatch) => {
+  // if (searchQuery) {
+  //   const res = await fetch(`/api/projects?search=${searchQuery}`)
+  // }
+
+  const res = await fetch(`/api/projects?search=${searchQuery}`)
 
   if (res.ok) {
     const projects = await res.json();
