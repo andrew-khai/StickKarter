@@ -28,6 +28,17 @@ Users can also see all projects by visitng the discover and clicking "All".
 
 ![discoverall](https://github.com/andrew-khai/StickKarter/assets/127797007/94d5d2b2-870b-406b-b9aa-e67a414fd6f6)
 
+
+Users can create a project and see their most recent projects in their dropdown, or go to their summary page where they can view created, backed, and saved projects. They can also edit their projects
+or edit their rewards for their projects, delete projects, and or remove backings/saves.
+
+![stickkartercreateproject](https://github.com/andrew-khai/StickKarter/assets/127797007/daf02222-a891-410e-b0a6-3507d547e845)
+
+![stickkartersummary](https://github.com/andrew-khai/StickKarter/assets/127797007/0e325f04-aa2d-4a7b-9a5d-9a0a73e92c10)
+
+![Screenshot 2023-10-06 at 9 37 39 AM](https://github.com/andrew-khai/StickKarter/assets/127797007/d1ae52ea-442d-4b12-8144-d9210401e0ba)
+
+
 ### <a name="technologies"></a> Technologies
 * Flask
 * React/Redux
@@ -39,8 +50,9 @@ Users can also see all projects by visitng the discover and clicking "All".
 * Javascript
 * Python
 * CSS
+* AWS S3 storage
 * Render (deployment)
 
 ### <a name="comingsoon"></a> Future Features
 * search functionality
-* AWS S3 storage
+
