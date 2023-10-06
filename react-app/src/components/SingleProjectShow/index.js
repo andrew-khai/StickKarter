@@ -87,9 +87,9 @@ const SingleProjectShow = () => {
 
   // console.log('project ------', project)
 
-  if (!project || !project.id) {
-    return null
-  }
+  // if (!project || !project.id) {
+  //   return null
+  // }
   const rewards = project.rewards
 
   const funding = (project) => {
@@ -189,7 +189,7 @@ const SingleProjectShow = () => {
                 </div>
                 <div className="rightside-project-details">
                   <div className="progress-bar-container progress">
-                  <div className="fund-progress-bar progress" style={{ width: funding(project), border: "5px solid green" }}></div>
+                    <div className="fund-progress-bar progress" style={{ width: funding(project), border: "5px solid green" }}></div>
                   </div>
                   <div className="project-funding-details-container">
                     <div className="project-funding-details">
@@ -254,8 +254,16 @@ const SingleProjectShow = () => {
           </div>
         </>
         :
-        <><h1 style={{ textAlign: "center" }}>No Project Found</h1></>
+        <div id="no-project-container" style={{ height: "100vh", textAlign: "center" }}>
+          <h1 style={{ textAlign: "center" }}>No Project Found</h1>
+          <iframe style={{border: "none", height: "100vh", width: "100%"}} src="https://lottie.host/?file=a8c0e170-0fa5-4955-b4e9-fb61840714bb/gG2PNuWQaT.json"></iframe>
+        </div>
       }
+      {/* {!Object.keys(project) === 0 &&
+        <div id="single-project-container" style={{ width: "100vh" }}>
+          <h1 style={{ textAlign: "center" }}>No Project Found</h1>
+        </div>
+      } */}
       {Object.keys(project).length > 0 &&
         <>
           <nav className="single-project-dropdown-container">
