@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
 import "./CategoryNav.css"
+import useWindowWidth from "../../hooks/windowWidth";
 
 function CategoryNav() {
+  const width = useWindowWidth();
+
   return (
     <div id="category-nav-container">
       <NavLink to="/category/1">

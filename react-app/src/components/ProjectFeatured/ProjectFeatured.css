@@ -9,14 +9,20 @@
   font-weight: lighter;
 }
 
+.featured-project-image {
+  width: 100%;
+  height: 335.08px;
+}
+
+
 .main-featured-project-container {
   display: flex;
   flex-direction: column;
-  padding-top: 30px;
-  padding-right: 60px;
+  padding-right: 20px;
   margin-top: 20px;
   row-gap: 10px;
   border-right: 1px solid lightgray;
+  padding-left: 20px;
 }
 
 .featured-project-container {
@@ -31,7 +37,7 @@
   height: 25px;
   border-radius: 70%;
   background-color: white;
-  border: 0.1rem solid #DCDEDD;
+  border: 0.1rem solid #dcdedd;
   cursor: pointer;
 }
 
@@ -42,19 +48,26 @@
 } */
 
 .progress-bar-container {
-  width:100%;
-  height:1em;
-  position:relative;
-  background-color:#f1f1f1
+  width: 100%;
+  height: 1em;
+  position: relative;
+  background-color: #f1f1f1;
 }
 
 .fund-progress-bar {
-  background-color:green;
-  height:100%;
-  position:absolute;
-  line-height:inherit;
+  background-color: green;
+  height: 100%;
+  position: absolute;
+  line-height: inherit;
 }
 
 .progress {
-  border-radius:16px!important
+  border-radius: 16px !important;
+}
+
+@media (min-width: 1028px) {
+  .featured-project-image {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Set your desired aspect ratio (e.g., 16:9) */
+  }
 }

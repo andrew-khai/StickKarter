@@ -7,7 +7,7 @@ const UserBackedProjects = ({ backed, closeMenu }) => {
     return null
   }
   return backed.map(backing => (
-        <li key={backing.id}>
+        <li key={backing.id} className="user-backed-list">
           <NavLink onClick={closeMenu} to={`/projects/${backing.project.id}`} className="backing-container">
             <div className="backing-image">
             <img src={backing.project.projectImage} style={{width: "52px", height: "30px"}}></img>

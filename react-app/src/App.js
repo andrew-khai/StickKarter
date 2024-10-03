@@ -20,6 +20,10 @@ import Discover from "./components/Discover";
 import CategoryPage from "./components/CategoryPage";
 import DiscoverAll from "./components/Discover/DiscoverAll";
 import Footer from "./components/Footer";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+import "./index.css"
 
 function App() {
   const dispatch = useDispatch();

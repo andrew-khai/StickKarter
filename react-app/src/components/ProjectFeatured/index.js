@@ -65,9 +65,9 @@ const ProjectFeaturedItem = ({ project }) => {
     <div className="main-featured-project-container">
       {/* {isLoading && <HomepageLoading />} */}
       <h1 class="featured-project-text">FEATURED PROJECT</h1>
-      <div className="featured-project-container" style={{width: "625px"}}>
-        <NavLink to={`/projects/${project?.id}`} style={{width: "625px"}}>
-          <img className="featured-project-image" style={{ width: "625px", height: "335.08px" }} src={project?.projectImage}></img>
+      <div className="featured-project-container" style={{width: "100%"}}>
+        <NavLink to={`/projects/${project?.id}`} style={{width: "100%"}}>
+          <img className="featured-project-image" src={project?.projectImage}></img>
         </NavLink>
         <div className="progress-bar-container progress">
         <div className="fund-progress-bar progress" style={{ width: funding(project), border: "5px solid green" }}></div>
