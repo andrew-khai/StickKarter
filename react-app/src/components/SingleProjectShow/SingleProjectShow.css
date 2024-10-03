@@ -21,9 +21,11 @@
 }
 
 .single-project {
-  width: 1282px;
+  width: 100%;
+  max-width: 1282px;
   margin: auto;
   padding: 0px 60px 0 60px;
+  margin-bottom: 20px;
 }
 
 .single-page-details {
@@ -35,11 +37,9 @@
   padding: 0px 18px 0px 18px;
 }
 
-.single-project-image-box>img {
-  max-width: 818.66px;
-  max-height: 460.48px;
-  min-height: 420px;
-  min-width: 750px;
+.single-project-image-box > img {
+  /* max-width: 589.66px; */
+  width: 100%;
 }
 
 .other-details-list {
@@ -50,7 +50,7 @@
 }
 
 .rightside-project-details {
-  width: 390px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
@@ -63,7 +63,7 @@
 }
 
 .project-funding {
-  color: #009E74;
+  color: #009e74;
   font-weight: bolder;
   font-size: 2rem;
   padding-top: 10px;
@@ -92,6 +92,8 @@
 }
 
 .back-this-button {
+  max-width: 200px;
+  border-radius: 0.375rem;
   background-color: #028858;
   margin-top: 25px;
   padding: 0.7rem 2.4rem;
@@ -150,12 +152,11 @@
 
 #dropdown-story:hover,
 #dropdown-faq:hover {
-  color: #009E74;
+  color: #009e74;
 }
 
-
 .button-active {
-  color: #009E74;
+  color: #009e74;
   font-weight: bold;
   text-decoration: underline;
 }
@@ -168,7 +169,8 @@
 }
 
 .dropdown-story-div {
-  width: 850px;
+  width: 100%;
+  max-width: 850px;
   padding: 0px 18px;
 }
 
@@ -219,7 +221,6 @@
   font-weight: bold;
 }
 
-
 .pledge-amount-container {
   display: flex;
   flex-direction: column;
@@ -240,6 +241,7 @@
 }
 
 .single-project-edit-button {
+  max-width: 200px;
   padding: 10px;
   background-color: #028858;
   color: white;
@@ -249,4 +251,91 @@
 .single-project-edit-button:hover {
   background-color: #015738;
   border-color: #015738;
+}
+
+@media (max-width: 640px) {
+  .project-funding, .project-backer-details, .project-date-details {
+    font-size: 1.5rem;
+  }
+
+  .project-funding-details-container {
+    row-gap: 0px;
+  }
+}
+
+@media (max-width: 700px) {
+  .dropdown-information-container {
+    flex-direction: column;
+  }
+  .dropdown-story-div {
+    padding: 0px;
+  }
+  .creator-rewards-container {
+    margin-top: 50px;
+  }
+  .single-project-rewards-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .single-page-details {
+    flex-direction: column; /* Stack vertically for smaller screens */
+    margin: 0; /* Remove negative margins */
+  }
+
+  .single-project-image-box,
+  .rightside-project-details {
+    width: 100%; /* Full width for smaller screens */
+    padding: 0; /* Remove padding to fit mobile layout */
+  }
+
+  .single-project-image-box img {
+    width: 100%;
+    height: auto; /* maintain aspect ratio */
+    max-width: 100%;
+    object-fit: cover;
+  }
+
+  .single-project-headers {
+    padding: 1rem; /* Reduce padding for smaller screens */
+  }
+
+  .project-funding-details-container {
+    row-gap: 20px; /* Smaller gap between sections for mobile */
+  }
+
+  .single-project-buttons-container {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+  }
+
+  .back-this-button {
+    width: 100%; /* Full width for better button sizing on mobile */
+    margin-top: 15px;
+  }
+
+  .creator-buttons-container button {
+    width: 100%; /* Make the buttons full-width */
+  }
+}
+
+@media (max-width: 950px) {
+  .single-page-details {
+    flex-direction: column; /* Stack vertically for smaller screens */
+    margin: 0; /* Remove negative margins */
+  }
+}
+
+@media (min-width: 951px) {
+  .rightside-project-details {
+    max-width: 274.25px;
+  }
+}
+
+@media (min-width: 1300px) {
+  .single-project-image-box > img {
+    max-width: 818.66px;
+  }
 }

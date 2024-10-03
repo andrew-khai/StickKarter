@@ -11,6 +11,8 @@ import DeleteProjectModal from "../DeleteProjectModal";
 import { useHistory } from "react-router-dom";
 import RewardsShow from "../RewardsShow";
 import { addSaveThunk, removeSaveThunk } from "../../store/user";
+import Button from "react-bootstrap/esm/Button";
+import { Tab, Tabs } from 'react-bootstrap';
 
 const SingleProjectShow = () => {
   const { projectId } = useParams();
@@ -218,7 +220,7 @@ const SingleProjectShow = () => {
                     </div>
                   </div>
                   {!sessionUser ?
-                    <button onClick={redirectToLogin} className="back-this-button">Back this project</button>
+                    <Button variant="success" onClick={redirectToLogin} className="back-this-button">Back this project</Button>
                     :
                     <a href="#support">
                       <button style={{ width: "100%" }} disabled={sessionUser.id === project.creatorId} className="back-this-button">Back this project</button>
@@ -238,7 +240,7 @@ const SingleProjectShow = () => {
                     {sessionUser && sessionUser.id === project.creatorId &&
                       <div className="creator-buttons-container">
                         <NavLink exact to={`/projects/${project.id}/edit`}>
-                          <button className="single-project-edit-button"><i class="fa-regular fa-pen-to-square"></i> Edit</button>
+                          <Button className="single-project-edit-button"><i class="fa-regular fa-pen-to-square"></i> Edit</Button>
                         </NavLink>
                         {/* <OpenModalButton
                           className="project-delete-button"
