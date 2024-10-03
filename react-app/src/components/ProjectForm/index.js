@@ -421,7 +421,7 @@ const ProjectForm = ({ project, formType }) => {
             <h2 className="project-form-explanation">Please upload a banner image and show potential backers your beautiful project.</h2>
             {originalProjectImage &&
               <div className="current-project-image-container">
-                <img style={{width: "100%", height: "300px"}} src={originalProjectImage} />
+                <img style={{width: "95%", height: "300px"}} src={originalProjectImage} />
                 <button
                   className="remove-image-button"
                   onClick={() => {

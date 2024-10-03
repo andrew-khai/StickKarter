@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 10px 90px;
+  padding: 10px 20px;
   border-bottom: 1px solid lightgray;
   border-top: 1px solid lightgray;
 }
@@ -17,4 +17,14 @@
 #category-nav-container a:hover {
   color: #034752;
   text-decoration: underline;
+}
+
+
+@media (max-width: 800px) {
+  #category-nav-container {
+    border-bottom: none;
+  }
+  #category-nav-container a{
+    display: none;
+  }
 }

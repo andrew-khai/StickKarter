@@ -6,7 +6,7 @@ const UserCreated = ({ created, closeMenu }) => {
   return (
     <>
       {created.slice(0, 4).map(project => (
-        <li key={project.id}>
+        <li key={project.id} className="user-created-list">
           <NavLink onClick={closeMenu} to={`/projects/${project.id}`} className="backing-container">
             <div className="backing-image">
               <img src={project.projectImage} style={{ width: "52px", height: "30px" }}></img>

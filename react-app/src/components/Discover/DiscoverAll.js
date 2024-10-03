@@ -35,7 +35,7 @@ const DiscoverAll = () => {
         </div>
       </div>
       <div className="discover-projects-container">
-        <h2 style={{width: "1250px", margin: "30px auto", color: "#037362"}}>Explore <span>{projects?.length} Projects</span></h2>
+        <h2 style={{width: "1250px", margin: "30px auto", color: "#037362", paddingInline: "10px"}}>Explore <span>{projects?.length} Projects</span></h2>
         {projects && projects.length > 0 &&
           <>
             <div className="projects-grid-container">

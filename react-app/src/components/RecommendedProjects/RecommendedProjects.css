@@ -1,12 +1,12 @@
 .main-recommended-projects-container {
   margin-top: 20px;
   padding-top: 30px;
-  padding-left: 60px;
+  padding-left: 20px;
 }
 
 .recommended-projects-container {
   display: flex;
-  width: 550px;
+  width: 100%;
 }
 
 .recommended-text {

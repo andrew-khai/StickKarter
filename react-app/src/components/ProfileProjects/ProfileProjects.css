@@ -37,3 +37,12 @@
   background-position: 0 0;
   background-size: 200%;
 } */
+
+
+@media (max-width: 640px) {
+  .user-created-list, 
+  .user-backed-list {
+    list-style: none;
+    margin-bottom: 20px;
+  }
+}

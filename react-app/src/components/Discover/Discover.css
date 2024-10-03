@@ -1,5 +1,6 @@
 .main-discover-page-div {
   border-top: 1px solid lightgray;
+  padding-inline: 10px;
 }
 
 .x-close-button {
@@ -64,15 +65,16 @@
 
 .projects-grid-container {
   display: grid;
-  grid-template-columns: repeat(3, 390px);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   column-gap: 40px;
   max-width: 1250px;
   margin: 0px auto;
   row-gap: 30px;
+  padding-inline: 10px;
 }
 
 .single-project-discover {
-  width: 390px;
+  width: 100%;
   border: 1px solid lightgray;
   box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
 }

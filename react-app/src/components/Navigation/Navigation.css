@@ -9,12 +9,13 @@
   width: 915px;
   height: 365px;
   top: 55px;
-  right: 20px;
+  right: 0px;
+
 }
 
 #nav-logo {
   color: #05ce78;
-  font-family: 'Lilita One';
+  font-family: "Lilita One";
   font-size: 2.5rem;
 }
 
@@ -95,13 +96,15 @@
   background-color: white;
   padding: 10px;
   border: 1px solid lightgray;
+  width: 100%;
 }
 
 .main-profile-container {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   height: 100%;
-  column-gap: 90px;
+  column-gap: 60px;
 }
 
 .profile-container {
@@ -128,7 +131,6 @@
   row-gap: 10px;
 }
 
-
 .profile-container-headers {
   margin-bottom: 20px;
   font-weight: bold;
@@ -145,9 +147,10 @@
 
 .project-summary-link {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.project-summary-link>a:hover {
+.project-summary-link > a:hover {
   color: #05ce78 !important;
 }
 
@@ -156,15 +159,114 @@
   text-decoration: underline !important;
 }
 
-
 .modal-overlay {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  background-color: transparent;
-  z-index: 1000;
+  right: 0;
+  width: 100%; /* Adjust the width as needed */
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out; /* Smooth transition for opening and closing */
+  z-index: 1000; /* Ensure it is above other content */
+}
+
+/* When the modal is open */
+.modal-overlay.open {
+  transform: translateX(0);
+}
+
+/* Modal Content */
+.modal-contents {
+  background: #fff;
+  height: 100%;
+  overflow-y: auto;
+  padding: 50px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+  position: relative; /* Position relative for close button positioning */
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.offcanvas-fullscreen {
+  width: 100% !important; /* Ensures the Offcanvas takes full width */
+  height: 100vh; /* Ensures the Offcanvas takes full height of the viewport */
+  max-width: none; /* Removes the default max-width */
+  background-color: #fff; /* Optional: Add any background color you like */
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+/* Change background color when accordion is opened */
+.accordion-button:not(.collapsed) {
+  background-color: transparent; /* Change to your preferred background color */
+  color: inherit; /* Keeps the text color consistent */
+  border: none; /* Removes border if any */
+}
+
+/* Additional customization for the accordion header */
+.accordion-button {
+  background-color: transparent; /* Default background color */
+  border: none;
+  color: inherit; /* Keeps the text color consistent */
+}
+
+/* Remove the default background color of the accordion body */
+.accordion-body {
+  background-color: transparent; /* Change to desired background */
+}
+
+.mobile-profile-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-categories {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-categories a {
+  text-decoration: none;
+  color: black;
+}
+
+.mobile-categories a:hover {
+  color: #05ce78;
+}
+
+.mobile-auth-buttons {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-user-details {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.mobile-user-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.mobile-project-summary-link {
+  text-decoration: none;
+  color: white;
 }
 
 /* CSS for the search input container */
@@ -212,4 +314,78 @@
   cursor: pointer;
   font-size: 3rem;
   color: #037362;
+}
+
+#hamburger-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+@media (min-width: 955px) {
+  #user-dropdown-container {
+    z-index: 1;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid lightgray;
+    max-width: 915px;
+  }
+
+  .main-profile-container {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    column-gap: 90px;
+  }
+
+  .profile-container {
+    width: 210px;
+  }
+
+  .profile-container,
+  .profile-backed-projects-container {
+    border-right: 1px solid lightgray;
+  }
+
+  .profile-backed-projects-container,
+  .profile-creator-projects-container {
+    width: 350px;
+  }
+
+  .no-border-right {
+    border: none !important;
+  }
+
+  .backing-projects-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+
+  .profile-container-headers {
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  #logout-button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    margin-top: 20px;
+    padding: 0px;
+    color: red;
+  }
+
+  .project-summary-link {
+    margin-top: 20px;
+  }
+
+  .project-summary-link > a:hover {
+    color: #05ce78 !important;
+  }
+
+  .backing-container:hover {
+    color: #034752 !important;
+    text-decoration: underline !important;
+  }
 }
