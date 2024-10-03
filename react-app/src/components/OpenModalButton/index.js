@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from "react-bootstrap/Button";
 import { useModal } from '../../context/Modal';
 
 function OpenModalButton({
@@ -16,7 +17,7 @@ function OpenModalButton({
   };
 
   return (
-    <button onClick={onClick}>{buttonText}</button>
+    <Button variant='danger' onClick={onClick}>{buttonText}</Button>
   );
 }
 
