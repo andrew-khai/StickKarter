@@ -30,6 +30,7 @@ function ProfileButton({ user }) {
   const ulRef = useRef();
   const width = useWindowWidth();
 
+
   const projects = useSelector((state) => state.users.projects);
   const backings = useSelector((state) => state.users.backings);
 
@@ -74,8 +75,8 @@ function ProfileButton({ user }) {
     history.push("/");
   };
 
-  const handleToggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const handleDropdownToggle = () => {
+    setShowMenu(!showMenu);
   };
 
   const ulClassName = `profile-dropdown${showMenu ? "" : " hidden"}`;
