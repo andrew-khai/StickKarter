@@ -90,15 +90,13 @@ const MobileMenu = ({
                   </Accordion.Item>
                 </Accordion>
                 <div className="mobile-user-controls">
-                  <Button variant="success">
-                    <NavLink
-                      to="/user/summary"
-                      onClick={handleClose}
-                      className="mobile-project-summary-link"
-                    >
-                      View/Edit Projects
-                    </NavLink>
-                  </Button>
+                  <NavLink
+                    to="/user/summary"
+                    onClick={handleClose}
+                    className="mobile-project-summary-link"
+                  >
+                    <Button variant="success" style={{width: "100%"}}>View/Edit Projects</Button>
+                  </NavLink>
                   <Button variant="danger" onClick={handleLogoutAndClose}>
                     Log Out
                   </Button>
