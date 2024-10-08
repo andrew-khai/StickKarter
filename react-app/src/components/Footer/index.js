@@ -17,7 +17,7 @@ const Footer = () => {
         <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} target="_blank" href="https://wellfound.com/u/andrew-chan-69">
           <div><i class="fa-brands fa-angellist"></i></div>
         </a>
-        <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} target="_blank" href="https://andrew-khai.github.io/">
+        <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} target="_blank" href="https://andrewkchan.vercel.app/">
           <div><i class="fa-solid fa-suitcase"></i></div>
         </a>
         {/* <a href="https://andrew-khai.github.io/">
