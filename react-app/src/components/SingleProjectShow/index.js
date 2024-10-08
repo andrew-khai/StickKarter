@@ -223,7 +223,7 @@ const SingleProjectShow = () => {
                     <Button variant="success" onClick={redirectToLogin} className="back-this-button">Back this project</Button>
                     :
                     <a href="#support">
-                      <button style={{ width: "100%" }} disabled={sessionUser.id === project.creatorId} className="back-this-button">Back this project</button>
+                      <button style={{ width: "100%" }} disabled={sessionUser.id === project.creatorId} className="back-this-button">{isBacker ? "Backed" : "Back this project"}</button>
                     </a>
                   }
                   <div className="single-project-buttons-container">
@@ -336,9 +336,9 @@ const SingleProjectShow = () => {
               <br></br>
               <div className="single-project-rewards-container">
                 <h2 id="support">Support</h2>
-                {isBacker &&
+                {/* {isBacker &&
                   <h2 style={{ color: "#009E74", textAlign: "center" }}>You have already backed this project!</h2>
-                }
+                } */}
                 <div className="no-reward-pledge">
                   <p style={{ marginBottom: "0px" }}>Make a pledge without a reward</p>
                   <div className="pledge-amount-container">
